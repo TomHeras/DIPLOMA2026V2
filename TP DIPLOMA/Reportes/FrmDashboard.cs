@@ -16,8 +16,9 @@ namespace TP_DIPLOMA.Reportes
         private static readonly string OutputDir = @"C:\Dashboard SyT";
 
         // Ruta fija del ejecutable que genera el reporte (ajustá si cambia)
-        private static readonly string ExePath =
-            @"C:\Users\Usuario\Desktop\Diploma\Programa\TPUAI-Compra-venta\TP DIPLOMA\Scripts\ReporteVentasDashboard.exe";
+        private static readonly string ExePath = Path.Combine(Application.StartupPath, "Scripts", "ReporteVentasDashboard.exe");
+        //@"*\TP DIPLOMA\Scripts\ReporteVentasDashboard.exe";
+
 
         public FrmDashboardVentas()
         {

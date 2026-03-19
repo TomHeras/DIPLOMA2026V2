@@ -100,5 +100,10 @@ namespace BLL.Negocio
         {
             return mapper.aux_cobros();
         }
+
+        public List<BE.Auxiliares.Aux_Joindetalle> JoinDetails()
+        {
+            return mapper.aux_detalle();
+        }
     }
 }

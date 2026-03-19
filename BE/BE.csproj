@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auxiliares\Aux-Joindetalle.cs" />
     <Compile Include="Auxiliares\Aux-JoinsNegocio.cs" />
     <Compile Include="AuxiliarRelaionarPP.cs" />
     <Compile Include="Bitacora.cs" />

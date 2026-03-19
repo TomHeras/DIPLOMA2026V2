@@ -15,7 +15,7 @@ namespace DAL
 
        string UAI= ConfigurationManager.ConnectionStrings["Conexion.UAI"].ConnectionString;
         string host = ConfigurationManager.ConnectionStrings["Conexion.host"].ConnectionString;
-
+        string Merk = ConfigurationManager.ConnectionStrings["Conexion.Merk"].ConnectionString;
         public string crearconeion()
         {
             
@@ -24,6 +24,10 @@ namespace DAL
             if (Environment.MachineName=="TOOM")
             {
                 cs.ConnectionString = host;
+            }
+            else if (Environment.MachineName== "DESKTOP-81ATIN0")
+            {
+                cs.ConnectionString = Merk;
             }
             else
             {

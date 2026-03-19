@@ -358,6 +358,9 @@
     <EmbeddedResource Include="Reporte2.resx">
       <DependentUpon>Reporte2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\FrmDashboard.resx">
+      <DependentUpon>FrmDashboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\FrmDashboardCompras.resx">
       <DependentUpon>FrmDashboardCompras.cs</DependentUpon>
     </EmbeddedResource>
@@ -446,8 +449,12 @@
     <Content Include="Imagenes\syt_logo_small.ico" />
     <Content Include="Imagenes\syt_logo_small.png" />
     <Content Include="Logo-SyT.png" />
-    <Content Include="Scripts\ReporteComprasDashboard.exe" />
-    <Content Include="Scripts\ReporteVentasDashboard.exe" />
+    <Content Include="Scripts\ReporteComprasDashboard.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\ReporteVentasDashboard.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Reporte_inteligente.exe" />
   </ItemGroup>
   <ItemGroup>

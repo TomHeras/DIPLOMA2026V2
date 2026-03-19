@@ -86,7 +86,7 @@ namespace TP_DIPLOMA
 
                     maestrosToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedeaccedermaestros, permisos);
                     stockToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedeaccedermaestros, permisos);
-                    productosToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puederverproudctos, permisos);
+                    //productosToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puederverproudctos, permisos);
                     
 
                     clientesToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedervercl, permisos);
@@ -295,10 +295,60 @@ namespace TP_DIPLOMA
             if (cambiarClaveToolStripMenuItem.Tag != null && traducciones.ContainsKey(cambiarClaveToolStripMenuItem.Tag.ToString()))
                 this.cambiarClaveToolStripMenuItem.Text = traducciones[cambiarClaveToolStripMenuItem.Tag.ToString()].Texto;
 
+            if (comprasToolStripMenuItem.Tag != null && traducciones.ContainsKey(comprasToolStripMenuItem.Tag.ToString()))
+                this.comprasToolStripMenuItem.Text = traducciones[comprasToolStripMenuItem.Tag.ToString()].Texto;
+
+            if (ordenDeCompraToolStripMenuItem.Tag != null && traducciones.ContainsKey(ordenDeCompraToolStripMenuItem.Tag.ToString()))
+                this.ordenDeCompraToolStripMenuItem.Text = traducciones[ordenDeCompraToolStripMenuItem.Tag.ToString()].Texto;
+            
+            if (detallesToolStripMenuItem.Tag != null && traducciones.ContainsKey(detallesToolStripMenuItem.Tag.ToString()))
+                this.detallesToolStripMenuItem.Text = traducciones[detallesToolStripMenuItem.Tag.ToString()].Texto;
+
+            if (ordenesDeCompraToolStripMenuItem.Tag != null && traducciones.ContainsKey(ordenesDeCompraToolStripMenuItem.Tag.ToString()))
+                this.ordenesDeCompraToolStripMenuItem.Text = traducciones[ordenesDeCompraToolStripMenuItem.Tag.ToString()].Texto;
+
+            if (Report1.Tag != null && traducciones.ContainsKey(Report1.Tag.ToString()))
+                this.Report1.Text = traducciones[Report1.Tag.ToString()].Texto;
+
+            if (Report2.Tag != null && traducciones.ContainsKey(Report2.Tag.ToString()))
+                this.Report2.Text = traducciones[Report2.Tag.ToString()].Texto;
+
+            if (Report3.Tag != null && traducciones.ContainsKey(Report3.Tag.ToString()))
+                this.Report3.Text = traducciones[Report3.Tag.ToString()].Texto;
+
+            if (comprasToolStripMenuItem1.Tag != null && traducciones.ContainsKey(comprasToolStripMenuItem1.Tag.ToString()))
+                this.comprasToolStripMenuItem1.Text = traducciones[comprasToolStripMenuItem1.Tag.ToString()].Texto;
 
 
+            if (bitacoraToolStripMenuItem.Tag != null && traducciones.ContainsKey(bitacoraToolStripMenuItem.Tag.ToString()))
+                this.bitacoraToolStripMenuItem.Text = traducciones[bitacoraToolStripMenuItem.Tag.ToString()].Texto;
 
-            // entonces el texto del menu va a ser igual a lo que hay en traducciones 
+            if (bitacoraDeEventosToolStripMenuItem.Tag != null && traducciones.ContainsKey(bitacoraDeEventosToolStripMenuItem.Tag.ToString()))
+                this.bitacoraDeEventosToolStripMenuItem.Text = traducciones[bitacoraDeEventosToolStripMenuItem.Tag.ToString()].Texto;
+
+
+            if (bitacoraDeCambiosToolStripMenuItem.Tag != null && traducciones.ContainsKey(bitacoraDeCambiosToolStripMenuItem.Tag.ToString()))
+                this.bitacoraDeCambiosToolStripMenuItem.Text = traducciones[bitacoraDeCambiosToolStripMenuItem.Tag.ToString()].Texto;
+
+
+            if (respaldosToolStripMenuItem.Tag != null && traducciones.ContainsKey(respaldosToolStripMenuItem.Tag.ToString()))
+                this.respaldosToolStripMenuItem.Text = traducciones[respaldosToolStripMenuItem.Tag.ToString()].Texto;
+
+            if (ordenesToolStripMenuItem.Tag != null && traducciones.ContainsKey(ordenesToolStripMenuItem.Tag.ToString()))
+                this.ordenesToolStripMenuItem.Text = traducciones[ordenesToolStripMenuItem.Tag.ToString()].Texto;
+
+
+            if (stockToolStripMenuItem.Tag != null && traducciones.ContainsKey(stockToolStripMenuItem.Tag.ToString()))
+                this.stockToolStripMenuItem.Text = traducciones[stockToolStripMenuItem.Tag.ToString()].Texto;
+
+            if (proveedoresToolStripMenuItem.Tag != null && traducciones.ContainsKey(proveedoresToolStripMenuItem.Tag.ToString()))
+                this.proveedoresToolStripMenuItem.Text = traducciones[proveedoresToolStripMenuItem.Tag.ToString()].Texto;
+
+            if (serealizacionToolStripMenuItem.Tag != null && traducciones.ContainsKey(serealizacionToolStripMenuItem.Tag.ToString()))
+                this.serealizacionToolStripMenuItem.Text = traducciones[serealizacionToolStripMenuItem.Tag.ToString()].Texto;
+
+            //
+            //detallesToolStripMenuItem entonces el texto del menu va a ser igual a lo que hay en traducciones 
 
             if (traducciones.ContainsKey("username"))
                 this.toolStripSesion.Text = $"{traducciones["username"].Texto}: {SingletonSesion.Instancia.Usuario}";
@@ -540,6 +590,13 @@ namespace TP_DIPLOMA
             FrmDashboardCompras Dash = new FrmDashboardCompras();
             Dash.MdiParent= this;
             Dash.Show();
+        }
+
+        private void stockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Maestros.Productosfrm prodfrm = new Maestros.Productosfrm();
+            prodfrm.MdiParent = this;
+            prodfrm.Show();
         }
     }
 }

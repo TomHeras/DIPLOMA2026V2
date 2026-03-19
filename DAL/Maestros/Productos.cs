@@ -95,5 +95,22 @@ namespace DAL.Maestros
             acces.Leer("updatea0", null);
         }
 
+        public List<BE.Maestros.Productos> Prod_nombre() //listar productos
+        {
+            List<BE.Maestros.Productos> stok = new List<BE.Maestros.Productos>();
+            DataTable tabla = acces.Leer("producto", null);
+
+            foreach (DataRow registro in tabla.Rows)
+            {
+                BE.Maestros.Productos sto = new BE.Maestros.Productos();
+                sto.ID_producto = int.Parse(registro["ID_producto"].ToString());
+                sto.Tipo = registro["Producto"].ToString();
+                ;
+                stok.Add(sto);
+            }
+            return stok;
+        }
+
+
     }
 }

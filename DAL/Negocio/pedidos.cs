@@ -238,5 +238,26 @@ namespace DAL.Negocio
             return lista;
         }
 
+        public List<BE.Auxiliares.Aux_Joindetalle> aux_detalle()
+        {
+            List<BE.Auxiliares.Aux_Joindetalle> lista = new List<BE.Auxiliares.Aux_Joindetalle>();
+            DataTable tavbla = acces.Leer("JoinDetalles", null);
+
+            foreach (DataRow registro in tavbla.Rows)
+            {
+                BE.Auxiliares.Aux_Joindetalle detail = new BE.Auxiliares.Aux_Joindetalle();
+
+                detail.Idpedido= int.Parse(registro["IDPedido"].ToString());
+                detail.Cliente = registro["Cliente"].ToString();
+                detail.Producto= registro["Producto"].ToString();
+                detail.Estado= registro["Estado"].ToString();
+                detail.Cantidad = int.Parse(registro["Cantidad"].ToString());
+                detail.Costo=double.Parse(registro["Costo"].ToString());
+
+                lista.Add(detail);
+            }
+            return lista;
+        }
+
     }
 }
