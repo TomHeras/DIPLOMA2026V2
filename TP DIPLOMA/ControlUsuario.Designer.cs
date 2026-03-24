@@ -36,7 +36,7 @@ namespace TP_DIPLOMA
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(4, 10);
+            this.textBox1.Location = new System.Drawing.Point(118, 10);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 3;
@@ -45,10 +45,10 @@ namespace TP_DIPLOMA
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(137, 13);
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label1.Location = new System.Drawing.Point(17, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 16);
+            this.label1.Size = new System.Drawing.Size(50, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "label1";
             // 

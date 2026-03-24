@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,7 @@ namespace TP_DIPLOMA.Negocio
         BLL.Negocio.Pedidos gestorped = new BLL.Negocio.Pedidos();
         BLL.Estado estdos = new BLL.Estado();
         BLL.Traductor tradu = new BLL.Traductor();
+        BLL.Bitacora gestBT = new BLL.Bitacora();
 
         public void estilizargrid()
         {
@@ -107,7 +109,7 @@ namespace TP_DIPLOMA.Negocio
 
 
         }
-
+        Seguridad.Digitos DV=new Seguridad.Digitos();
         private void button1_Click(object sender, EventArgs e)
         {
             BE.Negocio.Pedido_Cab cabe = new BE.Negocio.Pedido_Cab();
@@ -118,14 +120,58 @@ namespace TP_DIPLOMA.Negocio
                     cabe.ID_pedido = item.ID_pedido;
                     cabe.Estado = comboBox1.SelectedIndex;
                     cabe.Fechaact = DateTime.Now;
-
+                    cabe.Fechagen = item.Generado;
+                    foreach (BE.Maestros.Clientes cl in gestorCL.listar())
+                    {
+                        string cli= cl.Nombre.ToString();
+                        if (cli==item.Cliente)
+                        {
+                            cabe.ID_clientes = cl.Idcl;
+                        }
+                    }
+                    
                     gestorped.editarestado(cabe);
                     MessageBox.Show("El cambio fue registrado");
                     enlazar();
                     textBox1.Clear();
                     comboBox1.SelectedIndex = -1;
+
+                    var idpedido = cabe.ID_pedido;
+                    string dvhCab = $"{idpedido}|{cabe.ID_clientes}|{cabe.Estado}|{cabe.Fechaact.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}|{cabe.Fechagen.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}";
+                    int DVH = DV.ConvertToAscii(dvhCab);
+
+                    string consultadv = "UPDATE Pedidocab set DVH= " + DVH + " where ID_pedido=" + cabe.ID_pedido;
+                    gestBT.Consultar(consultadv);
+
+                    string actDVV = "UPDATE dbo.DVV SET DVV_SUMA = ISNULL((SELECT SUM(DVH) FROM dbo.Pedidocab), 0) + ISNULL((SELECT SUM(DVH) FROM dbo.Pedidosdet), 0) WHERE  DVV_TABLA = N'Pedidos'\r\n";
+                    gestBT.Consultar(actDVV);
+
+                    //
+                    LLenarbitacoraC(cabe);
                 }
             }
+        }
+
+        public void LLenarbitacoraC(BE.Negocio.Pedido_Cab cab)
+        {
+            var idreg = 0;
+            string consulta = "INSERT INTO BitacoraCambios (Idpedido, NickUsuario, Fecha, Modulo, Operacion, Criticidad, Estado) VALUES ('" + cab.ID_pedido + "','" + SingletonSesion.Instancia.Usuario.usuario + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + "Ventas', 'Pedido Actualizado',' Media '"+ "," + cab.Estado + ")";
+            gestBT.Consultar(consulta);
+            foreach (BE.Bitacora item in gestBT.listacambios())
+            {
+                idreg = item.IDREG;
+            }
+            double recau = 0;
+            foreach (BE.Negocio.Pedido_det item in gestorped.listardetalles())
+            {
+                if (cab.ID_pedido== item.ID_pedido)
+                {
+                    recau = recau + item.Costo;
+                }
+            }
+            //var idreg = GetBitacora.listacambios();
+            string historico = "INSERT INTO Cambioshistorico ( Idpedido, Tipo, Estado, Cotizacion, Usuario, Fecha) values('" + cab.ID_pedido + "','" + "Ventas" + "','" + cab.Estado + "','" + recau+ "','" + SingletonSesion.Instancia.Usuario.usuario + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+            gestBT.Consultar(historico);
         }
 
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
@@ -197,6 +243,65 @@ namespace TP_DIPLOMA.Negocio
 
             if (button3.Tag != null && traducciones.ContainsKey(button3.Tag.ToString()))
                 button3.Text = traducciones[button3.Tag.ToString()].Texto;
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+            // 👉 Mapeá la grilla que estás mostrando (acá ejemplo para la query de Pedidos)
+            // Si mostrás otra consulta (Cotizaciones, Compras), creá otro método MapTagsXX y llamalo.
+            MapTags_Pedidos(dataGridView1);
+
+            // 👉 Traducí las cabeceras con el mismo diccionario que usás para controles
+            TraducirHeadersGrid(dataGridView1, traducciones);
+        }
+
+
+        // ====== (1) Darle ID (Tag) a cada columna autogenerada ======
+        private void MapTags_Pedidos(DataGridView dgv)
+        {
+            // Mapeo alias (SELECT) → clave i18n (las que tengas en tu BD)pedidos
+            SetColTag(dgv, "ID_pedido", "pedidos");
+            SetColTag(dgv, "Cliente", "headcliente");
+            SetColTag(dgv, "Total", "Precio");
+            SetColTag(dgv, "Generado", "cant");
+            SetColTag(dgv, "Actualizado", "Costo");
+            SetColTag(dgv, "Estado", "estado");
+
+        }
+
+        private void SetColTag(DataGridView dgv, string colNameOrAlias, string tagKey)
+        {
+            // Busca por Name
+            if (dgv.Columns.Contains(colNameOrAlias))
+            {
+                dgv.Columns[colNameOrAlias].Tag = tagKey;
+                return;
+            }
+            // Fallback por DataPropertyName (alias del SELECT con algunos data sources)
+            var col = dgv.Columns
+                         .Cast<DataGridViewColumn>()
+                         .FirstOrDefault(c =>
+                             string.Equals(c.DataPropertyName, colNameOrAlias, StringComparison.OrdinalIgnoreCase));
+            if (col != null) col.Tag = tagKey;
+        }
+
+        // ====== (2) Traducir headers igual que los demás controles (por Tag) ======
+        private void TraducirHeadersGrid(DataGridView dgv, IDictionary<string, ITraduccion> traducciones)
+        {
+            if (traducciones == null || traducciones.Count == 0) return;
+
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+
+                if (col.Tag != null && traducciones.ContainsKey(col.Tag.ToString()))
+                    col.HeaderText = traducciones[col.Tag.ToString()].Texto;
+
+            }
         }
     }
 }

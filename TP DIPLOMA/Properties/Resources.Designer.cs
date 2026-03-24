@@ -163,6 +163,16 @@ namespace TP_DIPLOMA.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Recuperar1 {
+            get {
+                object obj = ResourceManager.GetObject("Recuperar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Sesion {
             get {
                 object obj = ResourceManager.GetObject("Sesion", resourceCulture);
@@ -186,6 +196,16 @@ namespace TP_DIPLOMA.Properties {
         internal static System.Drawing.Bitmap syt_logo_small1 {
             get {
                 object obj = ResourceManager.GetObject("syt_logo_small1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap syt_logo_small2 {
+            get {
+                object obj = ResourceManager.GetObject("syt_logo_small2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

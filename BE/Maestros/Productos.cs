@@ -56,5 +56,13 @@ namespace BE.Maestros
             set { dvh = value; }
         }
 
+        private bool myVaresta;
+
+        public bool Estado
+        {
+            get { return myVaresta; }
+            set { myVaresta = value; }
+        }
+
     }
 }

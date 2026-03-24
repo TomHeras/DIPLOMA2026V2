@@ -105,5 +105,21 @@ namespace BLL.Negocio
         {
             return mapper.aux_detalle();
         }
+
+        public List<BE.Auxiliares.Aux_JoinsNegocio> JoinsCotizacion()
+        {
+            return mapper.aux_cotizacion();
+        }
+
+        public List<BE.Auxiliares.Aux_Joindetalle> DetailsCOT()
+        {
+            return mapper.detallecotizacion();
+        }
+
+        public int dvv()
+        {
+            int fa = mapper.ObtenerUDVV();
+            return fa;
+        }
     }
 }

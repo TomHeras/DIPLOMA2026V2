@@ -259,5 +259,84 @@ namespace DAL.Negocio
             return lista;
         }
 
+        public List<BE.Auxiliares.Aux_JoinsNegocio> aux_cotizacion()
+        {
+            List<BE.Auxiliares.Aux_JoinsNegocio> lista = new List<BE.Auxiliares.Aux_JoinsNegocio>();
+            DataTable tavbla = acces.Leer("Joincotizacion", null);
+
+            foreach (DataRow registro in tavbla.Rows)
+            {
+                BE.Auxiliares.Aux_JoinsNegocio join = new BE.Auxiliares.Aux_JoinsNegocio();
+
+                join.ID_pedido = int.Parse(registro["ID_cotizacion"].ToString());
+                join.Cliente = registro["Proveedor"].ToString();
+                join.Total = double.Parse(registro["Total"].ToString());
+                join.Estado = registro["Estado"].ToString();
+                join.Generado = DateTime.Parse(registro["FechaGen"].ToString());
+                join.Actualizado = DateTime.Parse(registro["FechaAct"].ToString());
+
+                lista.Add(join);
+            }
+            return lista;
+        }
+
+        public List<BE.Auxiliares.Aux_Joindetalle> detallecotizacion()
+        {
+            List<BE.Auxiliares.Aux_Joindetalle> lista = new List<BE.Auxiliares.Aux_Joindetalle>();
+            DataTable tavbla = acces.Leer("detallecotizacion", null);
+
+            foreach (DataRow registro in tavbla.Rows)
+            {
+                BE.Auxiliares.Aux_Joindetalle detail = new BE.Auxiliares.Aux_Joindetalle();
+
+                detail.Idpedido = int.Parse(registro["IDPedido"].ToString());
+                detail.Cliente = registro["Proveedor"].ToString();
+                detail.Producto = registro["Producto"].ToString();
+                detail.Estado = registro["Estado"].ToString();
+                detail.Cantidad = int.Parse(registro["Cantidad"].ToString());
+                detail.Costo = double.Parse(registro["Costo"].ToString());
+
+                lista.Add(detail);
+            }
+            return lista;
+        }
+
+
+        public int ObtenerUDVV()
+        {
+            int DVV = 0; // Valor predeterminado si no se encuentra ningún ID
+
+            // Consulta SQL para obtener el último Idusu
+            string query = "SELECT DVV_suma FROM DVV WHERE DVV_TABLA='Pedidos'";
+
+            // Crear y abrir la conexión a la base de datos
+            using (var cnn = new SqlConnection(acces.crearconeion()))
+            {
+                using (var command = new SqlCommand(query, cnn))
+                {
+                    try
+                    {
+                        cnn.Open();
+
+                        // Ejecutar la consulta y obtener un lector de datos
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // Leer el primer registro (debería ser el único en este caso)
+                            if (reader.Read())
+                            {
+                                DVV = Convert.ToInt32(reader["DVV_SUMA"]); // Obtener el valor del primer campo
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejo de errores
+                        Console.WriteLine($"Ocurrió un error: {ex.Message}");
+                    }
+                }
+            }
+
+            return DVV;
+        }
     }
 }

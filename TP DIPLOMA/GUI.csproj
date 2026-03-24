@@ -449,6 +449,8 @@
     <Content Include="Imagenes\syt_logo_small.ico" />
     <Content Include="Imagenes\syt_logo_small.png" />
     <Content Include="Logo-SyT.png" />
+    <None Include="Resources\Recuperar.jpg" />
+    <None Include="Resources\syt_logo_small.png" />
     <Content Include="Scripts\ReporteComprasDashboard.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

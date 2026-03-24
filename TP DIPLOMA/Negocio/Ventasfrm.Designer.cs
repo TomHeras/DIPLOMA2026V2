@@ -110,6 +110,7 @@ namespace TP_DIPLOMA.Negocio
             this.dataGridView1.Size = new System.Drawing.Size(649, 243);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick_1);
+            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             // 
             // button3
             // 
@@ -176,6 +177,7 @@ namespace TP_DIPLOMA.Negocio
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Checked = false;
             this.dateTimePicker1.Location = new System.Drawing.Point(101, 145);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.ShowCheckBox = true;
@@ -184,6 +186,7 @@ namespace TP_DIPLOMA.Negocio
             // 
             // dateTimePicker2
             // 
+            this.dateTimePicker2.Checked = false;
             this.dateTimePicker2.Location = new System.Drawing.Point(379, 145);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.ShowCheckBox = true;

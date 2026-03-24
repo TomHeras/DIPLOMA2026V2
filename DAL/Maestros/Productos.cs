@@ -15,12 +15,13 @@ namespace DAL.Maestros
         {
             string fa;
 
-            SqlParameter[] parametros = new SqlParameter[5];
+            SqlParameter[] parametros = new SqlParameter[6];
             parametros[0] = new SqlParameter("@medidas", produ.Medidas);
             parametros[1] = new SqlParameter("@cantidad", produ.Cantidad);
             parametros[2] = new SqlParameter("@tipo", produ.Tipo);
             parametros[3] = new SqlParameter("@precio", produ.Precio);
             parametros[4] = new SqlParameter("@DVH", produ.DVH);
+            parametros[5]=new SqlParameter("@estado", produ.Estado);
             fa = acces.Escribir("altaproducto", parametros);
 
             return fa;
@@ -45,7 +46,7 @@ namespace DAL.Maestros
             parametros[2] = new SqlParameter("@cantidad", stock.Cantidad);
             parametros[3] = new SqlParameter("@Tipo", stock.Tipo);
             parametros[4] = new SqlParameter("@precio", stock.Precio);
-            fa = acces.Escribir("editarproducto", parametros);
+            fa = acces.Escribir("Editarproducto", parametros);
             return fa;
         }
 
@@ -62,6 +63,7 @@ namespace DAL.Maestros
                 sto.Cantidad = int.Parse(registro["cantidad"].ToString());
                 sto.Tipo = registro["Tipo"].ToString();
                 sto.Precio = double.Parse(registro["precio"].ToString());
+                sto.Estado = bool.Parse(registro["estado"].ToString());
                 stok.Add(sto);
             }
             return stok;
@@ -77,6 +79,8 @@ namespace DAL.Maestros
             {
                 BE.Maestros.Productos sto = new BE.Maestros.Productos();
                 sto.ID_producto = int.Parse(registro["ID_producto"].ToString());
+                sto.Tipo = registro["Producto"].ToString() ;
+                sto.Estado=bool.Parse(registro["Estado"].ToString());
 
                 stok.Add(sto);
             }
@@ -111,6 +115,79 @@ namespace DAL.Maestros
             return stok;
         }
 
+        public int ObtenerUltimoIdUsuario()
+        {
+            int ultimoIdusu = 0; // Valor predeterminado si no se encuentra ningún ID
+
+            // Consulta SQL para obtener el último Idusu
+            string query = "SELECT TOP 1 ID_producto FROM Stock ORDER BY ID_producto DESC";
+
+            // Crear y abrir la conexión a la base de datos
+            using (var cnn = new SqlConnection(acces.crearconeion()))
+            {
+                using (var command = new SqlCommand(query, cnn))
+                {
+                    try
+                    {
+                        cnn.Open();
+
+                        // Ejecutar la consulta y obtener un lector de datos
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // Leer el primer registro (debería ser el único en este caso)
+                            if (reader.Read())
+                            {
+                                ultimoIdusu = Convert.ToInt32(reader["Id"]); // Obtener el valor del primer campo
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejo de errores
+                        Console.WriteLine($"Ocurrió un error: {ex.Message}");
+                    }
+                }
+            }
+
+            return ultimoIdusu;
+        }
+
+        public int ObtenerUDVV()
+        {
+            int DVV = 0; // Valor predeterminado si no se encuentra ningún ID
+
+            // Consulta SQL para obtener el último Idusu
+            string query = "SELECT DVV_suma FROM DVV WHERE DVV_TABLA='Productos'";
+
+            // Crear y abrir la conexión a la base de datos
+            using (var cnn = new SqlConnection(acces.crearconeion()))
+            {
+                using (var command = new SqlCommand(query, cnn))
+                {
+                    try
+                    {
+                        cnn.Open();
+
+                        // Ejecutar la consulta y obtener un lector de datos
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // Leer el primer registro (debería ser el único en este caso)
+                            if (reader.Read())
+                            {
+                                DVV = Convert.ToInt32(reader["DVV_SUMA"]); // Obtener el valor del primer campo
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejo de errores
+                        Console.WriteLine($"Ocurrió un error: {ex.Message}");
+                    }
+                }
+            }
+
+            return DVV;
+        }
 
     }
 }

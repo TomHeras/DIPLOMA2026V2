@@ -25,6 +25,11 @@ namespace DAL.Maestros
                 cl.Nombre = registro["Nombre"].ToString();
                 cl.Direccion = registro["Direccion"].ToString();
                 cl.Telefono = int.Parse(registro["Telefono"].ToString());
+                cl.DNI=int.Parse(registro["DNI"].ToString());
+                cl.Email = registro["email"].ToString();
+                cl.Banco=registro["Datos_Bancarios"].ToString();
+                cl.Estado = bool.Parse(registro["Estado"].ToString());
+
                 cli.Add(cl);
             }
 
@@ -35,11 +40,17 @@ namespace DAL.Maestros
         {
             string fa;
 
-            SqlParameter[] parametros = new SqlParameter[4];
-            parametros[0] = new SqlParameter("@nombre", cliente.Nombre);
-            parametros[1] = new SqlParameter("@direccion", cliente.Direccion);
-            parametros[2] = new SqlParameter("@telefono", cliente.Telefono);
-            parametros[3] = new SqlParameter("@DVH", cliente.DVH);
+            SqlParameter[] parametros = new SqlParameter[8];
+
+            parametros[0] = new SqlParameter("@DNI", cliente.DNI);
+            parametros[1] = new SqlParameter("@email", cliente.Email);
+            parametros[2] = new SqlParameter("@nombre", cliente.Nombre);
+            parametros[3] = new SqlParameter("@direccion", cliente.Direccion);
+            parametros[4] = new SqlParameter("@telefono", cliente.Telefono);
+            parametros[5] = new SqlParameter("@bancarios", cliente.Banco);
+            parametros[6] = new SqlParameter("@DVH", cliente.DVH);
+            parametros[7] = new SqlParameter("@estado", cliente.Estado);
+
             fa = acces.Escribir("altacliente", parametros);
             return fa;
         }
@@ -47,11 +58,16 @@ namespace DAL.Maestros
         public string modificarcliente(BE.Maestros.Clientes cliente)
         {
             string fa;
-            SqlParameter[] parametros = new SqlParameter[4];
-            parametros[0] = new SqlParameter("@ID_cliente", cliente.Idcl);
+            SqlParameter[] parametros = new SqlParameter[6];
+            parametros[0] = new SqlParameter("@ID_cliente", cliente.Idcl);            
             parametros[1] = new SqlParameter("@nombre", cliente.Nombre);
             parametros[2] = new SqlParameter("@direccion", cliente.Direccion);
             parametros[3] = new SqlParameter("@telefono", cliente.Telefono);
+            parametros[4] = new SqlParameter("@banco", cliente.Banco);
+            parametros[5] = new SqlParameter("@email", cliente.Email);
+           
+
+            
             fa = acces.Escribir("Editarcliente", parametros);
 
             return fa;
@@ -65,5 +81,80 @@ namespace DAL.Maestros
             fa = acces.Escribir("Bajaclientes", parametros);
             return fa;
         }
+
+        public int ObtenerUltimoIdUsuario()
+        {
+            int ultimoIdusu = 0; // Valor predeterminado si no se encuentra ningún ID
+
+            // Consulta SQL para obtener el último Idusu
+            string query = "SELECT TOP 1 ID_clientes FROM Clientes ORDER BY ID_clientes DESC";
+
+            // Crear y abrir la conexión a la base de datos
+            using (var cnn = new SqlConnection(acces.crearconeion()))
+            {
+                using (var command = new SqlCommand(query, cnn))
+                {
+                    try
+                    {
+                        cnn.Open();
+
+                        // Ejecutar la consulta y obtener un lector de datos
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // Leer el primer registro (debería ser el único en este caso)
+                            if (reader.Read())
+                            {
+                                ultimoIdusu = Convert.ToInt32(reader["Id"]); // Obtener el valor del primer campo
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejo de errores
+                        Console.WriteLine($"Ocurrió un error: {ex.Message}");
+                    }
+                }
+            }
+
+            return ultimoIdusu;
+        }
+
+        public int ObtenerUDVV()
+        {
+            int DVV = 0; // Valor predeterminado si no se encuentra ningún ID
+
+            // Consulta SQL para obtener el último Idusu
+            string query = "SELECT DVV_suma FROM DVV WHERE DVV_TABLA='Productos'";
+
+            // Crear y abrir la conexión a la base de datos
+            using (var cnn = new SqlConnection(acces.crearconeion()))
+            {
+                using (var command = new SqlCommand(query, cnn))
+                {
+                    try
+                    {
+                        cnn.Open();
+
+                        // Ejecutar la consulta y obtener un lector de datos
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // Leer el primer registro (debería ser el único en este caso)
+                            if (reader.Read())
+                            {
+                                DVV = Convert.ToInt32(reader["DVV_SUMA"]); // Obtener el valor del primer campo
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejo de errores
+                        Console.WriteLine($"Ocurrió un error: {ex.Message}");
+                    }
+                }
+            }
+
+            return DVV;
+        }
+
     }
 }

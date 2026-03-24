@@ -48,5 +48,38 @@ namespace BE.Maestros
             set { dvh = value; }
         }
 
+        private int dni;
+
+        public int DNI
+        {
+            get { return dni; }
+            set { dni = value; }
+        }
+
+        private string email;
+
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
+
+        private string banco;
+
+        public string Banco
+        {
+            get { return banco; }
+            set { banco = value; }
+        }
+
+        private bool est;
+
+        public bool Estado
+        {
+            get { return est; }
+            set { est = value; }
+        }
+
+
     }
 }

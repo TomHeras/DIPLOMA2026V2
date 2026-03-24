@@ -45,6 +45,7 @@ namespace TP_DIPLOMA.Negocio
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.button4 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.estadosBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.estadosBindingSource)).BeginInit();
@@ -59,6 +60,7 @@ namespace TP_DIPLOMA.Negocio
             this.dataGridView1.Size = new System.Drawing.Size(607, 310);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete_1);
             // 
             // button1
             // 
@@ -66,6 +68,7 @@ namespace TP_DIPLOMA.Negocio
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(133, 22);
             this.button1.TabIndex = 1;
+            this.button1.Tag = "btnbuscar";
             this.button1.Text = "Buscar pedido";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -101,6 +104,7 @@ namespace TP_DIPLOMA.Negocio
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(120, 21);
             this.button2.TabIndex = 4;
+            this.button2.Tag = "btnestado";
             this.button2.Text = "Cambiar estado";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -108,10 +112,11 @@ namespace TP_DIPLOMA.Negocio
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(31, 447);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(119, 21);
             this.button3.TabIndex = 5;
+            this.button3.Tag = "serealizarbtn";
             this.button3.Text = "Serealizar informacion";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -185,11 +190,22 @@ namespace TP_DIPLOMA.Negocio
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(322, 451);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Tag = "estado";
+            this.label2.Text = "label2";
+            // 
             // Facturasfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(673, 484);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.comboBox3);
@@ -235,5 +251,6 @@ namespace TP_DIPLOMA.Negocio
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label2;
     }
 }

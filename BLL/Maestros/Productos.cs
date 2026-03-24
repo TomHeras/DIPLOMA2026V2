@@ -60,5 +60,17 @@ namespace BLL.Maestros
         {
             mapper.cambiara0();
         }
+
+        public int ID()
+        {
+            int fa = mapper.ObtenerUltimoIdUsuario();
+            return fa;
+        }
+
+        public int dvv()
+        {
+            int fa=mapper.ObtenerUDVV();
+            return fa;
+        }
     }
 }
