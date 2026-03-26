@@ -176,7 +176,7 @@ namespace DAL.Negocio
         {
             DataSet DS = new DataSet();
             acces.abrirconexion();
-            SqlDataAdapter DA = new SqlDataAdapter("listardetalles", acces.conexion);
+            SqlDataAdapter DA = new SqlDataAdapter("JoinDetalles", acces.conexion);
             DA.Fill(DS, "ventas");
             acces.cerrarconexion();
             DS.WriteXml("C:/Facultad/ventas.xml");
@@ -185,7 +185,7 @@ namespace DAL.Negocio
         {
             DataSet DS = new DataSet();
             acces.abrirconexion();
-            SqlDataAdapter DA = new SqlDataAdapter("traercotizaciones", acces.conexion);
+            SqlDataAdapter DA = new SqlDataAdapter("Joincotizacion", acces.conexion);
             DA.Fill(DS, "Compras");
             acces.cerrarconexion();
             DS.WriteXml("C:/Facultad/Compras.xml");

@@ -49,5 +49,17 @@ namespace BLL.Maestros
         {
             mapper.XML();
         }
+
+        public int ID()
+        {
+            int fa = mapper.ObtenerUltimoIdUsuario();
+            return fa;
+        }
+
+        public int dvv()
+        {
+            int fa = mapper.ObtenerUDVV();
+            return fa;
+        }
     }
 }

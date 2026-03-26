@@ -57,6 +57,29 @@ namespace BE.Maestros
             set { dvh = value; }
         }
 
+        private long cuil;
+
+        public long CUIL
+        {
+            get { return cuil; }
+            set { cuil = value; }
+        }
+
+        private bool estado;
+
+        public bool Estado
+        {
+            get { return estado; }
+            set { estado = value; }
+        }
+
+        private string mail;
+
+        public string Email
+        {
+            get { return mail; }
+            set { mail = value; }
+        }
 
     }
 }

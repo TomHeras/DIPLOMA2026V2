@@ -16,5 +16,11 @@ namespace BLL
             List<BE.AuxiliarRelaionarPP> prov = mapper.provprodaux();
             return prov;
         }
+
+        public List<BE.AuxiliarRelaionarPP> NombresSP()
+        {
+            List<BE.AuxiliarRelaionarPP> prov = mapper.NombresSP();
+            return prov;
+        }
     }
 }

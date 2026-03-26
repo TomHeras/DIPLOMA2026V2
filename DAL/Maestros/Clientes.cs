@@ -104,7 +104,7 @@ namespace DAL.Maestros
                             // Leer el primer registro (debería ser el único en este caso)
                             if (reader.Read())
                             {
-                                ultimoIdusu = Convert.ToInt32(reader["Id"]); // Obtener el valor del primer campo
+                                ultimoIdusu = Convert.ToInt32(reader["ID_clientes"]); // Obtener el valor del primer campo
                             }
                         }
                     }

@@ -94,8 +94,10 @@ namespace TP_DIPLOMA
 
                     respaldosToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.backup, permisos);
 
+                    comprasToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedevercompras, permisos);
+                    maestrosToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedeaccedermaestros, permisos);
 
-
+                    reportesToolStripMenuItem.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedeaccederreportes, permisos);
                 }
 
 

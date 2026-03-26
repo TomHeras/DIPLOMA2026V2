@@ -38,10 +38,9 @@ namespace TP_DIPLOMA
             // 
             // btnejecutar
             // 
-            this.btnejecutar.Location = new System.Drawing.Point(208, 139);
-            this.btnejecutar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnejecutar.Location = new System.Drawing.Point(156, 113);
             this.btnejecutar.Name = "btnejecutar";
-            this.btnejecutar.Size = new System.Drawing.Size(89, 29);
+            this.btnejecutar.Size = new System.Drawing.Size(67, 24);
             this.btnejecutar.TabIndex = 7;
             this.btnejecutar.Text = "Restaurar";
             this.btnejecutar.UseVisualStyleBackColor = true;
@@ -50,19 +49,18 @@ namespace TP_DIPLOMA
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 50);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(50, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 17);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 14;
+            this.label1.Tag = "restaurar";
             this.label1.Text = "Directorio";
             // 
             // btnbuscar
             // 
-            this.btnbuscar.Location = new System.Drawing.Point(70, 140);
-            this.btnbuscar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnbuscar.Location = new System.Drawing.Point(52, 114);
             this.btnbuscar.Name = "btnbuscar";
-            this.btnbuscar.Size = new System.Drawing.Size(100, 28);
+            this.btnbuscar.Size = new System.Drawing.Size(75, 23);
             this.btnbuscar.TabIndex = 13;
             this.btnbuscar.Text = "Buscar";
             this.btnbuscar.UseVisualStyleBackColor = true;
@@ -70,19 +68,17 @@ namespace TP_DIPLOMA
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(70, 87);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Location = new System.Drawing.Point(52, 71);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(227, 22);
+            this.textBox1.Size = new System.Drawing.Size(171, 20);
             this.textBox1.TabIndex = 12;
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(36, 250);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButton2.Location = new System.Drawing.Point(27, 203);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(79, 21);
+            this.radioButton2.Size = new System.Drawing.Size(62, 17);
             this.radioButton2.TabIndex = 15;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Restore";
@@ -90,14 +86,15 @@ namespace TP_DIPLOMA
             // 
             // Restaurar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 237);
+            this.ClientSize = new System.Drawing.Size(274, 193);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnbuscar);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnejecutar);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Restaurar";
             this.Text = "Restaurar";
             this.Load += new System.EventHandler(this.Restaurar_Load);

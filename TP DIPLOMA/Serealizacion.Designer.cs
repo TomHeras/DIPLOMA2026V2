@@ -41,40 +41,38 @@ namespace TP_DIPLOMA
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(179, 42);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(134, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 17);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 15;
+            this.label1.Tag = "lbldirectorio";
             this.label1.Text = "Directorio";
             // 
             // btnbuscar
             // 
-            this.btnbuscar.Location = new System.Drawing.Point(417, 70);
-            this.btnbuscar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnbuscar.Location = new System.Drawing.Point(313, 57);
             this.btnbuscar.Name = "btnbuscar";
-            this.btnbuscar.Size = new System.Drawing.Size(100, 28);
+            this.btnbuscar.Size = new System.Drawing.Size(75, 23);
             this.btnbuscar.TabIndex = 14;
+            this.btnbuscar.Tag = "btnbuscar";
             this.btnbuscar.Text = "Buscar";
             this.btnbuscar.UseVisualStyleBackColor = true;
             this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(148, 70);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Location = new System.Drawing.Point(111, 57);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(227, 22);
+            this.textBox1.Size = new System.Drawing.Size(171, 20);
             this.textBox1.TabIndex = 13;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(24, 70);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButton1.Location = new System.Drawing.Point(18, 57);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(76, 21);
+            this.radioButton1.Size = new System.Drawing.Size(62, 17);
             this.radioButton1.TabIndex = 12;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Backup";
@@ -83,10 +81,12 @@ namespace TP_DIPLOMA
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(551, 69);
+            this.button1.Location = new System.Drawing.Point(413, 56);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 29);
+            this.button1.Size = new System.Drawing.Size(76, 24);
             this.button1.TabIndex = 16;
+            this.button1.Tag = "leerserea";
             this.button1.Text = "Deserealizar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -94,26 +94,30 @@ namespace TP_DIPLOMA
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(24, 149);
+            this.dataGridView1.Location = new System.Drawing.Point(18, 121);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(662, 381);
+            this.dataGridView1.Size = new System.Drawing.Size(496, 310);
             this.dataGridView1.TabIndex = 17;
+            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             // 
             // Serealizacion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 558);
+            this.ClientSize = new System.Drawing.Size(524, 453);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnbuscar);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.radioButton1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Serealizacion";
             this.Text = "Serealizacion";
+            this.Load += new System.EventHandler(this.Serealizacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

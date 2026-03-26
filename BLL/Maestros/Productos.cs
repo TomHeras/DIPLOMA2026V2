@@ -45,6 +45,13 @@ namespace BLL.Maestros
             List<BE.Maestros.Productos> st = mapper.Prod_nombre();
             return st;
         }
+
+        public List<BE.Maestros.Productos> Prod_NameState()
+        {
+            List<BE.Maestros.Productos> st = mapper.Prod_nameEstate();
+            return st;
+        }
+
         public List<BE.Maestros.Productos> listarprod()
         {
             List<BE.Maestros.Productos> st = mapper.Listarid();

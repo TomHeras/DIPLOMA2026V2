@@ -114,6 +114,23 @@ namespace DAL.Maestros
             }
             return stok;
         }
+        
+
+         public List<BE.Maestros.Productos> Prod_nameEstate() //listar productos
+        {
+            List<BE.Maestros.Productos> stok = new List<BE.Maestros.Productos>();
+            DataTable tabla = acces.Leer("ProductoName", null);
+
+            foreach (DataRow registro in tabla.Rows)
+            {
+                BE.Maestros.Productos sto = new BE.Maestros.Productos();
+                sto.ID_producto = int.Parse(registro["ID_producto"].ToString());
+                sto.Tipo = registro["Producto"].ToString();
+                sto.Estado = bool.Parse(registro["Estado"].ToString());
+                stok.Add(sto);
+            }
+            return stok;
+        }
 
         public int ObtenerUltimoIdUsuario()
         {

@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Seguridad;
+using Seguridad.MultiIdioma;
+using Seguridad.Singleton;
+using Seguridad.Composite;
 
 namespace TP_DIPLOMA
 {

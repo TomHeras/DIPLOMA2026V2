@@ -24,5 +24,23 @@ namespace BE
             set { idprod = value; }
         }
 
+        private string prov;
+
+        public string Prov
+        {
+            get { return prov; }
+            set { prov= value; }
+        }
+
+        private string prod;
+
+        public string Prod
+        {
+            get { return prod; }
+            set { prod = value; }
+        }
+
+
+
     }
 }
