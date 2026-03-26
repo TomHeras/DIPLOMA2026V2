@@ -10,6 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using BE;
+using Seguridad;
+using Seguridad.Composite;
+using Seguridad.MultiIdioma;
+
 namespace TP_DIPLOMA
 {
     public partial class Ordenes : Form
@@ -25,12 +30,16 @@ namespace TP_DIPLOMA
         {
             enlazar();
             LlenarBox();
+            traducir();
 
         }
         BE.Cotizacion cotis = new BE.Cotizacion();
         BE.ComprasDEt detalles = new BE.ComprasDEt();
         BE.Auxiliares.Aux_JoinsNegocio negocio = new BE.Auxiliares.Aux_JoinsNegocio();
         BE.Auxiliares.Aux_Joindetalle detail=new BE.Auxiliares.Aux_Joindetalle();
+        BLL.Traductor tradu = new BLL.Traductor();
+        BLL.Bitacora gestBT = new BLL.Bitacora();
+        Seguridad.Digitos DV = new Seguridad.Digitos();
         public void enlazar()
         {
             dataGridView1.DataSource = null;
@@ -64,6 +73,87 @@ namespace TP_DIPLOMA
             // ⚠️ NO vuelvas a asignar comboBox1 ac
         }
     
+        public void traducir()
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if (traducciones.ContainsKey(col.Name))
+                    col.HeaderText = traducciones[col.Name].Texto;
+            }
+
+            // GroupBox
+            if (Cotizaciones.Tag != null && traducciones.ContainsKey(Cotizaciones.Tag.ToString()))
+                Cotizaciones.Text = traducciones[Cotizaciones.Tag.ToString()].Texto;
+
+            if (groupBox1.Tag != null && traducciones.ContainsKey(groupBox1.Tag.ToString()))
+                groupBox1.Text = traducciones[groupBox1.Tag.ToString()].Texto;
+
+
+            // Labels
+            if (label1.Tag != null && traducciones.ContainsKey(label1.Tag.ToString()))
+                label1.Text = traducciones[label1.Tag.ToString()].Texto;
+
+            if (label2.Tag != null && traducciones.ContainsKey(label2.Tag.ToString()))
+                label2.Text = traducciones[label2.Tag.ToString()].Texto;
+
+            if (label3.Tag != null && traducciones.ContainsKey(label3.Tag.ToString()))
+                label3.Text = traducciones[label3.Tag.ToString()].Texto;
+
+            if (label4.Tag != null && traducciones.ContainsKey(label4.Tag.ToString()))
+                label4.Text = traducciones[label4.Tag.ToString()].Texto;
+
+            if (label5.Tag != null && traducciones.ContainsKey(label5.Tag.ToString()))
+                label5.Text = traducciones[label5.Tag.ToString()].Texto;
+
+            if (label6.Tag != null && traducciones.ContainsKey(label6.Tag.ToString()))
+                label6.Text = traducciones[label6.Tag.ToString()].Texto;
+
+            if (label7.Tag != null && traducciones.ContainsKey(label7.Tag.ToString()))
+                label7.Text = traducciones[label7.Tag.ToString()].Texto;
+
+            if (label8.Tag != null && traducciones.ContainsKey(label8.Tag.ToString()))
+                label8.Text = traducciones[label8.Tag.ToString()].Texto;
+
+            if (label9.Tag != null && traducciones.ContainsKey(label9.Tag.ToString()))
+                label9.Text = traducciones[label9.Tag.ToString()].Texto;
+
+
+            // Buttons
+            if (button1.Tag != null && traducciones.ContainsKey(button1.Tag.ToString()))
+                button1.Text = traducciones[button1.Tag.ToString()].Texto;
+
+            if (button2.Tag != null && traducciones.ContainsKey(button2.Tag.ToString()))
+                button2.Text = traducciones[button2.Tag.ToString()].Texto;
+
+            if (button3.Tag != null && traducciones.ContainsKey(button3.Tag.ToString()))
+                button3.Text = traducciones[button3.Tag.ToString()].Texto;
+
+            if (button4.Tag != null && traducciones.ContainsKey(button4.Tag.ToString()))
+                button4.Text = traducciones[button4.Tag.ToString()].Texto;
+
+            if (button5.Tag != null && traducciones.ContainsKey(button5.Tag.ToString()))
+                button5.Text = traducciones[button5.Tag.ToString()].Texto;
+
+            if (button6.Tag != null && traducciones.ContainsKey(button6.Tag.ToString()))
+                button6.Text = traducciones[button6.Tag.ToString()].Texto;
+
+            if (button7.Tag != null && traducciones.ContainsKey(button7.Tag.ToString()))
+                button7.Text = traducciones[button7.Tag.ToString()].Texto;
+
+            if (button8.Tag != null && traducciones.ContainsKey(button8.Tag.ToString()))
+                button8.Text = traducciones[button8.Tag.ToString()].Texto;
+
+
+            // RadioButton
+            if (radioButton1.Tag != null && traducciones.ContainsKey(radioButton1.Tag.ToString()))
+                radioButton1.Text = traducciones[radioButton1.Tag.ToString()].Texto;
+        }
         double cotizacion;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -229,6 +319,24 @@ namespace TP_DIPLOMA
             try
             {
                 string consulta = "Update [Compras Det] set Precio=" + double.Parse(textBox2.Text) + " where IDPEDIDO=" + int.Parse(textBox1.Text) + " AND IDPROD=" + int.Parse(label5.Text);
+
+                foreach (BE.Negocio.Pedido_det item in gestorped.listardetalles())
+                {
+                    if (item.ID_pedido== int.Parse(textBox1.Text) &&item.ID_producto== int.Parse(label5.Text))
+                    {
+                        item.ID_pedido      = int.Parse(textBox1.Text);
+                        item.ID_producto    = int.Parse(label5.Text);
+                        item.ID_clientes    = item.ID_clientes;
+                        item.Cantidad       = item.Cantidad;
+                        item.Costo          = double.Parse(textBox2.Text);
+
+
+                        string str = $"{ item.ID_pedido}{ item.ID_producto}{ item.ID_clientes}{ item.Cantidad}{ item.Costo}";
+
+                        int dv = DV.ConvertToAscii(str);
+
+                    }
+                }
                 gestorped.Consulta(consulta);
                 data2();
                 sumar();

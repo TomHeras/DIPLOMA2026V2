@@ -89,19 +89,20 @@ namespace TP_DIPLOMA
             // 
             this.Cotizaciones.Controls.Add(this.dataGridView1);
             this.Cotizaciones.Location = new System.Drawing.Point(7, 109);
-            this.Cotizaciones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cotizaciones.Margin = new System.Windows.Forms.Padding(2);
             this.Cotizaciones.Name = "Cotizaciones";
-            this.Cotizaciones.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cotizaciones.Padding = new System.Windows.Forms.Padding(2);
             this.Cotizaciones.Size = new System.Drawing.Size(708, 363);
             this.Cotizaciones.TabIndex = 0;
             this.Cotizaciones.TabStop = false;
+            this.Cotizaciones.Tag = "lblcoti";
             this.Cotizaciones.Text = "Cotizaciones";
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(4, 17);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
@@ -161,19 +162,20 @@ namespace TP_DIPLOMA
             // 
             this.groupBox1.Controls.Add(this.dataGridView2);
             this.groupBox1.Location = new System.Drawing.Point(737, 109);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(540, 363);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Tag = "lbbldetalle";
             this.groupBox1.Text = "Detalles";
             // 
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(10, 17);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 51;
@@ -186,10 +188,11 @@ namespace TP_DIPLOMA
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(558, 501);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 21);
             this.button1.TabIndex = 2;
+            this.button1.Tag = "btnSeleccot";
             this.button1.Text = "Seleccionar Cotizacion";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -197,7 +200,7 @@ namespace TP_DIPLOMA
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(148, 36);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(76, 20);
             this.textBox1.TabIndex = 3;
@@ -210,6 +213,7 @@ namespace TP_DIPLOMA
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 13);
             this.label1.TabIndex = 4;
+            this.label1.Tag = "nro_pedido";
             this.label1.Text = "Numero de pedido";
             // 
             // label3
@@ -220,12 +224,13 @@ namespace TP_DIPLOMA
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 6;
+            this.label3.Tag = "Costo";
             this.label3.Text = "Costo";
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(845, 502);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(84, 20);
             this.textBox2.TabIndex = 7;
@@ -233,10 +238,11 @@ namespace TP_DIPLOMA
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(268, 501);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 21);
             this.button2.TabIndex = 10;
+            this.button2.Tag = "btngencom";
             this.button2.Text = "Generar orden de compra";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -244,10 +250,11 @@ namespace TP_DIPLOMA
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(1000, 501);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(85, 20);
             this.button3.TabIndex = 11;
+            this.button3.Tag = "btneditcosto";
             this.button3.Text = "Editar Costo";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -260,6 +267,7 @@ namespace TP_DIPLOMA
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(121, 13);
             this.label4.TabIndex = 12;
+            this.label4.Tag = "lblselecc";
             this.label4.Text = "Producto Seleccionado:";
             // 
             // label5
@@ -276,10 +284,11 @@ namespace TP_DIPLOMA
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(11, 501);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(115, 21);
             this.button4.TabIndex = 14;
+            this.button4.Tag = "leerserea";
             this.button4.Text = "Serelizar informacion";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -291,6 +300,7 @@ namespace TP_DIPLOMA
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 15;
+            this.label2.Tag = "prov";
             this.label2.Text = "Proveedores";
             // 
             // comboBox1
@@ -309,6 +319,7 @@ namespace TP_DIPLOMA
             this.radioButton1.Size = new System.Drawing.Size(102, 17);
             this.radioButton1.TabIndex = 19;
             this.radioButton1.TabStop = true;
+            this.radioButton1.Tag = "Pendientesrdb";
             this.radioButton1.Text = "Solo Pendientes";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
@@ -320,6 +331,7 @@ namespace TP_DIPLOMA
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(111, 21);
             this.button5.TabIndex = 20;
+            this.button5.Tag = "btnLimpiar";
             this.button5.Text = "Limpiar Filtros";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -331,6 +343,7 @@ namespace TP_DIPLOMA
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 21;
+            this.label7.Tag = "prod";
             this.label7.Text = "Productos";
             // 
             // comboBox3
@@ -347,6 +360,7 @@ namespace TP_DIPLOMA
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(111, 23);
             this.button6.TabIndex = 23;
+            this.button6.Tag = "btnbuscar";
             this.button6.Text = "Buscar producto";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
@@ -369,6 +383,7 @@ namespace TP_DIPLOMA
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(111, 21);
             this.button7.TabIndex = 25;
+            this.button7.Tag = "btnbuscar";
             this.button7.Text = "Buscar";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
@@ -389,6 +404,7 @@ namespace TP_DIPLOMA
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(33, 13);
             this.label6.TabIndex = 27;
+            this.label6.Tag = "timeDesde";
             this.label6.Text = "Dede";
             // 
             // label9
@@ -398,6 +414,7 @@ namespace TP_DIPLOMA
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 29;
+            this.label9.Tag = "timeHasta";
             this.label9.Text = "Hasta";
             // 
             // dateTimePicker2
@@ -417,6 +434,7 @@ namespace TP_DIPLOMA
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(111, 21);
             this.button8.TabIndex = 30;
+            this.button8.Tag = "btnLimpiar";
             this.button8.Text = "Limpiar Filtros";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
@@ -452,7 +470,7 @@ namespace TP_DIPLOMA
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Cotizaciones);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Ordenes";
             this.Text = "Ordenes";
             this.Load += new System.EventHandler(this.Ordenes_Load);
