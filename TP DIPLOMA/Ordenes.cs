@@ -320,26 +320,33 @@ namespace TP_DIPLOMA
             {
                 string consulta = "Update [Compras Det] set Precio=" + double.Parse(textBox2.Text) + " where IDPEDIDO=" + int.Parse(textBox1.Text) + " AND IDPROD=" + int.Parse(label5.Text);
 
-                foreach (BE.Negocio.Pedido_det item in gestorped.listardetalles())
+                foreach (BE.ComprasDEt item in gestorped.traerdetallepedido())
                 {
                     if (item.ID_pedido== int.Parse(textBox1.Text) &&item.ID_producto== int.Parse(label5.Text))
                     {
                         item.ID_pedido      = int.Parse(textBox1.Text);
                         item.ID_producto    = int.Parse(label5.Text);
-                        item.ID_clientes    = item.ID_clientes;
+                        item.ID_prov        = item.ID_prov;
                         item.Cantidad       = item.Cantidad;
                         item.Costo          = double.Parse(textBox2.Text);
 
 
-                        string str = $"{ item.ID_pedido}{ item.ID_producto}{ item.ID_clientes}{ item.Cantidad}{ item.Costo}";
+                        string str = $"{ item.ID_pedido}{ item.ID_producto}{ item.ID_prov}{ item.Cantidad}{ item.Costo}";
 
                         int dv = DV.ConvertToAscii(str);
+                        string consultaDV= "Update[Compras Det] set DVH= "+ dv +" where ID_pedido="+item.ID_pedido+ " AND ID_producto="+item.ID_producto +" AND ID_proveedor=" + item.ID_prov;
+
+                        gestBT.Consultar(consultaDV);
+                        
 
                     }
                 }
                 gestorped.Consulta(consulta);
                 data2();
                 sumar();
+                string DVV = "UPDATE dbo.DVV SET DVV_SUMA = ISNULL((SELECT SUM(DVH) FROM dbo.Cotizacion), 0) + ISNULL((SELECT SUM(DVH) FROM dbo.[Compras Det]), 0) WHERE  DVV_TABLA = N'Compras'";
+                gestBT.Consultar(DVV);
+
             }
             catch (Exception)
             {
