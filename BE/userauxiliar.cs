@@ -71,5 +71,13 @@ namespace BE
             get { return idioma2; }
             set { idioma2 = value; }
         }
+        private bool bajal;
+
+        public bool Baja_Logica
+        {
+            get { return bajal; }
+            set { bajal = value; }
+        }
+
     }
 }

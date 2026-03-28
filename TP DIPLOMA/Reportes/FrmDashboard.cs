@@ -1,10 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Drawing;
+﻿using BE;
+using Newtonsoft.Json;
+using Seguridad.Singleton;
+using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace TP_DIPLOMA.Reportes
 {
@@ -24,14 +26,57 @@ namespace TP_DIPLOMA.Reportes
         {
             InitializeComponent();
         }
-
+        BLL.Traductor tradu = new BLL.Traductor();
         private void FrmDashboardVentas_Load(object sender, EventArgs e)
         {
             Directory.CreateDirectory(OutputDir);
             InicializarKpis();
             LimpiarGraficos();
+            traducir();
         }
+        public void traducir()
+        {
+            Iidioma idioma = null;
 
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            // BOTONES
+            if (btnGenerar.Tag != null && traducciones.ContainsKey(btnGenerar.Tag.ToString()))
+                btnGenerar.Text = traducciones[btnGenerar.Tag.ToString()].Texto;
+
+            if (btnAbrirPdf.Tag != null && traducciones.ContainsKey(btnAbrirPdf.Tag.ToString()))
+                btnAbrirPdf.Text = traducciones[btnAbrirPdf.Tag.ToString()].Texto;
+
+            if (btnAbrirExcel.Tag != null && traducciones.ContainsKey(btnAbrirExcel.Tag.ToString()))
+                btnAbrirExcel.Text = traducciones[btnAbrirExcel.Tag.ToString()].Texto;
+
+
+            // LABELS (filtros / fechas)
+            if (lblDesde.Tag != null && traducciones.ContainsKey(lblDesde.Tag.ToString()))
+                lblDesde.Text = traducciones[lblDesde.Tag.ToString()].Texto;
+
+            if (lblHasta.Tag != null && traducciones.ContainsKey(lblHasta.Tag.ToString()))
+                lblHasta.Text = traducciones[lblHasta.Tag.ToString()].Texto;
+
+
+            // LABELS KPI / VENTAS
+            if (lblVentTotal.Tag != null && traducciones.ContainsKey(lblVentTotal.Tag.ToString()))
+                lblVentTotal.Text = traducciones[lblVentTotal.Tag.ToString()].Texto;
+
+            if (lblVentVentas.Tag != null && traducciones.ContainsKey(lblVentVentas.Tag.ToString()))
+                lblVentVentas.Text = traducciones[lblVentVentas.Tag.ToString()].Texto;
+
+            if (lblVentTicket.Tag != null && traducciones.ContainsKey(lblVentTicket.Tag.ToString()))
+                lblVentTicket.Text = traducciones[lblVentTicket.Tag.ToString()].Texto;
+
+            if (lblVentPendientes.Tag != null && traducciones.ContainsKey(lblVentPendientes.Tag.ToString()))
+                lblVentPendientes.Text = traducciones[lblVentPendientes.Tag.ToString()].Texto;
+
+            if (lblVentEntregados.Tag != null && traducciones.ContainsKey(lblVentEntregados.Tag.ToString()))
+                lblVentEntregados.Text = traducciones[lblVentEntregados.Tag.ToString()].Texto;
+        }
         // =========================================================
         // ===================== EVENTOS ===========================
         // =========================================================

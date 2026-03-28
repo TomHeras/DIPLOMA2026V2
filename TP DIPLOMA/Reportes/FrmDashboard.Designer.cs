@@ -19,7 +19,7 @@ namespace TP_DIPLOMA.Reportes
         private Button btnAbrirExcel;
 
         private FlowLayoutPanel flpFechas;
-        private Label lblDesde;
+        private Label           lblDesde;
         private DateTimePicker dpDesde;
         private Label lblHasta;
         private DateTimePicker dpHasta;
@@ -113,10 +113,12 @@ namespace TP_DIPLOMA.Reportes
             this.lblDesde.Name = "lblDesde";
             this.lblDesde.Size = new System.Drawing.Size(41, 13);
             this.lblDesde.TabIndex = 0;
+            this.lblDesde.Tag = "timeDesde";
             this.lblDesde.Text = "Desde:";
             // 
             // dpDesde
             // 
+            this.dpDesde.Checked = false;
             this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dpDesde.Location = new System.Drawing.Point(60, 7);
             this.dpDesde.Name = "dpDesde";
@@ -132,10 +134,12 @@ namespace TP_DIPLOMA.Reportes
             this.lblHasta.Name = "lblHasta";
             this.lblHasta.Size = new System.Drawing.Size(38, 13);
             this.lblHasta.TabIndex = 2;
+            this.lblHasta.Tag = "TimeHasta";
             this.lblHasta.Text = "Hasta:";
             // 
             // dpHasta
             // 
+            this.dpHasta.Checked = false;
             this.dpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dpHasta.Location = new System.Drawing.Point(244, 7);
             this.dpHasta.Name = "dpHasta";
@@ -161,6 +165,7 @@ namespace TP_DIPLOMA.Reportes
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(110, 32);
             this.btnGenerar.TabIndex = 0;
+            this.btnGenerar.Tag = "btngenerar";
             this.btnGenerar.Text = "Generar";
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
@@ -170,6 +175,7 @@ namespace TP_DIPLOMA.Reportes
             this.btnAbrirPdf.Name = "btnAbrirPdf";
             this.btnAbrirPdf.Size = new System.Drawing.Size(110, 32);
             this.btnAbrirPdf.TabIndex = 1;
+            this.btnAbrirPdf.Tag = "btnpdf";
             this.btnAbrirPdf.Text = "Ver PDF";
             this.btnAbrirPdf.Click += new System.EventHandler(this.btnAbrirPdf_Click);
             // 
@@ -179,6 +185,7 @@ namespace TP_DIPLOMA.Reportes
             this.btnAbrirExcel.Name = "btnAbrirExcel";
             this.btnAbrirExcel.Size = new System.Drawing.Size(110, 32);
             this.btnAbrirExcel.TabIndex = 2;
+            this.btnAbrirExcel.Tag = "btnexcel";
             this.btnAbrirExcel.Text = "Ver Excel";
             this.btnAbrirExcel.Click += new System.EventHandler(this.btnAbrirExcel_Click);
             // 
@@ -204,6 +211,7 @@ namespace TP_DIPLOMA.Reportes
             this.lblVentTotal.Name = "lblVentTotal";
             this.lblVentTotal.Size = new System.Drawing.Size(102, 30);
             this.lblVentTotal.TabIndex = 0;
+            this.lblVentTotal.Tag = "lbltotal2";
             this.lblVentTotal.Text = "Total: $0";
             // 
             // lblVentVentas
@@ -214,6 +222,7 @@ namespace TP_DIPLOMA.Reportes
             this.lblVentVentas.Name = "lblVentVentas";
             this.lblVentVentas.Size = new System.Drawing.Size(72, 21);
             this.lblVentVentas.TabIndex = 1;
+            this.lblVentVentas.Tag = "lblventa2";
             this.lblVentVentas.Text = "Ventas: 0";
             // 
             // lblVentTicket
@@ -225,6 +234,7 @@ namespace TP_DIPLOMA.Reportes
             this.lblVentTicket.Size = new System.Drawing.Size(75, 21);
             this.lblVentTicket.TabIndex = 2;
             this.lblVentTicket.Text = "Ticket: $0";
+            this.lblVentTicket.Visible = false;
             // 
             // lblVentPendientes
             // 
@@ -234,6 +244,7 @@ namespace TP_DIPLOMA.Reportes
             this.lblVentPendientes.Name = "lblVentPendientes";
             this.lblVentPendientes.Size = new System.Drawing.Size(101, 21);
             this.lblVentPendientes.TabIndex = 3;
+            this.lblVentPendientes.Tag = "lblpendientes2";
             this.lblVentPendientes.Text = "Pendientes: 0";
             // 
             // lblVentEntregados
@@ -244,6 +255,7 @@ namespace TP_DIPLOMA.Reportes
             this.lblVentEntregados.Name = "lblVentEntregados";
             this.lblVentEntregados.Size = new System.Drawing.Size(104, 21);
             this.lblVentEntregados.TabIndex = 4;
+            this.lblVentEntregados.Tag = "lblpendientes";
             this.lblVentEntregados.Text = "Entregados: 0";
             // 
             // tlpCharts

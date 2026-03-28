@@ -1,18 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using BE;
 using Seguridad.Singleton;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
+using Seguridad;
 
 namespace TP_DIPLOMA
 {
     public partial class Comprar : Form
     {
+
+        int idProveedorSeleccionado = 0;
+        int idProductoSeleccionado = 0;
+
+        BLL.Maestros.Proveedores gestorproveedores = new BLL.Maestros.Proveedores();
+        BLL.PP Rel_PP = new BLL.PP();
+        BLL.Negocio.Carrito GetCarrito = new BLL.Negocio.Carrito();
+        BLL.Negocio.Pedidos pedidos = new BLL.Negocio.Pedidos();
+        BLL.Bitacora GetBitacora = new BLL.Bitacora();
+        BLL.Traductor tradu = new BLL.Traductor();
+        BE.ComprasDEt detalles = new BE.ComprasDEt();
+        BE.Cotizacion Cotizacion = new BE.Cotizacion();
+        Seguridad.Digitos DV=new Seguridad.Digitos();
+
+        private BindingSource _bsCarrito = new BindingSource();
         public Comprar()
         {
             InitializeComponent();
@@ -20,184 +33,163 @@ namespace TP_DIPLOMA
 
         private void Comprar_Load(object sender, EventArgs e)
         {
-            comboBox1.DataSource = gestorproveedores.listrarprovs(); // Suponiendo que listar() devuelve una lista de objetos Proveedores
-            comboBox1.DisplayMember = "Nombre";  // Esto mostrará el nombre del proveedor en el ComboBox
-            comboBox1.ValueMember = "ID_proveedor";    // Esto utilizará Idprov como el valor seleccionado
-            
-            // Inicializar la lista de productos aquí, después de que gestorprod esté disponible
-            listaProductos = gestorprod.listar();
 
-            // Limpiar el ComboBox de productos al inicio
+            comboBox1.DataSource = gestorproveedores.listrarprovs();
+            comboBox1.DisplayMember = "Nombre";
+            comboBox1.ValueMember = "Idprov";
+            comboBox1.SelectedIndex = -1;
+
             comboBox2.DataSource = null;
+            comboBox2.SelectedIndex = -1;
 
-            // Asignar el evento para cargar los productos relacionados cuando se cambie el proveedor
-            comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
+            dataGridView1.AllowUserToAddRows = false; // ✅ importantísimo
+            dataGridView1.MultiSelect = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            AgregarColumnaEliminar();
+
+
+            enlazar();
+            traducir();
         }
-        List<BE.Maestros.Productos> listaProductos;
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-
-            // Cargar los productos relacionados en el ComboBox de productos
-            
-           
-
-        }
-        BE.Maestros.Productos prod = new BE.Maestros.Productos();
-        BLL.Maestros.Productos gestorprod = new BLL.Maestros.Productos();
-        BE.Maestros.Proveedores proveedores = new BE.Maestros.Proveedores();
-        BLL.Maestros.Proveedores gestorproveedores = new BLL.Maestros.Proveedores();
-        BE.AuxiliarRelaionarPP PP = new BE.AuxiliarRelaionarPP();
-        BLL.RelacionarPP gestorPP = new BLL.RelacionarPP();
-        BLL.Negocio.Carrito GetCarrito = new BLL.Negocio.Carrito();
-        BE.ComprasDEt detalles = new BE.ComprasDEt();
-        BE.Cotizacion Cotizacion = new BE.Cotizacion();
-        BLL.Negocio.Pedidos pedidos = new BLL.Negocio.Pedidos();
-        public void cargarprodsrelacionados()
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int idprov = int.Parse(comboBox1.SelectedValue.ToString());
-            foreach (BE.AuxiliarRelaionarPP item in gestorPP.listrarPP())//agregar toda la consulta en las capas, la logica es tirar un listar de todo y usar un if para cuando item.idprov sea igual al valor de la combo.
+            if (comboBox1.SelectedIndex == -1)
+                return;
+
+
+            if (comboBox1.SelectedValue is int idProveedor)
             {
-                if (item.Proveedor == idprov)
-                {
-                    comboBox2.Items.Add(item.Producto);
-                }
+                idProveedorSeleccionado = idProveedor;
+                CargarProductosPorProveedor(idProveedorSeleccionado);
             }
         }
-        public void enlazar()
+
+
+
+        private void CargarProductosPorProveedor(int idProveedor)
         {
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = GetCarrito.ordencompra();
-            DataGridViewButtonColumn uninstallButtonColumn = new DataGridViewButtonColumn();
-            uninstallButtonColumn.Name = "Eliminar";
-            uninstallButtonColumn.Text = "Eliminar";
+            var productos = Rel_PP.NombresSP()
+                                  .Where(x => x.Proveedor == idProveedor)
+                                  .ToList();
+            productos.Insert(0, new BE.AuxiliarRelaionarPP { Producto = 0, Prod = "Productos" });
+            comboBox2.DataSource = null;
+            comboBox2.DataSource = productos;
+            comboBox2.DisplayMember = "Prod";
+            comboBox2.ValueMember = "Producto";
 
-            int columnIndex = 0;
-            if (dataGridView1.Columns["Eliminar"] == null)
+            //comboBox2.SelectedIndex = -1;
+            idProductoSeleccionado = 0;
+            if (productos == null)
             {
-                dataGridView1.Columns.Insert(columnIndex, uninstallButtonColumn);
+                val = true;
             }
         }
-        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+
+        bool val = false;
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            string name = comboBox1.SelectedText;
-            //comboBox1.Enabled = false;
-            //cargarprodsrelacionados();
-            // Obtener el id del proveedor seleccionado
-           
 
-            foreach (BE.Maestros.Proveedores item in gestorproveedores.listrarprovs())
+            if (comboBox2.SelectedIndex <= 0)
             {
-                if (item.Nombre == name)
-                {
-                    idProveedorSeleccionado = item.Idprov;
-                }
+                idProductoSeleccionado = 0;
+                return;
             }
 
-
-            // Obtener los productos relacionados con ese proveedor usando LINQ
-            //var productosRelacionados = (from rel in gestorPP.listrarPP() // Lista de la tabla PROV_PROD
-            //                             join prod in listaProductos on rel.Producto equals prod.ID_producto
-            //                             where rel.Proveedor == idProveedorSeleccionado
-            //                             select new
-            //                             {<
-            //                                 ProductoId = prod.ID_producto,
-            //                                 ProductoNombre = prod.ID_producto  // Cambia a la propiedad correcta del producto
-            //                             }).ToList();
-            foreach (BE.AuxiliarRelaionarPP item in gestorPP.listrarPP())
+            if (comboBox2.SelectedValue == null)
             {
-                if (item.Proveedor == idProveedorSeleccionado)
-                {
-                    
-                }
+                idProductoSeleccionado = 0;
+                return;
             }
+
+            idProductoSeleccionado = Convert.ToInt32(comboBox2.SelectedValue);
+
 
         }
 
-        int idProveedorSeleccionado = 0;
-        private void comboBox1_DropDown(object sender, EventArgs e)
-        {
-            
-            string name = comboBox1.SelectedText;
-            
-            //cargarprodsrelacionados();
-            // Obtener el id del proveedor seleccionado
-            
-
-            foreach (BE.Maestros.Proveedores item in gestorproveedores.listrarprovs())
-            {
-                if (item.Nombre == name)
-                {
-                    idProveedorSeleccionado = item.Idprov;
-                }
-            }
-
-            //comboBox1.Enabled = false;
-            // Obtener los productos relacionados con ese proveedor usando LINQ
-
-
-            Lennarcmb2();
-            
-
-
-
-
-        }
-        List<int> Prods = new List<int>();
-        public void Lennarcmb2()
-        {
-            Prods.Clear();
-            foreach (BE.AuxiliarRelaionarPP item in gestorPP.listrarPP())
-            {
-                if (item.Proveedor == idProveedorSeleccionado)
-                {
-                    Prods.Add(item.Producto);
-                }
-            }
-
-            comboBox2.DataSource = Prods;
-            
-        }
-        int IDPP = 0;
         private void btnagregarcarrito_Click(object sender, EventArgs e)
         {
-            ///agregar idprov
+            if (idProveedorSeleccionado == 0 || idProductoSeleccionado == 0)
+            {
+                MessageBox.Show("Debe seleccionar proveedor y producto.");
+                return;
+            }
+
+            if (!int.TryParse(controlUsuario1.Texto, out int cantidad) || cantidad <= 0)
+            {
+                MessageBox.Show("Cantidad inválida.");
+                return;
+            }
+
             int idP = idProveedorSeleccionado;
-            
-            BE.compra orden = new BE.compra(idP, IDPP, DateTime.Now, int.Parse(controlUsuario1.Texto));
+
+            BE.compra orden = new BE.compra(idP, idProductoSeleccionado, DateTime.Now, int.Parse(controlUsuario1.Texto));
 
             orden.Idprov = idP;
-            orden.Idprod = IDPP;
+            orden.Idprod = idProductoSeleccionado;
             orden.Fecha = DateTime.Now;
             orden.Cant = int.Parse(controlUsuario1.Texto);
-            
+
             GetCarrito.agregaralista(orden);
 
             enlazar();
             MessageBox.Show("EL producto fue agregado a la lista");
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        // ====== ENLAZAR GRILLA ======
+        private void AgregarColumnaEliminar()
         {
-            if (e.ColumnIndex == dataGridView1.Columns["Eliminar"].Index)
-            {
-                try
-                {
-                    foreach (BE.compra item in GetCarrito.ordencompra())
-                    {
-                        GetCarrito.ordencompra().Remove(item);
-                        enlazar();
-                        MessageBox.Show("El producto fue eliminado del carrito");
-                    }
-                }
-                catch (Exception)
-                {
+            //DataGridViewButtonColumn uninstallButtonColumn = new DataGridViewButtonColumn();
+            //uninstallButtonColumn.Name = "Eliminar";
+            //uninstallButtonColumn.Text = "Eliminar";
 
-                    //throw;
-                }
-            }
+            //if (dataGridView1.Columns["Eliminar"] == null)
+            //{
+            //  
+
+
+            if (dataGridView1.Columns["Eliminar"] != null)
+                return;
+
+            var btn = new DataGridViewButtonColumn
+            {
+                Name = "Eliminar",
+                HeaderText = "Eliminar",
+                Text = "Eliminar",
+                UseColumnTextForButtonValue = true,
+                Width = 100
+            };
+
+            dataGridView1.Columns.Insert(0, btn);
+
+
         }
-        BLL.Bitacora GetBitacora = new BLL.Bitacora();
+        public void enlazar()
+        {
+            _bsCarrito.DataSource = GetCarrito.ordencompra();
+            dataGridView1.DataSource = _bsCarrito;
+            _bsCarrito.ResetBindings(false);
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
+
+            dataGridView1.Columns["DVH"].Visible=false;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            if (dataGridView1.Columns[e.ColumnIndex].Name != "Eliminar")
+                return;
+
+            var item = dataGridView1.Rows[e.RowIndex].DataBoundItem as BE.compra;
+            if (item == null) return;
+
+            GetCarrito.ordencompra().Remove(item);
+            enlazar();
+        }
+        //BLL.Bitacora GetBitacora = new BLL.Bitacora();
         public void LLenarbitacoraC()
         {
             var idreg = 0;
@@ -211,6 +203,7 @@ namespace TP_DIPLOMA
             //string historico = "INSERT INTO CotizacionCambios (IDRegistro,Idpedido, Idprov, Usuario, Estado, descrip, criticidad, modulo, cotizacion, FechaGen, FechaAct, FechaBitacora) values('" + idreg + "','" + detalles.ID_pedido + "','" + Cotizacion.ID_idprov + "','" + SingletonSesion.Instancia.Usuario.usuario + "','" + "0', 'Generar colicitud de cotizacion', 'baja', 'Cotizaciones','0" + "','" + Cotizacion.Fechagen + "','" + Cotizacion.Fechaact + "','" + DateTime.Now + "')";
             //GetBitacora.Consultar(historico);
         }
+
         private void btnfactura_Click(object sender, EventArgs e)
         {
             Cotizacion.ID_idprov = idProveedorSeleccionado;
@@ -221,6 +214,10 @@ namespace TP_DIPLOMA
             Cotizacion.DVH = 0;
 
             var idpedido = int.Parse(pedidos.cotizacion(Cotizacion));
+            string DVCo = $"{idpedido}{Cotizacion.ID_idprov}{Cotizacion.Estado}{Cotizacion.Fechaact.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{Cotizacion.Fechagen.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{Cotizacion.Cotizaciones}";
+            int DVH=DV.ConvertToAscii(DVCo);
+            string update="Update Cotizacion set DVH=" + DVH + " where IDPEDIDO=" + idpedido + " AND IDPROV=" + Cotizacion.ID_idprov;
+            GetBitacora.Consultar(update);
 
             try
             {
@@ -233,6 +230,12 @@ namespace TP_DIPLOMA
                     detalles.Costo = 0.0;
                     detalles.DVH = 0;
                     pedidos.ordencompra(detalles);
+                    string str = $"{detalles.ID_pedido}{detalles.ID_producto}{detalles.ID_prov}{detalles.Cantidad}{detalles.Costo}";
+
+                    int dv = DV.ConvertToAscii(str);
+                    string consultaDV = "Update[Compras Det] set DVH= " + dv + " where IDPEDIDO=" + detalles.ID_pedido + " AND IDPROD=" + detalles.ID_producto + " AND IDPROV=" + detalles.ID_prov;
+
+                    GetBitacora.Consultar(consultaDV);
 
 
                 }
@@ -252,34 +255,117 @@ namespace TP_DIPLOMA
             comboBox2.SelectedItem = null;
             controlUsuario1.limpiar();
             enlazar();
+            string DVV = "UPDATE dbo.DVV SET DVV_SUMA = ISNULL((SELECT SUM(DVH) FROM dbo.Cotizacion), 0) + ISNULL((SELECT SUM(DVH) FROM dbo.[Compras Det]), 0) WHERE  DVV_TABLA = N'Compras'";
+            GetBitacora.Consultar(DVV);
         }
 
-        private void comboBox2_SelectedValueChanged(object sender, EventArgs e)
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+
+            // 🔒 Blindaje total
+            if (dataGridView1.Columns == null || dataGridView1.Columns.Count == 0)
+                return;
+
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            MapTags_Pedidos(dataGridView1);
+            TraducirHeadersGrid(dataGridView1, traducciones);
+
+
+        }
+
+
+        private void MapTags_Pedidos(DataGridView dgv)
+        {
+
+
+            if (dgv.Columns.Count == 0) return;
+
+            SetColTag(dgv, "Eliminar", "btnborrar");
+            SetColTag(dgv, "Idprov", "prov");
+            SetColTag(dgv, "Idprod", "prod");
+            SetColTag(dgv, "Fecha", "fechahead");
+            SetColTag(dgv, "Cant", "cant");
             
+
+
         }
 
-        private void comboBox2_TextChanged(object sender, EventArgs e)
+        private void SetColTag(DataGridView dgv, string colNameOrAlias, string tagKey)
         {
-            try
+            // Busca por Name
+            if (dgv.Columns.Contains(colNameOrAlias))
             {
-                if (comboBox2.SelectedItem == null)
-                    return;
+                dgv.Columns[colNameOrAlias].Tag = tagKey;
+                return;
+            }
 
-                foreach (BE.AuxiliarRelaionarPP item in gestorPP.listrarPP())
+            var col = dgv.Columns
+                         .Cast<DataGridViewColumn>()
+                         .FirstOrDefault(c =>
+                             string.Equals(c.DataPropertyName, colNameOrAlias, StringComparison.OrdinalIgnoreCase));
+            if (col != null) col.Tag = tagKey;
+        }
+
+
+        private void TraducirHeadersGrid(DataGridView dgv, IDictionary<string, ITraduccion> traducciones)
+        {
+
+            if (dgv.Columns.Count == 0 || traducciones == null)
+                return;
+
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                if (col.Name != null && col.Tag != null &&
+                    traducciones.ContainsKey(col.Tag.ToString()))
                 {
-                    if (item.Producto == int.Parse(comboBox2.SelectedItem.ToString()))
-                    {
-                        IDPP = item.Producto;
-                    }
+                    col.HeaderText = traducciones[col.Tag.ToString()].Texto;
                 }
             }
-            catch (Exception)
-            {
 
-                
-            }
-            
+        }
+
+        public void traducir()
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            // LABELS
+            if (label1.Tag != null && traducciones.ContainsKey(label1.Tag.ToString()))
+                label1.Text = traducciones[label1.Tag.ToString()].Texto;
+
+            if (label2.Tag != null && traducciones.ContainsKey(label2.Tag.ToString()))
+                label2.Text = traducciones[label2.Tag.ToString()].Texto;
+
+
+            // BOTONES
+            if (btnagregarcarrito.Tag != null && traducciones.ContainsKey(btnagregarcarrito.Tag.ToString()))
+                btnagregarcarrito.Text = traducciones[btnagregarcarrito.Tag.ToString()].Texto;
+
+            if (btnfactura.Tag != null && traducciones.ContainsKey(btnfactura.Tag.ToString()))
+                btnfactura.Text = traducciones[btnfactura.Tag.ToString()].Texto;
+
+
+            // COMBOBOX (solo si los usás con Tag como texto auxiliar)
+            if (comboBox1.Tag != null && traducciones.ContainsKey(comboBox1.Tag.ToString()))
+                comboBox1.Text = traducciones[comboBox1.Tag.ToString()].Texto;
+
+            if (comboBox2.Tag != null && traducciones.ContainsKey(comboBox2.Tag.ToString()))
+                comboBox2.Text = traducciones[comboBox2.Tag.ToString()].Texto;
+
+
+            // CONTROL USUARIO (cantidad)
+            if (controlUsuario1.Tag != null && traducciones.ContainsKey(controlUsuario1.Tag.ToString()))
+                controlUsuario1.Etiqueta = traducciones[controlUsuario1.Tag.ToString()].Texto;
+
         }
     }
 }

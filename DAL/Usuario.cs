@@ -299,20 +299,7 @@ namespace DAL
 
             return dvh;
         }
-        private int CalcularDVH(BE.Usuario usu)
-        {
-            // Concatenar los valores de los campos para calcular el DVH
-            string data = $"{usu.Idusuario}{usu.Idioma.Id}{usu.Nombre}{usu.Apellido}{usu.Usuarios}{usu.Password}{usu.Mail}{usu.Estado}{usu.Baja_logica}";
-
-            // Calcular el DVH como suma de los valores ASCII (o usa otro algoritmo)
-            int dvh = 0;
-            foreach (char c in data)
-            {
-                dvh += Convert.ToInt32(c);
-            }
-
-            return dvh;
-        }
+       
         public List<BE.userauxiliar> Listarusuarios()
         {
             //BE.Iidioma iidioma = new BE.Iidioma { Id = 0, Nombre = "", Default = true };
@@ -337,6 +324,7 @@ namespace DAL
                 usu.Apellido = registro["UsuApe"].ToString();
                 usu.Usuarios = registro["UsuNick"].ToString();
                 usu.Password = registro["Usupass"].ToString();
+                usu.Baja_logica = bool.Parse(registro["UsubajaL"].ToString() );
                 usu.Mail = registro["UsuMail"].ToString();
                 usu.Estado = bool.Parse(registro["UsuEstado"].ToString());
 
@@ -347,6 +335,7 @@ namespace DAL
                 useaux.Apellido = usu.Apellido;
                 useaux.Usuarios = usu.Usuarios;
                 useaux.Password = usu.Password;
+                useaux.Baja_Logica=usu.Baja_logica;
                 useaux.Mail = usu.Mail;
                 useaux.Estado = usu.Estado;
 
@@ -373,14 +362,13 @@ namespace DAL
         {
             string fm;
 
-            SqlParameter[] parameters = new SqlParameter[7];
+            SqlParameter[] parameters = new SqlParameter[6];
             parameters[0] = new SqlParameter("@Idusu", useer.Idusuario);
             parameters[1] = new SqlParameter("@nick", useer.Usuarios);
-            parameters[2] = new SqlParameter("@pass", useer.Password);
-            parameters[3] = new SqlParameter("@estado", useer.Estado);
-            parameters[4] = new SqlParameter("@Idioma", useer.Idioma2);
-            parameters[5] = new SqlParameter("@nombre", useer.Nombre);
-            parameters[6] = new SqlParameter("@apellido", useer.Apellido);
+            parameters[2] = new SqlParameter("@estado", useer.Estado);
+            parameters[3] = new SqlParameter("@Idioma", useer.Idioma2);
+            parameters[4] = new SqlParameter("@nombre", useer.Nombre);
+            parameters[5] = new SqlParameter("@apellido", useer.Apellido);
 
             fm = acceso.Escribir("editarUSUARIO", parameters);
 

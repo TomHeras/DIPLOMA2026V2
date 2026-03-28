@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json; // NuGet: Newtonsoft.Json
+﻿using BE;
+using Newtonsoft.Json; // NuGet: Newtonsoft.Json
+using Seguridad.Singleton;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace TP_DIPLOMA
 {
@@ -25,11 +29,17 @@ namespace TP_DIPLOMA
         {
             InitializeComponent();
         }
-
+        BLL.Traductor tradu = new BLL.Traductor();
         private void FrmDashboardCompras_Load(object sender, EventArgs e)
         {
             // Aseguramos la carpeta y dejamos KPIs iniciales
             Directory.CreateDirectory(OutputDir);
+
+            tabComprasMes.Tag     = "tab_resumen";
+            tabGastoProveedor.Tag = "tab_compras_mes";
+            tabGastoProducto.Tag = "tab_gasto_proveedor";
+            tabPdf.Tag = "tab_gasto_producto";
+        
 
             // Si querés permitir "sin filtro":
             // (necesita que en el Designer los DateTimePicker tengan ShowCheckBox=true)
@@ -42,8 +52,61 @@ namespace TP_DIPLOMA
 
             ActualizarKpis(0m, 0, 0);
             MostrarGraficos();
+            traducir();
         }
 
+        public void traducir()
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+           
+
+            // Traducción de solapas
+            foreach (TabPage tab in tabReportes.TabPages)
+            {
+                if (tab.Tag != null && traducciones.ContainsKey(tab.Tag.ToString()))
+                    tab.Text = traducciones[tab.Tag.ToString()].Texto;
+            }
+
+            if (lblKpiTotalTitulo.Tag != null && traducciones.ContainsKey(lblKpiTotalTitulo.Tag.ToString()))
+                lblKpiTotalTitulo.Text = traducciones[lblKpiTotalTitulo.Tag.ToString()].Texto;
+
+            if (lblKpiTotalValor.Tag != null && traducciones.ContainsKey(lblKpiTotalValor.Tag.ToString()))
+                lblKpiTotalValor.Text = traducciones[lblKpiTotalValor.Tag.ToString()].Texto;
+
+            if (lblKpiPedidosTitulo.Tag != null && traducciones.ContainsKey(lblKpiPedidosTitulo.Tag.ToString()))
+                lblKpiPedidosTitulo.Text = traducciones[lblKpiPedidosTitulo.Tag.ToString()].Texto;
+
+            if (lblKpiPedidosValor.Tag != null && traducciones.ContainsKey(lblKpiPedidosValor.Tag.ToString()))
+
+            if (btnGenerar.Tag != null && traducciones.ContainsKey(btnGenerar.Tag.ToString()))
+                btnGenerar.Text = traducciones[btnGenerar.Tag.ToString()].Texto;
+
+            if (btnAbrirPdf.Tag != null && traducciones.ContainsKey(btnAbrirPdf.Tag.ToString()))
+                btnAbrirPdf.Text = traducciones[btnAbrirPdf.Tag.ToString()].Texto;
+
+            if (btnAbrirExcel.Tag != null && traducciones.ContainsKey(btnAbrirExcel.Tag.ToString()))
+                btnAbrirExcel.Text = traducciones[btnAbrirExcel.Tag.ToString()].Texto;
+
+            if (btnAbrirCarpeta.Tag != null && traducciones.ContainsKey(btnAbrirCarpeta.Tag.ToString()))
+                btnAbrirCarpeta.Text = traducciones[btnAbrirCarpeta.Tag.ToString()].Texto;
+
+            if (grpFiltros.Tag != null && traducciones.ContainsKey(grpFiltros.Tag.ToString()))
+                grpFiltros.Text = traducciones[grpFiltros.Tag.ToString()].Texto;
+
+            if (lblDesde.Tag != null && traducciones.ContainsKey(lblDesde.Tag.ToString()))
+                lblDesde.Text = traducciones[lblDesde.Tag.ToString()].Texto;
+
+            if (lblHasta.Tag != null && traducciones.ContainsKey(lblHasta.Tag.ToString()))
+                lblHasta.Text = traducciones[lblHasta.Tag.ToString()].Texto;
+            
+       
+            
+        }
         // ========= Eventos =========
 
         private async void BtnGenerar_Click(object sender, EventArgs e)

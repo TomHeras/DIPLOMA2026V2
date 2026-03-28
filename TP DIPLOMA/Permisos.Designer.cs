@@ -29,7 +29,6 @@ namespace TP_DIPLOMA
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Permisos));
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmdGuardarFamilia = new System.Windows.Forms.Button();
             this.treeConfigurarFamilia = new System.Windows.Forms.TreeView();
@@ -71,7 +70,6 @@ namespace TP_DIPLOMA
             // 
             // groupBox4
             // 
-            this.groupBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox4.BackgroundImage")));
             this.groupBox4.Controls.Add(this.cmdGuardarFamilia);
             this.groupBox4.Controls.Add(this.treeConfigurarFamilia);
             this.groupBox4.Location = new System.Drawing.Point(286, 297);
@@ -104,17 +102,16 @@ namespace TP_DIPLOMA
             // 
             // groupBox2
             // 
-            this.groupBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox2.BackgroundImage")));
             this.groupBox2.Controls.Add(this.cmdSeleccionar);
             this.groupBox2.Controls.Add(this.cmdAgregarFamilia);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.cboFamilias);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(318, 37);
+            this.groupBox2.Location = new System.Drawing.Point(286, 44);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(258, 249);
+            this.groupBox2.Size = new System.Drawing.Size(290, 249);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Familias";
@@ -206,16 +203,15 @@ namespace TP_DIPLOMA
             // 
             // grpPatentes
             // 
-            this.grpPatentes.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("grpPatentes.BackgroundImage")));
             this.grpPatentes.Controls.Add(this.cmdAgregarPatente);
             this.grpPatentes.Controls.Add(this.cboPatentes);
             this.grpPatentes.Controls.Add(this.label2);
             this.grpPatentes.Controls.Add(this.groupBox1);
-            this.grpPatentes.Location = new System.Drawing.Point(0, 37);
+            this.grpPatentes.Location = new System.Drawing.Point(13, 44);
             this.grpPatentes.Margin = new System.Windows.Forms.Padding(2);
             this.grpPatentes.Name = "grpPatentes";
             this.grpPatentes.Padding = new System.Windows.Forms.Padding(2);
-            this.grpPatentes.Size = new System.Drawing.Size(256, 249);
+            this.grpPatentes.Size = new System.Drawing.Size(258, 249);
             this.grpPatentes.TabIndex = 13;
             this.grpPatentes.TabStop = false;
             this.grpPatentes.Text = "Patentes";
@@ -318,7 +314,6 @@ namespace TP_DIPLOMA
             // 
             // groupBox5
             // 
-            this.groupBox5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox5.BackgroundImage")));
             this.groupBox5.Controls.Add(this.btnconfigurarperfiles);
             this.groupBox5.Controls.Add(this.groupBox6);
             this.groupBox5.Controls.Add(this.cmbperfiles);

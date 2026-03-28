@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BE;
+using Seguridad;
+using Seguridad.MultiIdioma;
+using Seguridad.Singleton;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Seguridad;
-using Seguridad.MultiIdioma;
 
 namespace TP_DIPLOMA
 {
@@ -24,11 +26,18 @@ namespace TP_DIPLOMA
         BE.userauxiliar usaux = new BE.userauxiliar();
         BLL.idioma gestoridiom = new BLL.idioma();
         BLL.Traductor GetTraductor = new BLL.Traductor();
+        Digitos D = new Digitos();
+       
         string vali;
         public void enlazar()
         {
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = gestorusuarios.Listadeusu();
+            dataGridView1.DataSource = gestorusuarios.Listadeusu().Where(x=>x.Baja_Logica==false).ToList();
+
+            dataGridView1.Columns["Idusuario"].Visible = false;
+            dataGridView1.Columns["Password"].Visible = false;
+            dataGridView1.Columns["Idioma2"].Visible = false;
+            dataGridView1.Columns["Baja_Logica"].Visible = false;
 
         }
 
@@ -38,29 +47,19 @@ namespace TP_DIPLOMA
             controlUsuario2.limpiar();
             controlUsuario3.limpiar();
             controlUsuario4.limpiar();
+            controlUsuarioApellido.limpiar();
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
+
         }
         private void ABMusuarios_Load(object sender, EventArgs e)
         {
-            // TODO: esta línea de código carga datos en la tabla 'tPMODELOSDataSet12.Idioma' Puede moverla o quitarla según sea necesario.
-            //this.idiomaTableAdapter1.Fill(this.tPMODELOSDataSet12.Idioma);
-            // TODO: esta línea de código carga datos en la tabla 'tPMODELOSDataSet7.Idioma' Puede moverla o quitarla según sea necesario.
-            //this.idiomaTableAdapter.Fill(this.tPMODELOSDataSet7.Idioma);
+           
             try
             {
-                // Obtén la lista de idiomas
-                //var idiomas = 
-
-                // Establece la fuente de datos
+               
                 comboBox1.DataSource = GetTraductor.ObtenerIdiomas();
-
-                // Configura DisplayMember y ValueMember
-                comboBox1.DisplayMember = "Nombre"; // La propiedad que se muestra en el ComboBox
-                //comboBox1.ValueMember = "Id_Idioma"; // La propiedad que se usa como valor
-
-                // Opcional: Establece un valor seleccionado si es necesario
-                // comboBox1.SelectedValue = algunaId; // Descomenta y establece un valor si necesitas preseleccionar un ítem
+                comboBox1.DisplayMember = "Nombre"; 
 
             }
             catch (Exception ex)
@@ -70,6 +69,50 @@ namespace TP_DIPLOMA
 
 
             enlazar();
+            traducir();
+        }
+        public void traducir()
+        {
+            BLL.Traductor tradu=new BLL.Traductor();
+            Iidioma idioma = null; // instancio un objeto de la interfaz iidioma 
+            if (SingletonSesion.Instancia.IsLogged()) // si el usuario esta logeado
+                idioma = SingletonSesion.Instancia.Usuario.Idioma; // el objeto idioma va a ser igual a la instancia idioma del usuario
+
+            // creo variable tradduciones y la igualo al metodo obtener traducciones de la clase Traductor
+            // y le paso como parametro el objeto creado idioma
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            if(controlUsuario1.Tag != null && traducciones.ContainsKey(controlUsuario1.Tag.ToString()))
+                controlUsuario1.Etiqueta = traducciones[controlUsuario1.Tag.ToString()].Texto;
+
+            if (controlUsuario2.Tag != null && traducciones.ContainsKey(controlUsuario2.Tag.ToString()))
+                controlUsuario2.Etiqueta = traducciones[controlUsuario2.Tag.ToString()].Texto;
+
+            if (controlUsuario3.Tag != null && traducciones.ContainsKey(controlUsuario3.Tag.ToString()))
+                controlUsuario3.Etiqueta = traducciones[controlUsuario3.Tag.ToString()].Texto;
+
+            if (controlUsuario4.Tag != null && traducciones.ContainsKey(controlUsuario4.Tag.ToString()))
+                controlUsuario4.Etiqueta = traducciones[controlUsuario4.Tag.ToString()].Texto;
+
+
+            // BUTTON
+            if (button1.Tag != null && traducciones.ContainsKey(button1.Tag.ToString()))
+                button1.Text = traducciones[button1.Tag.ToString()].Texto;
+
+            if (button2.Tag != null && traducciones.ContainsKey(button2.Tag.ToString()))
+                button2.Text = traducciones[button2.Tag.ToString()].Texto;
+
+            // LABELS
+            if (label1.Tag != null && traducciones.ContainsKey(label1.Tag.ToString()))
+                label1.Text = traducciones[label1.Tag.ToString()].Texto;
+
+            if (label2.Tag != null && traducciones.ContainsKey(label2.Tag.ToString()))
+                label2.Text = traducciones[label2.Tag.ToString()].Texto;
+
+
+
+
+
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -83,6 +126,7 @@ namespace TP_DIPLOMA
             controlUsuario3.Texto = usaux.Password.ToString();
             controlUsuario4.Texto = usaux.Mail.ToString();
             comboBox1.Text = usaux.Idioma2.ToString();
+            
             if (usaux.Estado == true)
             {
                 comboBox2.Text = "Activo";
@@ -144,13 +188,11 @@ namespace TP_DIPLOMA
                         gestorusuarios.crearusuario(user);
                         int ID = gestorusuarios.ID();
 
-                        string DV = $"{ID}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{user.Baja_logica}";
-                        Digitos D = new Digitos();
+                        string DV = $"{user.Idioma.Id}{ID}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{0}";                      
                         int Digito=D.ConvertToAscii(DV);
                         string Consulta = "UPDATE Usuarios set UsuDVH=" + Digito + " where Idusu=" + ID;
                         gestorusuarios.Consultar(Consulta);
-
-                        String actDVV = " UPDATE DVV SET DVV_SUMA = (SELECT SUM(UsuDVH) FROM Usuarios) WHERE DVV_TABLA='Usuarios'";
+                        string actDVV = " UPDATE DVV SET DVV_SUMA = (SELECT SUM(UsuDVH) FROM Usuarios) WHERE DVV_TABLA='Usuarios'";
                         gestorusuarios.Consultar(actDVV);
                         MessageBox.Show("El usuario fue creado con exito!");
 
@@ -207,6 +249,7 @@ namespace TP_DIPLOMA
                     item.Password = Encriptador.Hash(controlUsuario3.Texto);
                     item.Mail = controlUsuario4.Texto;
                     item.Idioma2 = comboBox1.SelectedIndex + 1;
+                    item.Baja_Logica = false;
                     try
                     {
                         if (comboBox2.SelectedItem.ToString() == "Activo")
@@ -225,11 +268,85 @@ namespace TP_DIPLOMA
                     }
 
                     gestorusuarios.EditarUsuario_estado(item);
+                    string DV = $"{item.Idioma2}{item.Idusuario}{item.Usuarios}{item.Nombre}{item.Apellido}{item.Password}{item.Mail}{item.Estado}{item.Baja_Logica}";
+                    int Digito = D.ConvertToAscii(DV);
+                    string Consulta = "UPDATE Usuarios set UsuDVH=" + Digito + " where Idusu=" + item.Idusuario;
+                    gestorusuarios.Consultar(Consulta);
+                    string actDVV = " UPDATE DVV SET DVV_SUMA = (SELECT SUM(UsuDVH) FROM Usuarios) WHERE DVV_TABLA='Usuarios'";
+                    gestorusuarios.Consultar(actDVV);
                     MessageBox.Show("El usuario fue modificado con exito");
 
                     limpiar();
                     enlazar();
                 }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                usaux.Baja_Logica = false;
+                string consulta = "update Usuarios set UsubajaL=1 where Idusu=" + lblidcl.Text;
+                gestorusuarios.Consultar(consulta);
+                string DV = $"{usaux.Idioma2}{usaux.Idusuario}{usaux.Usuarios}{usaux.Nombre}{usaux.Apellido}{usaux.Password}{usaux.Mail}{usaux.Estado}{usaux.Baja_Logica}";
+                int Digito = D.ConvertToAscii(DV);
+                string Consulta = "UPDATE Usuarios set UsuDVH=" + Digito + " where Idusu=" + usaux.Idusuario;
+                gestorusuarios.Consultar(Consulta);
+                string actDVV = " UPDATE DVV SET DVV_SUMA = (SELECT SUM(UsuDVH) FROM Usuarios) WHERE DVV_TABLA='Usuarios'";
+                gestorusuarios.Consultar(actDVV);
+                MessageBox.Show("El usuario fue modificado con exito");
+                enlazar();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Debe seleccionar un usuario");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (button5.Visible!=false)
+            {
+                enlazar();
+                button5.Visible = false;
+               
+            }
+            else
+            {
+                button5.Visible = true;
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = gestorusuarios.Listadeusu().Where(x => x.Baja_Logica == true).ToList();
+                dataGridView1.Columns["Idusuario"].Visible = false;
+                dataGridView1.Columns["Password"].Visible = false;
+                dataGridView1.Columns["Idioma2"].Visible = false;
+                dataGridView1.Columns["Baja_Logica"].Visible = false;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                usaux.Baja_Logica = true;
+                string consulta = "update Usuarios set UsubajaL=0 where Idusu=" + lblidcl.Text;
+                gestorusuarios.Consultar(consulta);
+                string DV = $"{usaux.Idioma2}{usaux.Idusuario}{usaux.Usuarios}{usaux.Nombre}{usaux.Apellido}{usaux.Password}{usaux.Mail}{usaux.Estado}{usaux.Baja_Logica}";
+                int Digito = D.ConvertToAscii(DV);
+                string Consulta = "UPDATE Usuarios set UsuDVH=" + Digito + " where Idusu=" + usaux.Idusuario;
+                gestorusuarios.Consultar(Consulta);
+                string actDVV = " UPDATE DVV SET DVV_SUMA = (SELECT SUM(UsuDVH) FROM Usuarios) WHERE DVV_TABLA='Usuarios'";
+                gestorusuarios.Consultar(actDVV);
+                MessageBox.Show("El usuario fue reactivado con exito");
+                enlazar();
+                button5.Visible=false;
+                limpiar();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Debe seleccionar un usuario");
             }
         }
     }

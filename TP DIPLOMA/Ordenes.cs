@@ -1,19 +1,20 @@
-﻿using Seguridad.Singleton;
+﻿using BE;
+using Seguridad;
+using Seguridad.Composite;
+using Seguridad.MultiIdioma;
+using Seguridad.Singleton;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using BE;
-using Seguridad;
-using Seguridad.Composite;
-using Seguridad.MultiIdioma;
 
 namespace TP_DIPLOMA
 {
@@ -108,8 +109,8 @@ namespace TP_DIPLOMA
             if (label4.Tag != null && traducciones.ContainsKey(label4.Tag.ToString()))
                 label4.Text = traducciones[label4.Tag.ToString()].Texto;
 
-            if (label5.Tag != null && traducciones.ContainsKey(label5.Tag.ToString()))
-                label5.Text = traducciones[label5.Tag.ToString()].Texto;
+            //if (label5.Tag != null && traducciones.ContainsKey(label5.Tag.ToString()))
+                //label5.Text = traducciones[label5.Tag.ToString()].Texto;
 
             if (label6.Tag != null && traducciones.ContainsKey(label6.Tag.ToString()))
                 label6.Text = traducciones[label6.Tag.ToString()].Texto;
@@ -234,7 +235,7 @@ namespace TP_DIPLOMA
                         label8.Text = item.Tipo + "-" + item.Medidas;
                     }
                 }
-                label5.Text = detail.Idpedido.ToString();
+                label5.Text = detalles.ID_producto.ToString();
                 textBox2.Text = detail.Costo.ToString();
             }
             catch (Exception)
@@ -254,12 +255,12 @@ namespace TP_DIPLOMA
                     {
                         if (item.Cotizaciones != 0)
                         {
-                            cotis.ID_pedido = item.ID_pedido;
-                            cotis.ID_idprov = item.ID_idprov;
-                            cotis.Cotizaciones = item.Cotizaciones;
-                            cotis.Fechagen = item.Fechagen;
-                            cotis.Fechaact = item.Fechaact;
-                            cotis.Estado = item.Estado;
+                            cotis.ID_pedido     = item.ID_pedido;
+                            cotis.ID_idprov     = item.ID_idprov;
+                            cotis.Cotizaciones  = item.Cotizaciones;
+                            cotis.Fechagen      = item.Fechagen;
+                            cotis.Fechaact      = item.Fechaact;
+                            cotis.Estado        = item.Estado;
 
                             string consulta = "Update Cotizacion set Estado= 4 where IDPEDIDO=" + int.Parse(textBox1.Text);
                             gestorped.Consulta(consulta);
@@ -268,6 +269,12 @@ namespace TP_DIPLOMA
                             CargarBitacora(SingletonSesion.Instancia.Usuario.usuario, "Generacion de orden de compra", "Media", "Compras");
                             LLenarbitacoraC();
                             MessageBox.Show("Se genero la orden de compra con exito");
+                            string dvhrow = $"{cotis.ID_pedido}{cotis.ID_idprov}{cotis.Estado}{cotis.Fechaact.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cotis.Fechagen.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cotis.Cotizaciones}";
+                            int DVH=DV.ConvertToAscii(dvhrow);
+                            string consultaDVH = "Update Cotizacion set DVH=" + DVH + " where IDPEDIDO=" + cotis.ID_pedido + " AND IDPROV=" + cotis.ID_idprov;
+                            gestBT.Consultar(consultaDVH);
+                            string DVV = "UPDATE dbo.DVV SET DVV_SUMA = ISNULL((SELECT SUM(DVH) FROM dbo.Cotizacion), 0) + ISNULL((SELECT SUM(DVH) FROM dbo.[Compras Det]), 0) WHERE  DVV_TABLA = N'Compras'";
+                            gestBT.Consultar(DVV);
                         }
                         else
                         {
@@ -305,6 +312,7 @@ namespace TP_DIPLOMA
             {
                 if (item.ID_pedido == int.Parse(textBox1.Text))
                 {
+                    
                     suma = suma + item.Costo;
                 }
             }
@@ -312,6 +320,25 @@ namespace TP_DIPLOMA
             string contuls = "Update Cotizacion set Cotizacion= " + suma + " where IDPEDIDO=" + int.Parse(textBox1.Text);
             gestorped.Consulta(contuls);
             //data2();
+            BE.Cotizacion cot= new BE.Cotizacion();
+            foreach (BE.Cotizacion item in gestorped.traercotizaciones())
+            {
+                if (item.ID_pedido == int.Parse(textBox1.Text))
+                {
+                    cot.ID_pedido = item.ID_pedido;
+                    cot.ID_idprov = item.ID_idprov;
+                    cot.Estado = item.Estado;
+                    cot.Fechagen = item.Fechagen;
+                    cot.Fechaact = item.Fechaact;
+                    cot.Cotizaciones=item.Cotizaciones;                
+
+                }
+            }            
+            string Dvcot=$"{cot.ID_pedido}{cot.ID_idprov}{cot.Estado}{cot.Fechaact.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cot.Fechagen.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cot.Cotizaciones}";
+            int DVHc=DV.ConvertToAscii(Dvcot);
+            contuls = "Update Cotizacion set DVH=" + DVHc + " where IDPEDIDO="+cot.ID_pedido+" and IDPROV="+cot.ID_idprov;
+            gestBT.Consultar(contuls);
+
             enlazar();
         }
         private void button3_Click(object sender, EventArgs e)/// editar costo de los productos y sacar el total
@@ -319,7 +346,7 @@ namespace TP_DIPLOMA
             try
             {
                 string consulta = "Update [Compras Det] set Precio=" + double.Parse(textBox2.Text) + " where IDPEDIDO=" + int.Parse(textBox1.Text) + " AND IDPROD=" + int.Parse(label5.Text);
-
+                gestorped.Consulta(consulta);
                 foreach (BE.ComprasDEt item in gestorped.traerdetallepedido())
                 {
                     if (item.ID_pedido== int.Parse(textBox1.Text) &&item.ID_producto== int.Parse(label5.Text))
@@ -334,19 +361,20 @@ namespace TP_DIPLOMA
                         string str = $"{ item.ID_pedido}{ item.ID_producto}{ item.ID_prov}{ item.Cantidad}{ item.Costo}";
 
                         int dv = DV.ConvertToAscii(str);
-                        string consultaDV= "Update[Compras Det] set DVH= "+ dv +" where ID_pedido="+item.ID_pedido+ " AND ID_producto="+item.ID_producto +" AND ID_proveedor=" + item.ID_prov;
+                        string consultaDV= "Update[Compras Det] set DVH= "+ dv + " where IDPEDIDO=" + item.ID_pedido+ " AND IDPROD="+item.ID_producto +" AND IDPROV=" + item.ID_prov;
 
                         gestBT.Consultar(consultaDV);
                         
 
                     }
                 }
-                gestorped.Consulta(consulta);
+                
                 data2();
                 sumar();
                 string DVV = "UPDATE dbo.DVV SET DVV_SUMA = ISNULL((SELECT SUM(DVH) FROM dbo.Cotizacion), 0) + ISNULL((SELECT SUM(DVH) FROM dbo.[Compras Det]), 0) WHERE  DVV_TABLA = N'Compras'";
                 gestBT.Consultar(DVV);
-
+                CargarBitacora(SingletonSesion.Instancia.Usuario.usuario,"Cotizacion actualizada del pedido:"+ int.Parse(textBox1.Text),"Baja","Compras");
+                //dataGridView2.DataSource = null;
             }
             catch (Exception)
             {
@@ -354,6 +382,7 @@ namespace TP_DIPLOMA
                 throw;
             }
         }
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -446,6 +475,108 @@ namespace TP_DIPLOMA
         {
             comboBox1.SelectedIndex = 0;
             data2();
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+
+            // 🔒 Blindaje total
+            if (dataGridView1.Columns == null || dataGridView1.Columns.Count == 0)
+                return;
+
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            MapTags_Pedidos(dataGridView1);
+            TraducirHeadersGrid(dataGridView1, traducciones);
+
+
+        }
+
+
+        private void MapTags_Pedidos(DataGridView dgv)
+        {
+
+
+            if (dgv.Columns.Count == 0) return;
+
+            SetColTag(dgv, "ID_pedido", "Nro.pedidp");
+            SetColTag(dgv, "Cliente", "prov");
+            SetColTag(dgv, "Total", "Precio");
+            SetColTag(dgv, "Generado", "Generado");
+            SetColTag(dgv, "Actualizado", "Actualizado");
+            SetColTag(dgv, "Estado", "estado");
+
+
+        }
+
+        private void SetColTag(DataGridView dgv, string colNameOrAlias, string tagKey)
+        {
+            // Busca por Name
+            if (dgv.Columns.Contains(colNameOrAlias))
+            {
+                dgv.Columns[colNameOrAlias].Tag = tagKey;
+                return;
+            }
+
+            var col = dgv.Columns
+                         .Cast<DataGridViewColumn>()
+                         .FirstOrDefault(c =>
+                             string.Equals(c.DataPropertyName, colNameOrAlias, StringComparison.OrdinalIgnoreCase));
+            if (col != null) col.Tag = tagKey;
+        }
+
+
+        private void TraducirHeadersGrid(DataGridView dgv, IDictionary<string, ITraduccion> traducciones)
+        {
+
+            if (dgv.Columns.Count == 0 || traducciones == null)
+                return;
+
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                if (col.Name != null && col.Tag != null &&
+                    traducciones.ContainsKey(col.Tag.ToString()))
+                {
+                    col.HeaderText = traducciones[col.Tag.ToString()].Texto;
+                }
+            }
+
+        }
+        private void dataGridView2_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+
+            // 🔒 Blindaje total
+            if (dataGridView2.Columns == null || dataGridView2.Columns.Count == 0)
+                return;
+
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            MapTags_Pedidos2(dataGridView2);
+            TraducirHeadersGrid(dataGridView2, traducciones);
+
+
+        }
+
+
+        private void MapTags_Pedidos2(DataGridView dgv)
+        {
+            if (dgv.Columns.Count == 0) return;
+
+            SetColTag(dgv, "Cliente", "prov");
+            SetColTag(dgv, "Producto", "prod");
+            SetColTag(dgv, "Cantidad", "cant");
+            SetColTag(dgv, "Costo", "Costo");
+          
         }
     }
     

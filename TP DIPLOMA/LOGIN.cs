@@ -94,32 +94,32 @@ namespace TP_DIPLOMA
 
                 if (user.Estado == true)
                 {
-
-                    MessageBox.Show(gestoruser.login(controlUsuario1.Texto, cotrolPass1.Texto), "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    gestoruser.login(controlUsuario1.Texto, cotrolPass1.Texto);
+                    
                     if (SingletonSesion.Instancia.IsLogged())
                     {
 
                         if (Integridad() == true)
                         {
-                            if (true)
-                            {
-                                if (SingletonSesion.Instancia.Usuario.usuario == "Admin")
-                                {
-                                    MessageBox.Show("Administrador de encontro una incosistencia en la base de datos, por favor ejecutar respaldo");
-                                    Administracion adm = new Administracion();
-                                    adm.Show();
-                                    this.Hide();
-                                }
-                                ////Aca vamos a agregar la validacion de si es un usuario webmaster para poder hacer el backup/Restore
+                          
+                          
+                           if (SingletonSesion.Instancia.Usuario.usuario == "Admin")
+                           {
+                               MessageBox.Show("Administrador de encontro una incosistencia en la base de datos, por favor ejecutar respaldo", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                               BACKUP adm = new BACKUP();
+                               adm.Show();
+                               this.Hide();
                             }
                             else
                             {
                                 MessageBox.Show("No se puede ingresar en este momento, por favor couniquese con el administrador, muchas gracias!");
                             }
+                           ////Aca vamos a agregar la validacion de si es un usuario webmaster para poder hacer el backup/Restore
+                            
                         }
                         else
                         {
-
+                            MessageBox.Show("Bienvenido a " + controlUsuario1.Texto, "SyT Nova", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             CargarBitacora(controlUsuario1.Texto, "Inicio de sesion", "Baja", "LOGIN");
                             Administracion adm = new Administracion();
                             adm.Show();

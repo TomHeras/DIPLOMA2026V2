@@ -100,6 +100,8 @@ namespace TP_DIPLOMA.Negocio
             _bsCarrito.DataSource = GetCarrito.lista();
             dataGridView1.DataSource = _bsCarrito;
             _bsCarrito.ResetBindings(false);
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
 
         }
 

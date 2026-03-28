@@ -29,7 +29,6 @@ namespace TP_DIPLOMA
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CambiarCave));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,7 +41,7 @@ namespace TP_DIPLOMA
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label1.BackColor = System.Drawing.SystemColors.Window;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(35, 36);
             this.label1.Name = "label1";
@@ -53,7 +52,7 @@ namespace TP_DIPLOMA
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label2.BackColor = System.Drawing.SystemColors.Window;
             this.label2.Location = new System.Drawing.Point(38, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 13);
@@ -63,7 +62,7 @@ namespace TP_DIPLOMA
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label3.BackColor = System.Drawing.SystemColors.Window;
             this.label3.Location = new System.Drawing.Point(38, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 13);
@@ -72,23 +71,23 @@ namespace TP_DIPLOMA
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(188, 33);
+            this.textBox1.Location = new System.Drawing.Point(162, 32);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(118, 20);
             this.textBox1.TabIndex = 3;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(188, 69);
+            this.textBox2.Location = new System.Drawing.Point(162, 68);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.Size = new System.Drawing.Size(118, 20);
             this.textBox2.TabIndex = 4;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(188, 114);
+            this.textBox3.Location = new System.Drawing.Point(162, 113);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.Size = new System.Drawing.Size(118, 20);
             this.textBox3.TabIndex = 5;
             // 
             // button1
@@ -106,7 +105,7 @@ namespace TP_DIPLOMA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::TP_DIPLOMA.Properties.Resources.Logo;
             this.ClientSize = new System.Drawing.Size(339, 240);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox3);

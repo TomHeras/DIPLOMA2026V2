@@ -29,10 +29,12 @@ namespace TP_DIPLOMA
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PermisosUsuarios));
             this.cmdGuardar = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.grpPatentes = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmbusers = new System.Windows.Forms.ComboBox();
             this.btnagregarfamilia = new System.Windows.Forms.Button();
             this.cboFamilias = new System.Windows.Forms.ComboBox();
@@ -42,9 +44,6 @@ namespace TP_DIPLOMA
             this.lblagrepat = new System.Windows.Forms.Label();
             this.cmdConfigurar = new System.Windows.Forms.Button();
             this.lblallusers = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.grpPatentes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +69,6 @@ namespace TP_DIPLOMA
             // 
             // grpPatentes
             // 
-            this.grpPatentes.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("grpPatentes.BackgroundImage")));
             this.grpPatentes.Controls.Add(this.button1);
             this.grpPatentes.Controls.Add(this.comboBox1);
             this.grpPatentes.Controls.Add(this.label1);
@@ -92,6 +90,39 @@ namespace TP_DIPLOMA
             this.grpPatentes.TabStop = false;
             this.grpPatentes.Tag = "user";
             this.grpPatentes.Text = "Usuarios";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(11, 304);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 25);
+            this.button1.TabIndex = 17;
+            this.button1.Tag = "agregar";
+            this.button1.Text = "Agregar >>";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(11, 280);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(234, 21);
+            this.comboBox1.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 263);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Tag = "agrepat";
+            this.label1.Text = "Agregar perfiles";
             // 
             // cmbusers
             // 
@@ -190,39 +221,6 @@ namespace TP_DIPLOMA
             this.lblallusers.TabIndex = 5;
             this.lblallusers.Tag = "todoslosusuarios";
             this.lblallusers.Text = "Todos los usuarios";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(11, 304);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 25);
-            this.button1.TabIndex = 17;
-            this.button1.Tag = "agregar";
-            this.button1.Text = "Agregar >>";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(11, 280);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(234, 21);
-            this.comboBox1.TabIndex = 16;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 263);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Tag = "agrepat";
-            this.label1.Text = "Agregar perfiles";
             // 
             // PermisosUsuarios
             // 
