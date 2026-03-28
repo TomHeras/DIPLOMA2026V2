@@ -107,6 +107,7 @@ namespace TP_DIPLOMA
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(316, 63);
             this.dataGridView1.Name = "dataGridView1";
@@ -138,8 +139,6 @@ namespace TP_DIPLOMA
             // 
             // comboBox1
             // 
-            this.comboBox1.DataSource = this.idiomaBindingSource1;
-            this.comboBox1.DisplayMember = "Nombre";
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(131, 292);
             this.comboBox1.Name = "comboBox1";

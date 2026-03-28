@@ -121,7 +121,7 @@ namespace TP_DIPLOMA
                         {
                             MessageBox.Show("Bienvenido a " + controlUsuario1.Texto, "SyT Nova", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             CargarBitacora(controlUsuario1.Texto, "Inicio de sesion", "Baja", "LOGIN");
-                            Administracion adm = new Administracion();
+                             Administracion adm = new Administracion();
                             adm.Show();
                             this.Hide();
 
@@ -340,20 +340,21 @@ namespace TP_DIPLOMA
         BLL.Negocio.Pedidos gestorpedidos = new BLL.Negocio.Pedidos();
         public bool Integridad()
         {
+            BE.userauxiliar user = new userauxiliar();
             int DVH = 0;
-            foreach (BE.Usuario item in gestoruser.Traer())
+            foreach (BE.userauxiliar item in gestoruser.Listadeusu())
             {
                 user.Idusuario = item.Idusuario;
-                user.Idioma = item.Idioma;
+                user.Idioma2 = item.Idioma2;
                 user.Nombre = item.Nombre;
                 user.Apellido = item.Apellido;
                 user.Mail = item.Mail;
                 user.Usuarios = item.Usuarios;
                 user.Password = item.Password;
                 user.Estado = item.Estado;
-                user.Baja_logica = item.Baja_logica;
+                user.Baja_Logica = item.Baja_Logica;
 
-                string DV = $"{user.Idusuario}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{user.Baja_logica}";
+                string DV = $"{user.Idioma2}{user.Idusuario}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{user.Baja_Logica}";
 
                 DVH = DVH + DVs.ConvertToAscii(DV);
 

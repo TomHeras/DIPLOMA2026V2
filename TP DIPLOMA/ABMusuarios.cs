@@ -59,7 +59,8 @@ namespace TP_DIPLOMA
             {
                
                 comboBox1.DataSource = GetTraductor.ObtenerIdiomas();
-                comboBox1.DisplayMember = "Nombre"; 
+                comboBox1.DisplayMember = "Nombre";
+                comboBox1.ValueMember = "Id";
 
             }
             catch (Exception ex)
@@ -121,11 +122,18 @@ namespace TP_DIPLOMA
 
             lblidcl.Text = usaux.Idusuario.ToString();
             controlUsuario1.Texto = usaux.Nombre.ToString();
+            foreach (BE.Iidioma item in GetTraductor.ObtenerIdiomas())
+            {
+                if (item.Id==usaux.Idioma2)
+                {
+                    comboBox1.Text = item.Nombre;
+                }
+            }
             controlUsuarioApellido.Texto = usaux.Apellido.ToString();
             controlUsuario2.Texto = usaux.Usuarios.ToString();
             controlUsuario3.Texto = usaux.Password.ToString();
             controlUsuario4.Texto = usaux.Mail.ToString();
-            comboBox1.Text = usaux.Idioma2.ToString();
+            //comboBox1.Text = usaux.Idioma2.ToString();
             
             if (usaux.Estado == true)
             {
@@ -246,7 +254,7 @@ namespace TP_DIPLOMA
                     item.Nombre = controlUsuario1.Texto;
                     item.Apellido = controlUsuarioApellido.Texto;
                     item.Usuarios = controlUsuario2.Texto;
-                    item.Password = Encriptador.Hash(controlUsuario3.Texto);
+                    //item.Password = Encriptador.Hash(controlUsuario3.Texto);
                     item.Mail = controlUsuario4.Texto;
                     item.Idioma2 = comboBox1.SelectedIndex + 1;
                     item.Baja_Logica = false;

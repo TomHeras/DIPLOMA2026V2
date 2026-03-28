@@ -98,8 +98,14 @@ namespace DAL
 
             foreach (DataRow registro in tabla.Rows)
             {
+                var x = new Idiomas()
+                {
+                    Id = int.Parse(registro["IdIdioma"].ToString())
+                };
+
                 BE.Usuario usu = new BE.Usuario();
                 usu.Idusuario = int.Parse(registro["IdUsu"].ToString());
+                usu.Idioma.Id = x.Id;
                 usu.Nombre = registro["UsuNom"].ToString();
                 usu.Usuarios = registro["UsuNick"].ToString();
                 usu.Password = registro["Usupass"].ToString();
