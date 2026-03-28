@@ -135,7 +135,7 @@ namespace TP_DIPLOMA.Negocio
                         coti.Cotizaciones = item.Cotizaciones;
                         coti.Fechagen = item.Fechagen;
                         coti.Fechaact = item.Fechaact;
-                        coti.Estado = item.Estado;
+                        coti.Estado = int.Parse(comboBox1.SelectedValue.ToString());
                         estado();
                         LLenarbitacoraC();
                         MessageBox.Show("El Estado Fue cambiado con exito");
@@ -249,7 +249,7 @@ namespace TP_DIPLOMA.Negocio
             catch (Exception)
             {
 
-                throw;
+                MessageBox.Show("Por favor seleccione una orden válida", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

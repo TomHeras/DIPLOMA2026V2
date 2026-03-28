@@ -64,6 +64,7 @@ namespace TP_DIPLOMA
             this.groupBox2.Size = new System.Drawing.Size(675, 286);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Tag = "grb-idioma";
             this.groupBox2.Text = "Gestionar Idioma";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
@@ -73,6 +74,7 @@ namespace TP_DIPLOMA
             this.btnguardar.Name = "btnguardar";
             this.btnguardar.Size = new System.Drawing.Size(121, 23);
             this.btnguardar.TabIndex = 8;
+            this.btnguardar.Tag = "btn-cambios";
             this.btnguardar.Text = "Guardar Cambios";
             this.btnguardar.UseVisualStyleBackColor = true;
             this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
@@ -91,6 +93,7 @@ namespace TP_DIPLOMA
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 6;
+            this.label4.Tag = "lblTradu";
             this.label4.Text = "Traducción";
             // 
             // txtetiqueta
@@ -107,6 +110,7 @@ namespace TP_DIPLOMA
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 4;
+            this.label3.Tag = "lbletiqueta";
             this.label3.Text = "Etiqueta";
             // 
             // btnbuscar
@@ -115,12 +119,14 @@ namespace TP_DIPLOMA
             this.btnbuscar.Name = "btnbuscar";
             this.btnbuscar.Size = new System.Drawing.Size(75, 23);
             this.btnbuscar.TabIndex = 3;
+            this.btnbuscar.Tag = "btnbuscar";
             this.btnbuscar.Text = "Buscar";
             this.btnbuscar.UseVisualStyleBackColor = true;
             this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
             // 
             // GrillaIdioma
             // 
+            this.GrillaIdioma.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaIdioma.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaIdioma.Location = new System.Drawing.Point(39, 73);
             this.GrillaIdioma.Name = "GrillaIdioma";
@@ -128,6 +134,7 @@ namespace TP_DIPLOMA
             this.GrillaIdioma.TabIndex = 2;
             this.GrillaIdioma.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaIdioma_CellClick);
             this.GrillaIdioma.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaIdioma_CellContentClick);
+            this.GrillaIdioma.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             // 
             // label2
             // 
@@ -136,6 +143,7 @@ namespace TP_DIPLOMA
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 1;
+            this.label2.Tag = "seleccionar_idioma";
             this.label2.Text = "Seleccionar Idioma";
             // 
             // cmbidioma2
@@ -156,6 +164,7 @@ namespace TP_DIPLOMA
             this.groupBox1.Size = new System.Drawing.Size(675, 106);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Tag = "btnNuevoidioma";
             this.groupBox1.Text = "Agregar Nuevo Idioma";
             // 
             // btnagregar
@@ -164,6 +173,7 @@ namespace TP_DIPLOMA
             this.btnagregar.Name = "btnagregar";
             this.btnagregar.Size = new System.Drawing.Size(75, 23);
             this.btnagregar.TabIndex = 2;
+            this.btnagregar.Tag = "btn-agregar";
             this.btnagregar.Text = "Agregar";
             this.btnagregar.UseVisualStyleBackColor = true;
             this.btnagregar.Click += new System.EventHandler(this.btnagregar_Click);
@@ -208,6 +218,7 @@ namespace TP_DIPLOMA
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
+            this.label1.Tag = "lblidioma";
             this.label1.Text = "Idioma :";
             // 
             // Idioma
@@ -219,6 +230,7 @@ namespace TP_DIPLOMA
             this.Controls.Add(this.groupBox1);
             this.Name = "Idioma";
             this.Text = "Idioma";
+            this.Load += new System.EventHandler(this.Idioma_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaIdioma)).EndInit();

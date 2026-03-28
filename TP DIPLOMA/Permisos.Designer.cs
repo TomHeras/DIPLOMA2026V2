@@ -79,6 +79,7 @@ namespace TP_DIPLOMA
             this.groupBox4.Size = new System.Drawing.Size(290, 249);
             this.groupBox4.TabIndex = 15;
             this.groupBox4.TabStop = false;
+            this.groupBox4.Tag = "lblconfig";
             this.groupBox4.Text = "Configurar ";
             // 
             // cmdGuardarFamilia
@@ -88,6 +89,7 @@ namespace TP_DIPLOMA
             this.cmdGuardarFamilia.Name = "cmdGuardarFamilia";
             this.cmdGuardarFamilia.Size = new System.Drawing.Size(110, 19);
             this.cmdGuardarFamilia.TabIndex = 1;
+            this.cmdGuardarFamilia.Tag = "btn-guardar";
             this.cmdGuardarFamilia.Text = "Guardar ";
             this.cmdGuardarFamilia.UseVisualStyleBackColor = true;
             this.cmdGuardarFamilia.Click += new System.EventHandler(this.cmdGuardarFamilia_Click);
@@ -114,6 +116,7 @@ namespace TP_DIPLOMA
             this.groupBox2.Size = new System.Drawing.Size(290, 249);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Tag = "lblflias";
             this.groupBox2.Text = "Familias";
             // 
             // cmdSeleccionar
@@ -123,6 +126,7 @@ namespace TP_DIPLOMA
             this.cmdSeleccionar.Name = "cmdSeleccionar";
             this.cmdSeleccionar.Size = new System.Drawing.Size(98, 32);
             this.cmdSeleccionar.TabIndex = 11;
+            this.cmdSeleccionar.Tag = "btnconfig";
             this.cmdSeleccionar.Text = "Configurar";
             this.cmdSeleccionar.UseVisualStyleBackColor = true;
             this.cmdSeleccionar.Click += new System.EventHandler(this.cmdSeleccionar_Click);
@@ -134,6 +138,7 @@ namespace TP_DIPLOMA
             this.cmdAgregarFamilia.Name = "cmdAgregarFamilia";
             this.cmdAgregarFamilia.Size = new System.Drawing.Size(98, 32);
             this.cmdAgregarFamilia.TabIndex = 10;
+            this.cmdAgregarFamilia.Tag = "btn-agregarper";
             this.cmdAgregarFamilia.Text = "Agregar >> ";
             this.cmdAgregarFamilia.UseVisualStyleBackColor = true;
             this.cmdAgregarFamilia.Click += new System.EventHandler(this.cmdAgregarFamilia_Click);
@@ -150,6 +155,7 @@ namespace TP_DIPLOMA
             this.groupBox3.Size = new System.Drawing.Size(232, 93);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
+            this.groupBox3.Tag = "lblnewpermiso";
             this.groupBox3.Text = "Nueva";
             // 
             // btnGuardarFamilia
@@ -159,6 +165,7 @@ namespace TP_DIPLOMA
             this.btnGuardarFamilia.Name = "btnGuardarFamilia";
             this.btnGuardarFamilia.Size = new System.Drawing.Size(56, 19);
             this.btnGuardarFamilia.TabIndex = 4;
+            this.btnGuardarFamilia.Tag = "btn-guardar";
             this.btnGuardarFamilia.Text = "Guardar";
             this.btnGuardarFamilia.UseVisualStyleBackColor = true;
             this.btnGuardarFamilia.Click += new System.EventHandler(this.btnGuardarFamilia_Click);
@@ -179,6 +186,7 @@ namespace TP_DIPLOMA
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 2;
+            this.label5.Tag = "Nombre";
             this.label5.Text = "Nombre";
             // 
             // cboFamilias
@@ -199,6 +207,7 @@ namespace TP_DIPLOMA
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 13);
             this.label4.TabIndex = 7;
+            this.label4.Tag = "lbltodaslasflias";
             this.label4.Text = "Todas las familias";
             // 
             // grpPatentes
@@ -214,6 +223,7 @@ namespace TP_DIPLOMA
             this.grpPatentes.Size = new System.Drawing.Size(258, 249);
             this.grpPatentes.TabIndex = 13;
             this.grpPatentes.TabStop = false;
+            this.grpPatentes.Tag = "lblpatente";
             this.grpPatentes.Text = "Patentes";
             // 
             // cmdAgregarPatente
@@ -223,6 +233,7 @@ namespace TP_DIPLOMA
             this.cmdAgregarPatente.Name = "cmdAgregarPatente";
             this.cmdAgregarPatente.Size = new System.Drawing.Size(104, 32);
             this.cmdAgregarPatente.TabIndex = 8;
+            this.cmdAgregarPatente.Tag = "btn-agregarper";
             this.cmdAgregarPatente.Text = "Agregar Patente>> ";
             this.cmdAgregarPatente.UseVisualStyleBackColor = true;
             this.cmdAgregarPatente.Click += new System.EventHandler(this.cmdAgregarPatente_Click);
@@ -245,6 +256,7 @@ namespace TP_DIPLOMA
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 5;
+            this.label2.Tag = "lbltodaslaspatetntes";
             this.label2.Text = "Todas las patentes";
             // 
             // groupBox1
@@ -261,6 +273,7 @@ namespace TP_DIPLOMA
             this.groupBox1.Size = new System.Drawing.Size(232, 138);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Tag = "lblnewpermiso";
             this.groupBox1.Text = "Nuevo Permiso";
             // 
             // btnGuardarPatente
@@ -270,6 +283,7 @@ namespace TP_DIPLOMA
             this.btnGuardarPatente.Name = "btnGuardarPatente";
             this.btnGuardarPatente.Size = new System.Drawing.Size(56, 19);
             this.btnGuardarPatente.TabIndex = 4;
+            this.btnGuardarPatente.Tag = "btn-guardar";
             this.btnGuardarPatente.Text = "Guardar";
             this.btnGuardarPatente.UseVisualStyleBackColor = true;
             this.btnGuardarPatente.Click += new System.EventHandler(this.btnGuardarPatente_Click);
@@ -290,6 +304,7 @@ namespace TP_DIPLOMA
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 2;
+            this.label3.Tag = "Nombre";
             this.label3.Text = "Nombre";
             // 
             // cboPermisos
@@ -310,6 +325,7 @@ namespace TP_DIPLOMA
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
+            this.label1.Tag = "lblpermisos";
             this.label1.Text = "Permiso";
             // 
             // groupBox5
@@ -325,6 +341,7 @@ namespace TP_DIPLOMA
             this.groupBox5.Size = new System.Drawing.Size(258, 249);
             this.groupBox5.TabIndex = 15;
             this.groupBox5.TabStop = false;
+            this.groupBox5.Tag = "lblperfiles";
             this.groupBox5.Text = "Perfiles";
             // 
             // btnconfigurarperfiles
@@ -350,6 +367,7 @@ namespace TP_DIPLOMA
             this.groupBox6.Size = new System.Drawing.Size(232, 93);
             this.groupBox6.TabIndex = 9;
             this.groupBox6.TabStop = false;
+            this.groupBox6.Tag = "lblnewpermiso";
             this.groupBox6.Text = "Nueva";
             // 
             // button3
@@ -359,6 +377,7 @@ namespace TP_DIPLOMA
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(56, 19);
             this.button3.TabIndex = 4;
+            this.button3.Tag = "btn-guardar";
             this.button3.Text = "Guardar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -379,6 +398,7 @@ namespace TP_DIPLOMA
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 2;
+            this.label6.Tag = "Nombre";
             this.label6.Text = "Nombre";
             // 
             // cmbperfiles
@@ -399,6 +419,7 @@ namespace TP_DIPLOMA
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(89, 13);
             this.label7.TabIndex = 7;
+            this.label7.Tag = "lbltodosperfiles";
             this.label7.Text = "Todos los perfiles";
             // 
             // Permisos
@@ -411,6 +432,7 @@ namespace TP_DIPLOMA
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.grpPatentes);
             this.Name = "Permisos";
+            this.Tag = "frmPermiso";
             this.Text = "Permisos";
             this.Load += new System.EventHandler(this.Permisos_Load);
             this.groupBox4.ResumeLayout(false);

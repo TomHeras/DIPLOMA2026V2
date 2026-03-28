@@ -56,6 +56,7 @@
     <Compile Include="PP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelacionarPP.cs" />
+    <Compile Include="ReporteI.cs" />
     <Compile Include="Traductor.cs" />
     <Compile Include="Usuarios.cs" />
   </ItemGroup>

@@ -64,6 +64,7 @@ namespace DAL.Maestros
                 sto.Tipo = registro["Tipo"].ToString();
                 sto.Precio = double.Parse(registro["precio"].ToString());
                 sto.Estado = bool.Parse(registro["estado"].ToString());
+                sto.DVH= int.Parse(registro["DVH"].ToString());
                 stok.Add(sto);
             }
             return stok;

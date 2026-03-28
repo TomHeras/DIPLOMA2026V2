@@ -203,21 +203,19 @@ namespace TP_DIPLOMA
 
         private void Traducir()
         {
-            Iidioma idioma = null; // instancio un objeto de la interfaz iidioma 
-            if (SingletonSesion.Instancia.IsLogged()) // si el usuario esta logeado
-                idioma = SingletonSesion.Instancia.Usuario.Idioma; // el objeto idioma va a ser igual a la instancia idioma del usuario
-
-            // creo variable tradduciones y la igualo al metodo obtener traducciones de la clase Traductor
-            // y le paso como parametro el objeto creado idioma
+            BLL.Usuarios usuarios = new BLL.Usuarios();
+            
+            Iidioma idioma = null; 
+            if (SingletonSesion.Instancia.IsLogged()) 
+               
+                idioma = SingletonSesion.Instancia.Usuario.Idioma; 
             var traducciones = tradu.ObtenerTraducciones(idioma);
 
             if (mnusesion.Tag != null && traducciones.ContainsKey(mnusesion.Tag.ToString()))
                 this.mnusesion.Text = traducciones[mnusesion.Tag.ToString()].Texto;
-            // si la etiqueta de mnu session no es nula y además traducciones e traducciones contiene la llave del texto 
-            // igual al texto de la etiqueta
-
-            //if (cambiarContraseñaToolStripMenuItem.Tag != null && traducciones.ContainsKey(cambiarContraseñaToolStripMenuItem.Tag.ToString()))
-            //    this.cambiarContraseñaToolStripMenuItem.Text = traducciones[cambiarContraseñaToolStripMenuItem.Tag.ToString()].Texto;
+          
+            if (tooltripselec.Tag != null && traducciones.ContainsKey(tooltripselec.Tag.ToString()))
+                this.tooltripselec.Text = traducciones[tooltripselec.Tag.ToString()].Texto;
 
             if (mnulogut.Tag != null && traducciones.ContainsKey(mnulogut.Tag.ToString()))
                 this.mnulogut.Text = traducciones[mnulogut.Tag.ToString()].Texto;
@@ -233,7 +231,7 @@ namespace TP_DIPLOMA
                 this.tooltriplista.Text = traducciones[tooltriplista.Tag.ToString()].Texto;
 
 
-            if (smiseguridad.Tag != null && traducciones.ContainsKey(smiseguridad.Tag.ToString()))//no entro
+            if (smiseguridad.Tag != null && traducciones.ContainsKey(smiseguridad.Tag.ToString()))
                 this.smiseguridad.Text = traducciones[smiseguridad.Tag.ToString()].Texto;
 
             if (tooltrippermisos.Tag != null && traducciones.ContainsKey(tooltrippermisos.Tag.ToString()))
@@ -242,13 +240,7 @@ namespace TP_DIPLOMA
             if (tooltrippermisousuario.Tag != null && traducciones.ContainsKey(tooltrippermisousuario.Tag.ToString()))
                 this.tooltrippermisousuario.Text = traducciones[tooltrippermisousuario.Tag.ToString()].Texto;
 
-            //if (mnuges.Tag != null && traducciones.ContainsKey(mnuges.Tag.ToString()))// no entro
-            //    this.mnuges.Text = traducciones[mnuges.Tag.ToString()].Texto;
-
-            //if (mnugesusu.Tag != null && traducciones.ContainsKey(mnugesusu.Tag.ToString()))
-            //    this.mnugesusu.Text = traducciones[mnugesusu.Tag.ToString()].Texto;
-
-
+           
             if (negocioToolStripMenuItem.Tag != null && traducciones.ContainsKey(negocioToolStripMenuItem.Tag.ToString()))
                 this.negocioToolStripMenuItem.Text = traducciones[negocioToolStripMenuItem.Tag.ToString()].Texto;
 
@@ -264,7 +256,7 @@ namespace TP_DIPLOMA
             if (tooltrippermisousuario.Tag != null && traducciones.ContainsKey(tooltrippermisousuario.Tag.ToString()))
                 this.tooltrippermisousuario.Text = traducciones[tooltrippermisousuario.Tag.ToString()].Texto;
 
-            if (tsmabmusuarios.Tag != null && traducciones.ContainsKey(tsmabmusuarios.Tag.ToString()))  //no entro
+            if (tsmabmusuarios.Tag != null && traducciones.ContainsKey(tsmabmusuarios.Tag.ToString()))  
                 this.tsmabmusuarios.Text = traducciones[tsmabmusuarios.Tag.ToString()].Texto;
 
             if (ventasToolStripMenuItem.Tag != null && traducciones.ContainsKey(ventasToolStripMenuItem.Tag.ToString()))//no entro
@@ -349,8 +341,7 @@ namespace TP_DIPLOMA
             if (serealizacionToolStripMenuItem.Tag != null && traducciones.ContainsKey(serealizacionToolStripMenuItem.Tag.ToString()))
                 this.serealizacionToolStripMenuItem.Text = traducciones[serealizacionToolStripMenuItem.Tag.ToString()].Texto;
 
-            //
-            //detallesToolStripMenuItem entonces el texto del menu va a ser igual a lo que hay en traducciones 
+            
 
             if (traducciones.ContainsKey("username"))
                 this.toolStripSesion.Text = $"{traducciones["username"].Texto}: {SingletonSesion.Instancia.Usuario}";
@@ -489,9 +480,9 @@ namespace TP_DIPLOMA
 
         private void reporteDeVentasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Reporte1 repo = new Reporte1();
-            repo.MdiParent = this;
-            repo.Show();
+            FrmReporteInteligente intr=new FrmReporteInteligente();
+            intr.MdiParent = this;
+            intr.Show();
         }
 
         private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -578,10 +569,7 @@ namespace TP_DIPLOMA
         }
 
         private void reporteDeComprasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Reporte2 compas = new Reporte2();
-            //compas.MdiParent = this;
-            //compas.Show();
+        {            
             FrmDashboardVentas venta = new FrmDashboardVentas();
             venta.MdiParent = this;
             venta.Show();

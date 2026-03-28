@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,6 +102,9 @@ namespace TP_DIPLOMA
     
         }
         BLL.Bitacora bitacora = new BLL.Bitacora();
+        BE.Cotizacion coti = new BE.Cotizacion();
+        BLL.Negocio.Pedidos gestorped = new BLL.Negocio.Pedidos();
+        Seguridad.Digitos DV = new Seguridad.Digitos();
         public void LLenarbitacoraC( int estado)
         {
             var idreg = 0;
@@ -143,15 +147,35 @@ namespace TP_DIPLOMA
                         estadoact = item.Estado;
                     }
                 }
+                
                 foreach (BE.BitacoraCAbmios item in gestorbitacora.Cambios())
                 {
                     if (item.Idregistro == idreg2)
                     {
                         int  pedido = idped;
+                        foreach (BE.Cotizacion ite in gestorped.traercotizaciones())
+                        {
+                            if (idped==ite.ID_pedido)
+                            {
+                                coti.ID_pedido = pedido;
+                                coti.ID_idprov = ite.ID_idprov;
+                                coti.Estado = ite.Estado;
+                                coti.Fechagen = ite.Fechagen;
+                                coti.Fechaact=ite.Fechaact;
+                                coti.Cotizaciones=ite.Cotizaciones;
+                            }
+                           
+                        }
                        
+                        
+
                         int estado = Historico.ObtenerEstadoAnterior(pedido);
                         string consulta = "Update Cotizacion set Estado=" + estado + " where IDPEDIDO=" + pedido;
                         gestorbitacora.Consultar(consulta);
+                        string DVCo = $"{coti.ID_pedido}{coti.ID_idprov}{coti.Estado}{coti.Fechaact.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{coti.Fechagen.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{coti.Cotizaciones}";
+                        int DVH = DV.ConvertToAscii(DVCo);
+                        string update = "Update Cotizacion set DVH=" + DVH + " where IDPEDIDO=" + coti.ID_pedido + " AND IDPROV=" + coti.ID_idprov;
+                        gestorbitacora.Consultar(update);
 
                         foreach (BE.ComprasDEt item3 in pedidos.traerdetallepedido())
                         {
@@ -159,15 +183,40 @@ namespace TP_DIPLOMA
                             {
                                 if (estadoact==2)
                                 {
+                                  
                                     foreach (BE.Maestros.Productos item2 in Productos.listar())
                                     {
                                         if (item2.ID_producto == item3.ID_producto)
                                         {
-                                        int cant = item2.Cantidad - item3.Cantidad;
-                                        string consulta2 = "Update Stock set Cantidad=" + cant + "where ID_producto=" + item2.ID_producto;
-                                        gestorbitacora.Consultar(consulta2);
-                                        string contula3 = "Update BitacoraCambios set Estado=" + estado + "where=" + idreg2;
-                                        gestorbitacora.Consultar(contula3);
+                                            if (item.Modulo == "Compras" || item.Modulo == "Cotizaciones")
+                                            {
+                                                BE.Maestros.Productos tmp=new BE.Maestros.Productos();
+                                                int cant = item2.Cantidad - item3.Cantidad;
+                                                string consulta2 = "Update Stock set Cantidad=" + cant + "where ID_producto=" + item2.ID_producto;
+                                                gestorbitacora.Consultar(consulta2);
+                                                //string contula3 = "Update BitacoraCambios set Estado=" + estado + " where=" + idreg2;
+                                                //gestorbitacora.Consultar(contula3);
+                                               
+                                                
+                                                tmp.ID_producto = item3.ID_producto;
+                                                tmp.Medidas = item2.Medidas;
+                                                tmp.Cantidad = item2.Cantidad;
+                                                tmp.Precio = item2.Precio;
+                                                tmp.Estado = item2.Estado;
+
+                                                string dvhP = $"{tmp.ID_producto}|{(tmp.Tipo ?? "").Trim().ToUpperInvariant()}|{Convert.ToDecimal(tmp.Medidas).ToString("0.####", CultureInfo.InvariantCulture)}|{tmp.Cantidad.ToString(CultureInfo.InvariantCulture)}|{Convert.ToDecimal(tmp.Precio).ToString("0.####", CultureInfo.InvariantCulture)}|{(tmp.Estado ? "1" : "0")}";
+                                                DVH = DV.ConvertToAscii(dvhP);
+                                                string consultadv = "UPDATE Stock set DVH= " + DVH + " where ID_producto=" + tmp.ID_producto;
+                                                gestorbitacora.Consultar(consultadv);
+                                                string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM Stock) WHERE DVV_TABLA='Productos'";
+                                                gestorbitacora.Consultar(actDVV);
+
+                                            }
+                                            else if (item.Modulo=="Ventas")
+                                            {
+
+                                            }
+
                                         }
                                     }
 

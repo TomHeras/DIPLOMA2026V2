@@ -29,7 +29,8 @@ namespace DAL.Maestros
                 prove.CUIL= long.Parse(registro["CUIL"].ToString());
                 prove.Email = registro["Email"].ToString();
                 prove.Estado = bool.Parse(registro["estado"].ToString());
-                
+                prove.DDVH= int.Parse(registro["DVH"].ToString());
+
                 prov.Add(prove);
             }
 

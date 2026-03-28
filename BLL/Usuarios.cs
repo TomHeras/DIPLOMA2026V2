@@ -14,9 +14,11 @@ namespace BLL
     {
         BE.Usuario user = new BE.Usuario();
         DAL.Usuario Mapper = new DAL.Usuario();
+        Traductor idioma = new Traductor();
 
         public string login(string usu, string pass)
         {
+            BE.Iidioma iidioma = null;
             if (SingletonSesion.Instancia.IsLogged())
                 throw new Exception("ya hay una sesion iniciada");
             var a = Mapper.traerumbreusuario(usu);
@@ -27,6 +29,20 @@ namespace BLL
             else
             {
                 SingletonSesion.Instancia.LogIn(a);
+                foreach (BE.Usuario item in Mapper.LeerUsuarios())
+                {
+                    if (item.Usuarios == usu)
+                    {
+                        foreach (BE.Iidioma item2 in idioma.ObtenerIdiomas())
+                        {
+                            if (item2.Id == item.Idioma.Id)
+                            {
+                                iidioma = item.Idioma;
+                                SingletonSesion.Instancia.Usuario.Idioma = iidioma;
+                            }
+                        }
+                    }
+                }
                 return ("Inicio de Sesion Exitoso");
             }
 
@@ -110,6 +126,10 @@ namespace BLL
         {
             int fa=Mapper.ObtenerUltimoIdUsuario();
             return fa;
+        }
+        public List<BE.userauxiliar> DVHus()
+        {
+            return Mapper.UsuarioDVH();
         }
     }
 }

@@ -168,7 +168,7 @@ namespace TP_DIPLOMA
             catch (Exception)
             {
 
-                throw;
+                MessageBox.Show("Por favor seleccione una orden válida", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         public void data2()
@@ -241,7 +241,7 @@ namespace TP_DIPLOMA
             catch (Exception)
             {
 
-                throw;
+                MessageBox.Show("Por favor seleccione unproducto", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -269,7 +269,7 @@ namespace TP_DIPLOMA
                             CargarBitacora(SingletonSesion.Instancia.Usuario.usuario, "Generacion de orden de compra", "Media", "Compras");
                             LLenarbitacoraC();
                             MessageBox.Show("Se genero la orden de compra con exito");
-                            string dvhrow = $"{cotis.ID_pedido}{cotis.ID_idprov}{cotis.Estado}{cotis.Fechaact.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cotis.Fechagen.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cotis.Cotizaciones}";
+                            string dvhrow = $"{cotis.ID_pedido}{cotis.ID_idprov}{4}{cotis.Fechaact.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cotis.Fechagen.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}{cotis.Cotizaciones}";
                             int DVH=DV.ConvertToAscii(dvhrow);
                             string consultaDVH = "Update Cotizacion set DVH=" + DVH + " where IDPEDIDO=" + cotis.ID_pedido + " AND IDPROV=" + cotis.ID_idprov;
                             gestBT.Consultar(consultaDVH);
@@ -504,7 +504,7 @@ namespace TP_DIPLOMA
 
             if (dgv.Columns.Count == 0) return;
 
-            SetColTag(dgv, "ID_pedido", "Nro.pedidp");
+            SetColTag(dgv, "ID_pedido", "nro_pedido");
             SetColTag(dgv, "Cliente", "prov");
             SetColTag(dgv, "Total", "Precio");
             SetColTag(dgv, "Generado", "Generado");

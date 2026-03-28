@@ -237,12 +237,6 @@
     <Compile Include="Reporte1.Designer.cs">
       <DependentUpon>Reporte1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reporte2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reporte2.Designer.cs">
-      <DependentUpon>Reporte2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reportes\FrmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +248,12 @@
     </Compile>
     <Compile Include="Reportes\FrmDashboardCompras.Designer.cs">
       <DependentUpon>FrmDashboardCompras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\FrmReporteInteligente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\FrmReporteInteligente.Designer.cs">
+      <DependentUpon>FrmReporteInteligente.cs</DependentUpon>
     </Compile>
     <Compile Include="Restaurar.cs">
       <SubType>Form</SubType>
@@ -346,14 +346,14 @@
     <EmbeddedResource Include="Reporte1.resx">
       <DependentUpon>Reporte1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reporte2.resx">
-      <DependentUpon>Reporte2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\FrmDashboard.resx">
       <DependentUpon>FrmDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\FrmDashboardCompras.resx">
       <DependentUpon>FrmDashboardCompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\FrmReporteInteligente.resx">
+      <DependentUpon>FrmReporteInteligente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Restaurar.resx">
       <DependentUpon>Restaurar.cs</DependentUpon>
@@ -434,6 +434,7 @@
     <Content Include="Imagenes\Diseño.png" />
     <Content Include="Imagenes\Logo.png" />
     <Content Include="Imagenes\logochico.png" />
+    <Content Include="Imagenes\permisos.ico" />
     <Content Include="Imagenes\pngimg.com - buttons_PNG1.png" />
     <Content Include="Imagenes\Recuperar.jpg" />
     <Content Include="Imagenes\Sesion.png" />
@@ -442,9 +443,7 @@
     <Content Include="Logo-SyT.png" />
     <None Include="Resources\Recuperar.jpg" />
     <None Include="Resources\syt_logo_small.png" />
-    <Content Include="Scripts\ReporteComprasDashboard.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Scripts\DiplomaIntelligente.exe" />
     <Content Include="Scripts\ReporteVentasDashboard.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

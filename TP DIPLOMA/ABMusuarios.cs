@@ -38,7 +38,7 @@ namespace TP_DIPLOMA
             dataGridView1.Columns["Password"].Visible = false;
             dataGridView1.Columns["Idioma2"].Visible = false;
             dataGridView1.Columns["Baja_Logica"].Visible = false;
-
+            dataGridView1.Columns["DVH"].Visible = false;
         }
 
         public void limpiar()
@@ -59,7 +59,8 @@ namespace TP_DIPLOMA
             {
                
                 comboBox1.DataSource = GetTraductor.ObtenerIdiomas();
-                comboBox1.DisplayMember = "Nombre"; 
+                comboBox1.DisplayMember = "Nombre";
+                comboBox1.ValueMember = "Id";
 
             }
             catch (Exception ex)
@@ -70,16 +71,14 @@ namespace TP_DIPLOMA
 
             enlazar();
             traducir();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         public void traducir()
         {
-            BLL.Traductor tradu=new BLL.Traductor();
-            Iidioma idioma = null; // instancio un objeto de la interfaz iidioma 
-            if (SingletonSesion.Instancia.IsLogged()) // si el usuario esta logeado
-                idioma = SingletonSesion.Instancia.Usuario.Idioma; // el objeto idioma va a ser igual a la instancia idioma del usuario
-
-            // creo variable tradduciones y la igualo al metodo obtener traducciones de la clase Traductor
-            // y le paso como parametro el objeto creado idioma
+            BLL.Traductor tradu = new BLL.Traductor();
+            Iidioma idioma = null; // ma 
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma; 
             var traducciones = tradu.ObtenerTraducciones(idioma);
 
             if(controlUsuario1.Tag != null && traducciones.ContainsKey(controlUsuario1.Tag.ToString()))
@@ -94,46 +93,75 @@ namespace TP_DIPLOMA
             if (controlUsuario4.Tag != null && traducciones.ContainsKey(controlUsuario4.Tag.ToString()))
                 controlUsuario4.Etiqueta = traducciones[controlUsuario4.Tag.ToString()].Texto;
 
+            if (controlUsuarioApellido.Tag != null && traducciones.ContainsKey(controlUsuarioApellido.Tag.ToString()))
+                controlUsuarioApellido.Etiqueta = traducciones[controlUsuarioApellido.Tag.ToString()].Texto;
 
             // BUTTON
             if (button1.Tag != null && traducciones.ContainsKey(button1.Tag.ToString()))
                 button1.Text = traducciones[button1.Tag.ToString()].Texto;
 
+            if (button6.Tag != null && traducciones.ContainsKey(button6.Tag.ToString()))
+                button6.Text = traducciones[button6.Tag.ToString()].Texto;
+
             if (button2.Tag != null && traducciones.ContainsKey(button2.Tag.ToString()))
                 button2.Text = traducciones[button2.Tag.ToString()].Texto;
 
-            // LABELS
+            if (button3.Tag != null && traducciones.ContainsKey(button3.Tag.ToString()))
+                button3.Text = traducciones[button3.Tag.ToString()].Texto;
+
+            if (button4.Tag != null && traducciones.ContainsKey(button4.Tag.ToString()))
+                button4.Text = traducciones[button4.Tag.ToString()].Texto;
+
+            if (button5.Tag != null && traducciones.ContainsKey(button5.Tag.ToString()))
+                button5.Text = traducciones[button5.Tag.ToString()].Texto;
+
             if (label1.Tag != null && traducciones.ContainsKey(label1.Tag.ToString()))
                 label1.Text = traducciones[label1.Tag.ToString()].Texto;
 
             if (label2.Tag != null && traducciones.ContainsKey(label2.Tag.ToString()))
                 label2.Text = traducciones[label2.Tag.ToString()].Texto;
 
-
-
-
+            if (label3.Tag != null && traducciones.ContainsKey(label3.Tag.ToString()))
+                label3.Text = traducciones[label3.Tag.ToString()].Texto;
 
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            usaux = (BE.userauxiliar)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+            try
+            {
 
-            lblidcl.Text = usaux.Idusuario.ToString();
-            controlUsuario1.Texto = usaux.Nombre.ToString();
-            controlUsuarioApellido.Texto = usaux.Apellido.ToString();
-            controlUsuario2.Texto = usaux.Usuarios.ToString();
-            controlUsuario3.Texto = usaux.Password.ToString();
-            controlUsuario4.Texto = usaux.Mail.ToString();
-            comboBox1.Text = usaux.Idioma2.ToString();
-            
-            if (usaux.Estado == true)
-            {
-                comboBox2.Text = "Activo";
+                usaux = (BE.userauxiliar)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+                lblidcl.Text = usaux.Idusuario.ToString();
+                controlUsuario1.Texto = usaux.Nombre.ToString();
+                foreach (BE.Iidioma item in GetTraductor.ObtenerIdiomas())
+                {
+                    if (item.Id == usaux.Idioma2)
+                    {
+                        comboBox1.Text = item.Nombre;
+                    }
+                }
+                controlUsuarioApellido.Texto = usaux.Apellido.ToString();
+                controlUsuario2.Texto = usaux.Usuarios.ToString();
+                controlUsuario3.Texto = usaux.Password.ToString();
+                controlUsuario4.Texto = usaux.Mail.ToString();
+              
+                if (usaux.Estado == true)
+                {
+                    comboBox2.Text = "Activo";
+                }
+                else
+                {
+                    comboBox2.Text = "Bloqueado";
+                }
             }
-            else
+            catch (Exception)
             {
-                comboBox2.Text = "Bloqueado";
+
+
+                MessageBox.Show("Debe seleccionar un usuario valido","Informacion",MessageBoxButtons.OK,MessageBoxIcon.Information);
+
             }
 
         }
@@ -246,7 +274,7 @@ namespace TP_DIPLOMA
                     item.Nombre = controlUsuario1.Texto;
                     item.Apellido = controlUsuarioApellido.Texto;
                     item.Usuarios = controlUsuario2.Texto;
-                    item.Password = Encriptador.Hash(controlUsuario3.Texto);
+                    //item.Password = Encriptador.Hash(controlUsuario3.Texto);
                     item.Mail = controlUsuario4.Texto;
                     item.Idioma2 = comboBox1.SelectedIndex + 1;
                     item.Baja_Logica = false;
@@ -286,7 +314,7 @@ namespace TP_DIPLOMA
         {
             try
             {
-                usaux.Baja_Logica = false;
+                usaux.Baja_Logica = true;
                 string consulta = "update Usuarios set UsubajaL=1 where Idusu=" + lblidcl.Text;
                 gestorusuarios.Consultar(consulta);
                 string DV = $"{usaux.Idioma2}{usaux.Idusuario}{usaux.Usuarios}{usaux.Nombre}{usaux.Apellido}{usaux.Password}{usaux.Mail}{usaux.Estado}{usaux.Baja_Logica}";
@@ -329,7 +357,7 @@ namespace TP_DIPLOMA
         {
             try
             {
-                usaux.Baja_Logica = true;
+                usaux.Baja_Logica = false;
                 string consulta = "update Usuarios set UsubajaL=0 where Idusu=" + lblidcl.Text;
                 gestorusuarios.Consultar(consulta);
                 string DV = $"{usaux.Idioma2}{usaux.Idusuario}{usaux.Usuarios}{usaux.Nombre}{usaux.Apellido}{usaux.Password}{usaux.Mail}{usaux.Estado}{usaux.Baja_Logica}";
@@ -347,6 +375,89 @@ namespace TP_DIPLOMA
             {
 
                 MessageBox.Show("Debe seleccionar un usuario");
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text!=null)
+            {
+                if (button5.Visible==false)
+                {
+                    var dato = gestorusuarios.Listadeusu().Where(x => x.Usuarios == textBox1.Text || x.Mail == textBox1.Text).ToList();
+
+                    dataGridView1.DataSource = dato;
+                    dataGridView1.Columns["Idusuario"].Visible = false;
+                    dataGridView1.Columns["Password"].Visible = false;
+                    dataGridView1.Columns["Idioma2"].Visible = false;
+
+                    dataGridView1.Columns["Baja_Logica"].Visible = false;
+                }
+                else
+                {
+                    var dato = gestorusuarios.Listadeusu().Where(x => x.Usuarios == textBox1.Text || x.Mail == textBox1.Text).ToList();
+
+                    dataGridView1.DataSource = dato;
+                    dataGridView1.Columns["Idusuario"].Visible = false;
+                    dataGridView1.Columns["Password"].Visible = false;
+                    dataGridView1.Columns["Idioma2"].Visible = false;
+
+                    dataGridView1.Columns["Baja_Logica"].Visible = true;
+                }
+
+            }
+        }
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = GetTraductor.ObtenerTraducciones(idioma);
+
+            MapTags_Pedidos(dataGridView1);
+
+
+            TraducirHeadersGrid(dataGridView1, traducciones);
+        }
+                
+        private void MapTags_Pedidos(DataGridView dgv)
+        {
+            SetColTag(dgv, "Usuarios", "lblusu");
+            SetColTag(dgv, "Nombre", "Nombre");
+            SetColTag(dgv, "Apellido", "Apellido");
+            SetColTag(dgv, "Mail", "Mail");
+            SetColTag(dgv, "Estado", "estado");
+            SetColTag(dgv, "Baja_Logica", "Descativado");
+
+        }
+
+        private void SetColTag(DataGridView dgv, string colNameOrAlias, string tagKey)
+        {
+        
+            if (dgv.Columns.Contains(colNameOrAlias))
+            {
+                dgv.Columns[colNameOrAlias].Tag = tagKey;
+                return;
+            }
+        
+            var col = dgv.Columns
+                         .Cast<DataGridViewColumn>()
+                         .FirstOrDefault(c =>
+                             string.Equals(c.DataPropertyName, colNameOrAlias, StringComparison.OrdinalIgnoreCase));
+            if (col != null) col.Tag = tagKey;
+        }
+               
+        private void TraducirHeadersGrid(DataGridView dgv, IDictionary<string, ITraduccion> traducciones)
+        {
+            if (traducciones == null || traducciones.Count == 0) return;
+
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+
+                if (col.Tag != null && traducciones.ContainsKey(col.Tag.ToString()))
+                    col.HeaderText = traducciones[col.Tag.ToString()].Texto;
+
             }
         }
     }

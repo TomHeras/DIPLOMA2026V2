@@ -161,7 +161,7 @@ namespace TP_DIPLOMA.Maestros
             catch (Exception)
             {
 
-                MessageBox.Show("Seleccione un producto por favor!");
+                MessageBox.Show("Por favor seleccione un producto", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }//evento para seleccionar los datos de la grilla
 

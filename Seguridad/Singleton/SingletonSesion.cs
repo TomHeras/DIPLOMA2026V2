@@ -23,5 +23,7 @@ namespace Seguridad.Singleton
                 return _instancia;
             }
         }
+
+
     }
 }

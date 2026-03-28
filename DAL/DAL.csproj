@@ -59,6 +59,7 @@
     <Compile Include="Patentes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="prov_prov.cs" />
+    <Compile Include="Reportes.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>

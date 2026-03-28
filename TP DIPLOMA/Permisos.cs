@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BE;
+using Seguridad.Composite;
+using Seguridad.Singleton;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Seguridad.Composite;
 
 namespace TP_DIPLOMA
 {
@@ -53,8 +55,107 @@ namespace TP_DIPLOMA
         private void Permisos_Load(object sender, EventArgs e)
         {
             llenarpatentefamilias();
+            traducir();
         }
 
+        BLL.Traductor tradu=new BLL.Traductor();
+
+        public void traducir()
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            // BUTTONS
+            // GROUPBOX
+            if (groupBox4.Tag != null && traducciones.ContainsKey(groupBox4.Tag.ToString()))
+                groupBox4.Text = traducciones[groupBox4.Tag.ToString()].Texto;
+
+            if (groupBox2.Tag != null && traducciones.ContainsKey(groupBox2.Tag.ToString()))
+                groupBox2.Text = traducciones[groupBox2.Tag.ToString()].Texto;
+
+            if (groupBox3.Tag != null && traducciones.ContainsKey(groupBox3.Tag.ToString()))
+                groupBox3.Text = traducciones[groupBox3.Tag.ToString()].Texto;
+
+            if (grpPatentes.Tag != null && traducciones.ContainsKey(grpPatentes.Tag.ToString()))
+                grpPatentes.Text = traducciones[grpPatentes.Tag.ToString()].Texto;
+
+            if (groupBox1.Tag != null && traducciones.ContainsKey(groupBox1.Tag.ToString()))
+                groupBox1.Text = traducciones[groupBox1.Tag.ToString()].Texto;
+
+            if (groupBox5.Tag != null && traducciones.ContainsKey(groupBox5.Tag.ToString()))
+                groupBox5.Text = traducciones[groupBox5.Tag.ToString()].Texto;
+
+            if (groupBox6.Tag != null && traducciones.ContainsKey(groupBox6.Tag.ToString()))
+                groupBox6.Text = traducciones[groupBox6.Tag.ToString()].Texto;
+
+
+            // BUTTONS
+            if (cmdGuardarFamilia.Tag != null && traducciones.ContainsKey(cmdGuardarFamilia.Tag.ToString()))
+                cmdGuardarFamilia.Text = traducciones[cmdGuardarFamilia.Tag.ToString()].Texto;
+
+            if (cmdSeleccionar.Tag != null && traducciones.ContainsKey(cmdSeleccionar.Tag.ToString()))
+                cmdSeleccionar.Text = traducciones[cmdSeleccionar.Tag.ToString()].Texto;
+
+            if (cmdAgregarFamilia.Tag != null && traducciones.ContainsKey(cmdAgregarFamilia.Tag.ToString()))
+                cmdAgregarFamilia.Text = traducciones[cmdAgregarFamilia.Tag.ToString()].Texto;
+
+            if (btnGuardarFamilia.Tag != null && traducciones.ContainsKey(btnGuardarFamilia.Tag.ToString()))
+                btnGuardarFamilia.Text = traducciones[btnGuardarFamilia.Tag.ToString()].Texto;
+
+            if (cmdAgregarPatente.Tag != null && traducciones.ContainsKey(cmdAgregarPatente.Tag.ToString()))
+                cmdAgregarPatente.Text = traducciones[cmdAgregarPatente.Tag.ToString()].Texto;
+
+            if (btnGuardarPatente.Tag != null && traducciones.ContainsKey(btnGuardarPatente.Tag.ToString()))
+                btnGuardarPatente.Text = traducciones[btnGuardarPatente.Tag.ToString()].Texto;
+
+            if (btnconfigurarperfiles.Tag != null && traducciones.ContainsKey(btnconfigurarperfiles.Tag.ToString()))
+                btnconfigurarperfiles.Text = traducciones[btnconfigurarperfiles.Tag.ToString()].Texto;
+
+            if (button3.Tag != null && traducciones.ContainsKey(button3.Tag.ToString()))
+                button3.Text = traducciones[button3.Tag.ToString()].Texto;
+
+
+            // LABELS
+            if (label5.Tag != null && traducciones.ContainsKey(label5.Tag.ToString()))
+                label5.Text = traducciones[label5.Tag.ToString()].Texto;
+
+            if (label4.Tag != null && traducciones.ContainsKey(label4.Tag.ToString()))
+                label4.Text = traducciones[label4.Tag.ToString()].Texto;
+
+            if (label2.Tag != null && traducciones.ContainsKey(label2.Tag.ToString()))
+                label2.Text = traducciones[label2.Tag.ToString()].Texto;
+
+            if (label3.Tag != null && traducciones.ContainsKey(label3.Tag.ToString()))
+                label3.Text = traducciones[label3.Tag.ToString()].Texto;
+
+            if (label1.Tag != null && traducciones.ContainsKey(label1.Tag.ToString()))
+                label1.Text = traducciones[label1.Tag.ToString()].Texto;
+
+            if (label6.Tag != null && traducciones.ContainsKey(label6.Tag.ToString()))
+                label6.Text = traducciones[label6.Tag.ToString()].Texto;
+
+            if (label7.Tag != null && traducciones.ContainsKey(label7.Tag.ToString()))
+                label7.Text = traducciones[label7.Tag.ToString()].Texto;
+
+
+
+            // TEXTBOX (solo si usás Tag como texto inicial)
+            if (txtNombreFamilia.Tag != null && traducciones.ContainsKey(txtNombreFamilia.Tag.ToString()))
+                txtNombreFamilia.Text = traducciones[txtNombreFamilia.Tag.ToString()].Texto;
+
+            if (txtNombrePatente.Tag != null && traducciones.ContainsKey(txtNombrePatente.Tag.ToString()))
+                txtNombrePatente.Text = traducciones[txtNombrePatente.Tag.ToString()].Texto;
+
+            if (textBox1.Tag != null && traducciones.ContainsKey(textBox1.Tag.ToString()))
+                textBox1.Text = traducciones[textBox1.Tag.ToString()].Texto;
+
+            if (this.Tag != null && traducciones.ContainsKey(this.Tag.ToString()))
+                this.Text = traducciones[this.Tag.ToString()].Texto;
+
+        }
         private void cmdGuardarFamilia_Click(object sender, EventArgs e)
         {
             try

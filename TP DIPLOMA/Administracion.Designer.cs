@@ -365,7 +365,7 @@ namespace TP_DIPLOMA
             // stockToolStripMenuItem
             // 
             this.stockToolStripMenuItem.Name = "stockToolStripMenuItem";
-            this.stockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stockToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.stockToolStripMenuItem.Tag = "Producto";
             this.stockToolStripMenuItem.Text = "Productos";
             this.stockToolStripMenuItem.Click += new System.EventHandler(this.stockToolStripMenuItem_Click);
@@ -373,7 +373,7 @@ namespace TP_DIPLOMA
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.clientesToolStripMenuItem.Tag = "clientes";
             this.clientesToolStripMenuItem.Text = "Clientes";
             this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
@@ -381,7 +381,7 @@ namespace TP_DIPLOMA
             // proveedoresToolStripMenuItem
             // 
             this.proveedoresToolStripMenuItem.Name = "proveedoresToolStripMenuItem";
-            this.proveedoresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.proveedoresToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.proveedoresToolStripMenuItem.Tag = "prov";
             this.proveedoresToolStripMenuItem.Text = "Proveedores";
             this.proveedoresToolStripMenuItem.Click += new System.EventHandler(this.proveedoresToolStripMenuItem_Click);
@@ -389,7 +389,7 @@ namespace TP_DIPLOMA
             // serealizacionToolStripMenuItem
             // 
             this.serealizacionToolStripMenuItem.Name = "serealizacionToolStripMenuItem";
-            this.serealizacionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.serealizacionToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.serealizacionToolStripMenuItem.Tag = "Serealizar";
             this.serealizacionToolStripMenuItem.Text = "Serealizacion";
             this.serealizacionToolStripMenuItem.Click += new System.EventHandler(this.serealizacionToolStripMenuItem_Click);
@@ -408,15 +408,15 @@ namespace TP_DIPLOMA
             // Report1
             // 
             this.Report1.Name = "Report1";
-            this.Report1.Size = new System.Drawing.Size(188, 22);
+            this.Report1.Size = new System.Drawing.Size(182, 22);
             this.Report1.Tag = "Report1";
-            this.Report1.Text = "Reporte de Productos";
+            this.Report1.Text = "Reporte Inteligente";
             this.Report1.Click += new System.EventHandler(this.reporteDeVentasToolStripMenuItem_Click);
             // 
             // Report2
             // 
             this.Report2.Name = "Report2";
-            this.Report2.Size = new System.Drawing.Size(188, 22);
+            this.Report2.Size = new System.Drawing.Size(182, 22);
             this.Report2.Tag = "Report2";
             this.Report2.Text = "Dashboard Ventas";
             this.Report2.Click += new System.EventHandler(this.reporteDeComprasToolStripMenuItem_Click);
@@ -424,7 +424,7 @@ namespace TP_DIPLOMA
             // Report3
             // 
             this.Report3.Name = "Report3";
-            this.Report3.Size = new System.Drawing.Size(188, 22);
+            this.Report3.Size = new System.Drawing.Size(182, 22);
             this.Report3.Tag = "Report3";
             this.Report3.Text = "Dashboard Compras";
             this.Report3.Click += new System.EventHandler(this.reporteDashboardToolStripMenuItem_Click);
@@ -487,6 +487,7 @@ namespace TP_DIPLOMA
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "Administracion";
+            this.Tag = "adminfrm";
             this.Text = "SyT Nova";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Administracion_FormClosing);

@@ -29,6 +29,7 @@ namespace TP_DIPLOMA
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PermisosUsuarios));
             this.cmdGuardar = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.grpPatentes = new System.Windows.Forms.GroupBox();
@@ -54,7 +55,7 @@ namespace TP_DIPLOMA
             this.cmdGuardar.Name = "cmdGuardar";
             this.cmdGuardar.Size = new System.Drawing.Size(110, 19);
             this.cmdGuardar.TabIndex = 16;
-            this.cmdGuardar.Tag = "guardarcam";
+            this.cmdGuardar.Tag = "btn-cambios";
             this.cmdGuardar.Text = "Guardar cambios";
             this.cmdGuardar.UseVisualStyleBackColor = true;
             this.cmdGuardar.Click += new System.EventHandler(this.cmdGuardar_Click);
@@ -85,10 +86,10 @@ namespace TP_DIPLOMA
             this.grpPatentes.Margin = new System.Windows.Forms.Padding(2);
             this.grpPatentes.Name = "grpPatentes";
             this.grpPatentes.Padding = new System.Windows.Forms.Padding(2);
-            this.grpPatentes.Size = new System.Drawing.Size(558, 397);
+            this.grpPatentes.Size = new System.Drawing.Size(558, 353);
             this.grpPatentes.TabIndex = 14;
             this.grpPatentes.TabStop = false;
-            this.grpPatentes.Tag = "user";
+            this.grpPatentes.Tag = "lblUsuarios";
             this.grpPatentes.Text = "Usuarios";
             // 
             // button1
@@ -98,7 +99,7 @@ namespace TP_DIPLOMA
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 25);
             this.button1.TabIndex = 17;
-            this.button1.Tag = "agregar";
+            this.button1.Tag = "btn-agregarper";
             this.button1.Text = "Agregar >>";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -121,7 +122,7 @@ namespace TP_DIPLOMA
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 15;
-            this.label1.Tag = "agrepat";
+            this.label1.Tag = "lblperfil";
             this.label1.Text = "Agregar perfiles";
             // 
             // cmbusers
@@ -140,7 +141,7 @@ namespace TP_DIPLOMA
             this.btnagregarfamilia.Name = "btnagregarfamilia";
             this.btnagregarfamilia.Size = new System.Drawing.Size(83, 26);
             this.btnagregarfamilia.TabIndex = 13;
-            this.btnagregarfamilia.Tag = "agregar";
+            this.btnagregarfamilia.Tag = "btn-agregarper";
             this.btnagregarfamilia.Text = "Agregar >>";
             this.btnagregarfamilia.UseVisualStyleBackColor = true;
             this.btnagregarfamilia.Click += new System.EventHandler(this.btnagregarfamilia_Click);
@@ -163,7 +164,7 @@ namespace TP_DIPLOMA
             this.lblagrefam.Name = "lblagrefam";
             this.lblagrefam.Size = new System.Drawing.Size(84, 13);
             this.lblagrefam.TabIndex = 11;
-            this.lblagrefam.Tag = "agregarfam";
+            this.lblagrefam.Tag = "lblagfam";
             this.lblagrefam.Text = "Agregar Familias";
             // 
             // btnagregarpatente
@@ -173,7 +174,7 @@ namespace TP_DIPLOMA
             this.btnagregarpatente.Name = "btnagregarpatente";
             this.btnagregarpatente.Size = new System.Drawing.Size(83, 25);
             this.btnagregarpatente.TabIndex = 10;
-            this.btnagregarpatente.Tag = "agregar";
+            this.btnagregarpatente.Tag = "btn-agregarper";
             this.btnagregarpatente.Text = "Agregar >>";
             this.btnagregarpatente.UseVisualStyleBackColor = true;
             this.btnagregarpatente.Click += new System.EventHandler(this.btnagregarpatente_Click);
@@ -196,7 +197,7 @@ namespace TP_DIPLOMA
             this.lblagrepat.Name = "lblagrepat";
             this.lblagrepat.Size = new System.Drawing.Size(88, 13);
             this.lblagrepat.TabIndex = 8;
-            this.lblagrepat.Tag = "agrepat";
+            this.lblagrepat.Tag = "lblagpat";
             this.lblagrepat.Text = "Agregar patentes";
             // 
             // cmdConfigurar
@@ -206,7 +207,7 @@ namespace TP_DIPLOMA
             this.cmdConfigurar.Name = "cmdConfigurar";
             this.cmdConfigurar.Size = new System.Drawing.Size(86, 25);
             this.cmdConfigurar.TabIndex = 7;
-            this.cmdConfigurar.Tag = "conf";
+            this.cmdConfigurar.Tag = "btnconfig";
             this.cmdConfigurar.Text = "Configurar";
             this.cmdConfigurar.UseVisualStyleBackColor = true;
             this.cmdConfigurar.Click += new System.EventHandler(this.cmdConfigurar_Click);
@@ -219,19 +220,22 @@ namespace TP_DIPLOMA
             this.lblallusers.Name = "lblallusers";
             this.lblallusers.Size = new System.Drawing.Size(95, 13);
             this.lblallusers.TabIndex = 5;
-            this.lblallusers.Tag = "todoslosusuarios";
+            this.lblallusers.Tag = "lbltodosU";
             this.lblallusers.Text = "Todos los usuarios";
             // 
             // PermisosUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 405);
+            this.ClientSize = new System.Drawing.Size(579, 374);
             this.Controls.Add(this.cmdGuardar);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.grpPatentes);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PermisosUsuarios";
+            this.Tag = "PErmisos-Usuarios";
             this.Text = "PermisosUsuarios";
+            this.Load += new System.EventHandler(this.PermisosUsuarios_Load);
             this.grpPatentes.ResumeLayout(false);
             this.grpPatentes.PerformLayout();
             this.ResumeLayout(false);

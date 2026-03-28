@@ -121,5 +121,11 @@ namespace BLL.Negocio
             int fa = mapper.ObtenerUDVV();
             return fa;
         }
+
+        public int DVVCompras()
+        {
+            int fa=mapper.DVVcompras();
+            return fa;
+        }
     }
 }

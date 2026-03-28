@@ -116,39 +116,46 @@ namespace TP_DIPLOMA.Negocio
         private void btnagregarcarrito_Click(object sender, EventArgs e)
         {
             //int.Parse(comboBox1.SelectedIndex.ToString())
-            try
+            if (textBox1.Text!="")
             {
-                BE.Negocio.Carrito carrito = new BE.Negocio.Carrito(dnifiltro, int.Parse(comboBox2.SelectedValue.ToString()), DateTime.Now, int.Parse(txtcantidad.Text), double.Parse(controlUsuario2.Texto));
-                var idcl = 0;
-                foreach (BE.Maestros.Clientes item in gestorcl.listar())
+                try
                 {
-                    if (item.DNI == dnifiltro)
+                    BE.Negocio.Carrito carrito = new BE.Negocio.Carrito(dnifiltro, int.Parse(comboBox2.SelectedValue.ToString()), DateTime.Now, int.Parse(txtcantidad.Text), double.Parse(controlUsuario2.Texto));
+                    var idcl = 0;
+                    foreach (BE.Maestros.Clientes item in gestorcl.listar())
                     {
-                        idcl = item.Idcl;
+                        if (item.DNI == dnifiltro)
+                        {
+                            idcl = item.Idcl;
+                        }
                     }
+
+                    carrito.Idcl = idcl;
+                    carrito.Idprod = int.Parse(comboBox2.SelectedValue.ToString());
+                    carrito.Fecha = DateTime.Now;
+                    carrito.Cant = int.Parse(txtcantidad.Text);
+
+                    carrito.Costo = double.Parse(controlUsuario2.Texto);
+
+
+                    GetCarrito.Agregarcarrito(carrito);
+                    enlazar();
+
+                    //comboBox1.Enabled = false;
+                    MessageBox.Show("El producto fue agregado al carrito");
+                    limpiar();
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Por favor revise los datos ingreados");
                 }
 
-                carrito.Idcl = idcl;
-                carrito.Idprod = int.Parse(comboBox2.SelectedValue.ToString());
-                carrito.Fecha = DateTime.Now;
-                carrito.Cant = int.Parse(txtcantidad.Text);
-
-                carrito.Costo = double.Parse(controlUsuario2.Texto);
-
-
-                GetCarrito.Agregarcarrito(carrito);
-                enlazar();
-
-                //comboBox1.Enabled = false;
-                MessageBox.Show("El producto fue agregado al carrito");
-                limpiar();
             }
-            catch (Exception)
+            else
             {
-
-                MessageBox.Show("Por favor revise los datos ingreados");
+                MessageBox.Show("Atencion! Debe porveer el DNI del cliente para continuar", "SyT Nova", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
         double precio1;
 

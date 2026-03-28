@@ -72,9 +72,19 @@ namespace TP_DIPLOMA.Negocio
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            detail = (BE.Auxiliares.Aux_Joindetalle)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+            try
+            {
+                detail = (BE.Auxiliares.Aux_Joindetalle)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
-            textBox1.Text = detail.Idpedido.ToString();
+                textBox1.Text = detail.Idpedido.ToString();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Por favor seleccione una orden válida","Atencion",MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+                
+            }
             
         }
         int idpord = 0;
@@ -141,13 +151,13 @@ namespace TP_DIPLOMA.Negocio
                     recau = recau + item.Costo;
                 }
             }
-            //var idreg = GetBitacora.listacambios();
+           
             string historico = "INSERT INTO Cambioshistorico ( Idpedido, Tipo, Estado, Cotizacion, Usuario, Fecha) values('" + cab.ID_pedido + "','" + "Ventas" + "','" + cab.Estado + "','" + recau + "','" + SingletonSesion.Instancia.Usuario.usuario + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
             gestBT.Consultar(historico);
         }
         private void button1_Click(object sender, EventArgs e)
         {
-        var datos = gestor.JoinDetails(); // List<Aux_Joindetalle>
+        var datos = gestor.JoinDetails(); 
             var q = datos.AsEnumerable();
 
             if (int.TryParse(textBox1.Text, out int id))
@@ -166,8 +176,7 @@ namespace TP_DIPLOMA.Negocio
             var productoSel = comboBox3.Text?.Trim();
             if (!string.IsNullOrEmpty(productoSel) &&
                 !string.Equals(productoSel, "(Productos)", StringComparison.OrdinalIgnoreCase))
-                // como el SP devuelve "Tipo - Medidas", y el combo ahora también, puede ser igualdad…
-                // pero por seguridad uso StartsWith (o Equals si preferís exacto)
+             
                 q = q.Where(x => x.Producto?.StartsWith(productoSel, StringComparison.OrdinalIgnoreCase) == true);
 
             dataGridView1.DataSource = q
@@ -240,11 +249,11 @@ namespace TP_DIPLOMA.Negocio
 
        
 
-        // ====== (1) Darle ID (Tag) a cada columna autogenerada ======
+        
         private void MapTags_Pedidos(DataGridView dgv)
         {
             // Mapeo alias (SELECT) → clave i18n (las que tengas en tu BD)pedidos
-            SetColTag(dgv, "Idpedido", "pedidos");
+            SetColTag(dgv, "Idpedido", "nro_pedido");
             SetColTag(dgv, "Cliente", "headcliente");
             SetColTag(dgv, "Producto", "prod");
             SetColTag(dgv, "Cantidad", "cant");
@@ -255,13 +264,13 @@ namespace TP_DIPLOMA.Negocio
 
         private void SetColTag(DataGridView dgv, string colNameOrAlias, string tagKey)
         {
-            // Busca por Name
+            
             if (dgv.Columns.Contains(colNameOrAlias))
             {
                 dgv.Columns[colNameOrAlias].Tag = tagKey;
                 return;
             }
-            // Fallback por DataPropertyName (alias del SELECT con algunos data sources)
+            
             var col = dgv.Columns
                          .Cast<DataGridViewColumn>()
                          .FirstOrDefault(c =>
@@ -269,7 +278,7 @@ namespace TP_DIPLOMA.Negocio
             if (col != null) col.Tag = tagKey;
         }
 
-        // ====== (2) Traducir headers igual que los demás controles (por Tag) ======
+        
         private void TraducirHeadersGrid(DataGridView dgv, IDictionary<string, ITraduccion> traducciones)
         {
             if (traducciones == null || traducciones.Count == 0) return;
@@ -290,11 +299,10 @@ namespace TP_DIPLOMA.Negocio
             if (SingletonSesion.Instancia.IsLogged())
                 idioma = SingletonSesion.Instancia.Usuario.Idioma;
             var traducciones = tradu.ObtenerTraducciones(idioma);
-            // 👉 Mapeá la grilla que estás mostrando (acá ejemplo para la query de Pedidos)
-            // Si mostrás otra consulta (Cotizaciones, Compras), creá otro método MapTagsXX y llamalo.
+            
             MapTags_Pedidos(dataGridView1);
 
-            // 👉 Traducí las cabeceras con el mismo diccionario que usás para controles
+            
             TraducirHeadersGrid(dataGridView1, traducciones);
         }
     }

@@ -212,7 +212,7 @@ namespace TP_DIPLOMA.Maestros
             // 
             this.controlUsuario1.BackColor = System.Drawing.Color.Transparent;
             this.controlUsuario1.BackgroundImage = global::TP_DIPLOMA.Properties.Resources.logochico;
-            this.controlUsuario1.Etiqueta = "Cuil";
+            this.controlUsuario1.Etiqueta = "Cuit";
             this.controlUsuario1.Location = new System.Drawing.Point(17, 34);
             this.controlUsuario1.Name = "controlUsuario1";
             this.controlUsuario1.Size = new System.Drawing.Size(221, 45);
@@ -238,6 +238,7 @@ namespace TP_DIPLOMA.Maestros
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 24;
+            this.label2.Tag = "version";
             this.label2.Text = "Activos";
             // 
             // label3
@@ -345,6 +346,7 @@ namespace TP_DIPLOMA.Maestros
             this.button5.Tag = "btnbuscar";
             this.button5.Text = "Buscar";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // groupBox1
             // 
@@ -381,7 +383,7 @@ namespace TP_DIPLOMA.Maestros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 583);
+            this.ClientSize = new System.Drawing.Size(911, 583);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button5);

@@ -98,20 +98,20 @@ namespace TP_DIPLOMA.Maestros
 
                if (val==false)
                 {
-                    tmp.Nombre = controlUsuario1.Texto;
-                    tmp.Direccion = controlUsuario2.Texto;
-                    tmp.Telefono = int.Parse(controlUsuario3.Texto);
-                    tmp.DNI = int.Parse(controlUsuario4.Texto);
-                    tmp.Email = controlUsuario5.Texto;
-                    tmp.Banco = controlUsuario6.Texto;
-                    tmp.DVH = 0;
-                    tmp.Estado = true;
+                    tmp.Nombre      = controlUsuario1.Texto;
+                    tmp.Direccion   = controlUsuario2.Texto;
+                    tmp.Telefono    = int.Parse(controlUsuario3.Texto);
+                    tmp.DNI         = int.Parse(controlUsuario4.Texto);
+                    tmp.Email       = controlUsuario5.Texto;
+                    tmp.Banco       = controlUsuario6.Texto;
+                    tmp.DVH         = 0;
+                    tmp.Estado      = true;
                     gestorcl.altacliente(tmp);
                     MessageBox.Show("Se registro un nuevo cliente");
 
                     int id = gestorcl.ID();
                     string dvhc=$"{id}{tmp.DNI}{tmp.Direccion}{tmp.Nombre}{tmp.Telefono}{tmp.Email}{tmp.Banco}{tmp.Estado}";
-                    int DVH=DV.ConvertToAscii(dvhc);
+                    int DVH=DV.ConvertToAscii(dvhc.Trim());
                     string consultadv = "UPDATE Clientes set DVH= " + DVH + " where ID_clientes=" + id;
                     gestbt.Consultar(consultadv);
                     string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM Clientes) WHERE DVV_TABLA='Clientes'";
@@ -137,8 +137,8 @@ namespace TP_DIPLOMA.Maestros
             MessageBox.Show("El cliente fue borrado");
             enlazar();
             limpiar();
-            string dvhc = $"{cl.Idcl}{cl.DNI}{cl.Direccion}{cl.Nombre}{cl.Telefono}{cl.Email}{cl.Banco} {cl.Estado}";
-            int DVH = DV.ConvertToAscii(dvhc);
+            string dvhc = $"{cl.Idcl}{cl.DNI}{cl.Direccion}{cl.Nombre}{cl.Telefono}{cl.Email}{cl.Banco}{false}";
+            int DVH = DV.ConvertToAscii(dvhc.Trim());
             string consultadv = "UPDATE Clientes set DVH= " + DVH + " where ID_clientes=" + cl.Idcl;
             gestbt.Consultar(consultadv);
             string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM Clientes) WHERE DVV_TABLA='Clientes'";
@@ -166,7 +166,7 @@ namespace TP_DIPLOMA.Maestros
             }
             catch (Exception)
             {
-                MessageBox.Show("Seleccione un cliente, Por Favor");
+                MessageBox.Show("Por favor seleccione un cliente", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }
@@ -195,7 +195,7 @@ namespace TP_DIPLOMA.Maestros
                             limpiar();
 
                             string dvhc = $"{lblidcl.Text}{item.DNI}{item.Direccion}{item.Nombre}{item.Telefono}{item.Email}{item.Banco}{item.Estado}";
-                            int DVH = DV.ConvertToAscii(dvhc);
+                            int DVH = DV.ConvertToAscii(dvhc.Trim());
                             string consultadv = "UPDATE Clientes set DVH= " + DVH + " where ID_clientes=" + lblidcl.Text;
                             gestbt.Consultar(consultadv);
                             string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM Clientes) WHERE DVV_TABLA='Clientes'";
@@ -216,7 +216,7 @@ namespace TP_DIPLOMA.Maestros
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            bool find=false;
             if (controlUsuario4.Texto != null)
             {
                 int dni = int.Parse(controlUsuario4.Texto);
@@ -232,9 +232,28 @@ namespace TP_DIPLOMA.Maestros
                         controlUsuario3.Texto = item.Telefono.ToString();
                         controlUsuario5.Texto = item.Email.ToString();
                         controlUsuario6.Texto = item.Banco.ToString();
+
+                        find= true;
+                        if (item.Estado==false)
+                        {
+                            estadolbl = "Desactivadolbl";
+                            Traducir();
+                            button5.Visible = true;
+                        }
                     }
                 }
 
+                var datos=gestorcl.listar().Where(x=>x.DNI==int.Parse(controlUsuario4.Texto)||x.Email==controlUsuario5.Texto).ToList();
+
+                dataGridView1.DataSource = datos;
+               
+
+
+            }
+            if (find==false)
+            {
+                MessageBox.Show("No existe el DNI Buscado, si desea registrarlo por favor commplete todos los campos");
+                enlazar();
             }
         }
 
@@ -257,8 +276,8 @@ namespace TP_DIPLOMA.Maestros
                 string consulta = "UPDATE Clientes set Estado=1 where ID_clientes=" + lblidcl.Text;
                 gestbt.Consultar(consulta);
 
-                string dvhc = $"{cl.Idcl}{cl.DNI}{cl.Direccion}{cl.Nombre}{cl.Telefono}{cl.Email}{cl.Banco}{cl.Estado}";
-                int DVH = DV.ConvertToAscii(dvhc);
+                string dvhc = $"{cl.Idcl}{cl.DNI}{cl.Direccion}{cl.Nombre}{cl.Telefono}{cl.Email}{cl.Banco}{true}";
+                int DVH = DV.ConvertToAscii(dvhc.Trim());
                 string consultadv = "UPDATE Clientes set DVH= " + DVH + " where ID_clientes=" + cl.Idcl;
                 gestbt.Consultar(consultadv);
                 string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM Clientes) WHERE DVV_TABLA='Clientes'";

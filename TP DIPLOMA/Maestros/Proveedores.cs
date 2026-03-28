@@ -83,17 +83,17 @@ namespace TP_DIPLOMA.Maestros
             {
                 BE.Maestros.Proveedores tmp = new BE.Maestros.Proveedores();
 
-                tmp.Nombre = controlUsuario3.Texto;
-                tmp.Direccion = controlUsuario2.Texto;
-                tmp.Telefono = int.Parse(controlUsuario4.Texto);
-                tmp.CUIL=long.Parse(controlUsuario1.Texto);
-                tmp.Email=controlUsuario5.Texto;
-                tmp.Estado = true;
+                tmp.Nombre      = controlUsuario3.Texto;
+                tmp.Direccion   = controlUsuario2.Texto;
+                tmp.Telefono    = int.Parse(controlUsuario4.Texto);
+                tmp.CUIL        =long.Parse(controlUsuario1.Texto);
+                tmp.Email       =controlUsuario5.Texto;
+                tmp.Estado      = true;
                 gestorprov.altaprov(tmp);
                 MessageBox.Show("Se registro un nuevo proveedor");
                 int id = gestorprov.ID();
                 string dv = $"{id}{tmp.Nombre}{tmp.CUIL}{tmp.Direccion}{tmp.Telefono}{tmp.Email}{tmp.Estado}";
-                int DVH = DV.ConvertToAscii(dv);
+                int DVH = DV.ConvertToAscii(dv.Trim());
                 string consultadV = "update proveedores set DVH=" + DVH + " where ID_proveedor=" + id;
                 gestbt.Consultar(consultadV);
                 string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM proveedores) WHERE DVV_TABLA='Proveedores'";
@@ -152,7 +152,7 @@ namespace TP_DIPLOMA.Maestros
             catch (Exception)
             {
 
-                MessageBox.Show("Seleccione un proveedor, Por Favor");
+                MessageBox.Show("Seleccione un proveedor, Por Favor", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -160,8 +160,8 @@ namespace TP_DIPLOMA.Maestros
         {
             prov.Idprov = int.Parse(lblidcl.Text);
             gestorprov.bajaprov(prov);
-            string dv = $"{prov.Idprov}{prov.Nombre}{prov.CUIL}{prov.Direccion}{prov.Telefono}{prov.Email}{prov.Estado}";
-            int DVH = DV.ConvertToAscii(dv);
+            string dv = $"{prov.Idprov}{prov.Nombre}{prov.CUIL}{prov.Direccion}{prov.Telefono}{prov.Email}{false}";
+            int DVH = DV.ConvertToAscii(dv.Trim());
             string consultadV = "update proveedores set DVH=" + DVH + " where ID_proveedor=" + lblidcl.Text;
             gestbt.Consultar(consultadV);
             string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM proveedores) WHERE DVV_TABLA='Proveedores'";
@@ -191,7 +191,7 @@ namespace TP_DIPLOMA.Maestros
 
                             MessageBox.Show("El proveedor fue modificado");
                             string dv = $"{item.Idprov}{item.Nombre}{item.CUIL}{item.Direccion}{item.Telefono}{item.Email}{item.Estado}";
-                            int DVH = DV.ConvertToAscii(dv);
+                            int DVH = DV.ConvertToAscii(dv.Trim());
                             string consultadV = "update proveedores set DVH=" + DVH + " where ID_proveedor=" + lblidcl.Text;
                             gestbt.Consultar(consultadV);
                             string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM proveedores) WHERE DVV_TABLA='Proveedores'";
@@ -230,8 +230,8 @@ namespace TP_DIPLOMA.Maestros
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            if (label2.Text=="Activos")
+            {
+            if (label2.Text=="Activos"||button3.Visible==false)
             {
                 button3.Visible = true;
 
@@ -243,7 +243,7 @@ namespace TP_DIPLOMA.Maestros
                 dataGridView1.Columns["Estado"].Visible = false;
                 label2.Text = "Desactivados";
             }
-            else if (label2.Text == "Desactivados")
+            else if (label2.Text == "Desactivados" || button3.Visible == true)
             {
                 button3.Visible = false;
 
@@ -265,8 +265,8 @@ namespace TP_DIPLOMA.Maestros
             {
                 string query = "Update proveedores set estado=1 where ID_proveedor=" + lblidcl.Text; 
                 gestbt.Consultar(query);
-                string dv = $"{prov.Idprov}{prov.Nombre}{prov.CUIL}{prov.Direccion}{prov.Telefono}{prov.Email}{prov.Estado}";
-                int DVH = DV.ConvertToAscii(dv);
+                string dv = $"{prov.Idprov}{prov.Nombre}{prov.CUIL}{prov.Direccion}{prov.Telefono}{prov.Email}{true}";
+                int DVH = DV.ConvertToAscii(dv.Trim());
                 string consultadV="update proveedores set DVH="+DVH +" where ID_proveedor="+ lblidcl.Text;
                 gestbt.Consultar(consultadV);
                 string actDVV = "UPDATE DVV set DVV_SUMA= (SELECT SUM(DVH) FROM proveedores) WHERE DVV_TABLA='Proveedores'";
@@ -328,7 +328,7 @@ namespace TP_DIPLOMA.Maestros
             catch (Exception)
             {
 
-                MessageBox.Show("Seleccione un producto, Por Favor");
+                MessageBox.Show("Seleccione un producto, Por Favor", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             
         }
@@ -441,7 +441,8 @@ namespace TP_DIPLOMA.Maestros
             if (label7.Tag != null && traducciones.ContainsKey(label7.Tag.ToString()))
                 label7.Text = traducciones[label7.Tag.ToString()].Texto;
 
-
+            if (estadolbl != null && traducciones.ContainsKey(estadolbl.ToString()))
+                label2.Text = traducciones[estadolbl.ToString()].Texto;
         }
 
 
@@ -522,5 +523,48 @@ namespace TP_DIPLOMA.Maestros
             SetColTag(dgv, "Producto", "Nroprod");
 
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            bool find=false;
+            if (controlUsuario1.Texto!=null)
+            {
+                long cuit = long.Parse(controlUsuario1.Texto);
+
+                foreach (BE.Maestros.Proveedores item in gestorprov.listrarprovs())
+                {
+                    if (item.CUIL==cuit)
+                    {
+                        lblidcl.Text = item.Idprov.ToString();
+                        lblidcl.Visible = false;
+                        controlUsuario1.Texto = item.CUIL.ToString();
+                        controlUsuario2.Texto = item.Direccion.ToString();
+                        controlUsuario3.Texto = item.Nombre.ToString();
+                        controlUsuario5.Texto = item.Email.ToString();
+                        controlUsuario4.Texto = item.Telefono.ToString();
+
+                        find = true;
+                        if (item.Estado == false )
+                        {
+                            estadolbl = "Desactivadolbl";
+                            traducir();
+                            button3.Visible = true;
+                        }
+                    }
+
+                }
+                var datos=gestorprov.listrarprovs().Where(x=>x.CUIL==long.Parse(controlUsuario1.Texto)||x.Email==controlUsuario5.Texto).ToList();
+
+                dataGridView1.DataSource=datos;
+                
+            }
+            if (find==false)
+            {
+                MessageBox.Show("No existe el Cuit Buscado, si desea registrarlo por favor commplete todos los campos");
+                enlazar();
+            }
+        }
+        
+
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BE;
+using Seguridad.Composite;
+using Seguridad.Singleton;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Seguridad.Composite;
 
 namespace TP_DIPLOMA
 {
@@ -17,6 +19,7 @@ namespace TP_DIPLOMA
         Patente_Usuario metodos;
         Patente_Usuario tmp;
         BLL.Patentes permisos;
+        BLL.Traductor tradu = new BLL.Traductor();
         public PermisosUsuarios()
         {
             InitializeComponent();
@@ -180,6 +183,66 @@ namespace TP_DIPLOMA
             }
             else
                 MessageBox.Show("Seleccione un usuario");
+        }
+
+        private void PermisosUsuarios_Load(object sender, EventArgs e)
+        {
+            traducir();
+        }
+
+        public void traducir()
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            // BUTTONS
+            if (cmdGuardar.Tag != null && traducciones.ContainsKey(cmdGuardar.Tag.ToString()))
+                cmdGuardar.Text = traducciones[cmdGuardar.Tag.ToString()].Texto;
+
+            if (btnagregarfamilia.Tag != null && traducciones.ContainsKey(btnagregarfamilia.Tag.ToString()))
+                btnagregarfamilia.Text = traducciones[btnagregarfamilia.Tag.ToString()].Texto;
+
+            if (btnagregarpatente.Tag != null && traducciones.ContainsKey(btnagregarpatente.Tag.ToString()))
+                btnagregarpatente.Text = traducciones[btnagregarpatente.Tag.ToString()].Texto;
+
+            if (cmdConfigurar.Tag != null && traducciones.ContainsKey(cmdConfigurar.Tag.ToString()))
+                cmdConfigurar.Text = traducciones[cmdConfigurar.Tag.ToString()].Texto;
+
+            if (button1.Tag != null && traducciones.ContainsKey(button1.Tag.ToString()))
+                button1.Text = traducciones[button1.Tag.ToString()].Texto;
+
+
+            // LABELS
+            if (lblagrefam.Tag != null && traducciones.ContainsKey(lblagrefam.Tag.ToString()))
+                lblagrefam.Text = traducciones[lblagrefam.Tag.ToString()].Texto;
+
+            if (lblagrepat.Tag != null && traducciones.ContainsKey(lblagrepat.Tag.ToString()))
+                lblagrepat.Text = traducciones[lblagrepat.Tag.ToString()].Texto;
+
+            if (lblallusers.Tag != null && traducciones.ContainsKey(lblallusers.Tag.ToString()))
+                lblallusers.Text = traducciones[lblallusers.Tag.ToString()].Texto;
+
+            if (label1.Tag != null && traducciones.ContainsKey(label1.Tag.ToString()))
+                label1.Text = traducciones[label1.Tag.ToString()].Texto;
+
+
+            // GROUPBOX
+            if (grpPatentes.Tag != null && traducciones.ContainsKey(grpPatentes.Tag.ToString()))
+                grpPatentes.Text = traducciones[grpPatentes.Tag.ToString()].Texto;
+
+
+            // COMBOBOX (solo si usás Tag como texto auxiliar / placeholder)
+            if (cmbusers.Tag != null && traducciones.ContainsKey(cmbusers.Tag.ToString()))
+                cmbusers.Text = traducciones[cmbusers.Tag.ToString()].Texto;
+
+            if (this.Tag != null && traducciones.ContainsKey(this.Tag.ToString()))
+                this.Text = traducciones[this.Tag.ToString()].Texto;
+
+
+
         }
     }
 }

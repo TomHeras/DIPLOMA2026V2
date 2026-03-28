@@ -29,6 +29,7 @@ namespace DAL.Maestros
                 cl.Email = registro["email"].ToString();
                 cl.Banco=registro["Datos_Bancarios"].ToString();
                 cl.Estado = bool.Parse(registro["Estado"].ToString());
+                cl.DVH = int.Parse(registro["DVH"].ToString());
 
                 cli.Add(cl);
             }
@@ -124,7 +125,7 @@ namespace DAL.Maestros
             int DVV = 0; // Valor predeterminado si no se encuentra ningún ID
 
             // Consulta SQL para obtener el último Idusu
-            string query = "SELECT DVV_suma FROM DVV WHERE DVV_TABLA='Productos'";
+            string query = "SELECT DVV_suma FROM DVV WHERE DVV_TABLA='Clientes'";
 
             // Crear y abrir la conexión a la base de datos
             using (var cnn = new SqlConnection(acces.crearconeion()))

@@ -47,6 +47,7 @@ namespace TP_DIPLOMA
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 13);
             this.label1.TabIndex = 0;
+            this.label1.Tag = "lblactual";
             this.label1.Text = "Actual Contraseña";
             // 
             // label2
@@ -57,6 +58,7 @@ namespace TP_DIPLOMA
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 1;
+            this.label2.Tag = "lblnueva";
             this.label2.Text = "Nueva Contraseña";
             // 
             // label3
@@ -67,6 +69,7 @@ namespace TP_DIPLOMA
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 13);
             this.label3.TabIndex = 2;
+            this.label3.Tag = "lblconfirm";
             this.label3.Text = "Confirmar Contraseña";
             // 
             // textBox1
@@ -97,6 +100,7 @@ namespace TP_DIPLOMA
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(144, 23);
             this.button1.TabIndex = 6;
+            this.button1.Tag = "btn-password";
             this.button1.Text = "Cambiar Contraseña";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -115,6 +119,7 @@ namespace TP_DIPLOMA
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "CambiarCave";
+            this.Tag = "frmclave";
             this.Text = "CambiarCave";
             this.Load += new System.EventHandler(this.CambiarCave_Load);
             this.ResumeLayout(false);

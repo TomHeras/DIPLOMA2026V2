@@ -98,8 +98,14 @@ namespace DAL
 
             foreach (DataRow registro in tabla.Rows)
             {
+                var x = new Idiomas()
+                {
+                    Id = int.Parse(registro["IdIdioma"].ToString())
+                };
+
                 BE.Usuario usu = new BE.Usuario();
                 usu.Idusuario = int.Parse(registro["IdUsu"].ToString());
+                usu.Idioma = x;
                 usu.Nombre = registro["UsuNom"].ToString();
                 usu.Usuarios = registro["UsuNick"].ToString();
                 usu.Password = registro["Usupass"].ToString();
@@ -428,7 +434,49 @@ namespace DAL
 
             return ultimoId;
         }
+        
 
+        public List<BE.userauxiliar> UsuarioDVH()
+        {
+            List<BE.userauxiliar> ListaUsuarios = new List<BE.userauxiliar>();
+            
+            DataTable tabla = acceso.Leer("DVHUsuario", null);
 
+            foreach (DataRow registro in tabla.Rows)
+            {
+                var x = new Idiomas()
+                {
+                    Id = int.Parse(registro["IdIdioma"].ToString())
+                };
+                BE.Usuario usu = new BE.Usuario { };
+
+                usu.Idusuario = int.Parse(registro["IdUsu"].ToString());
+                usu.Idioma = x;
+                usu.Nombre = registro["UsuNom"].ToString();
+                usu.Apellido = registro["UsuApe"].ToString();
+                usu.Usuarios = registro["UsuNick"].ToString();
+                usu.Password = registro["Usupass"].ToString();
+                usu.Baja_logica = bool.Parse(registro["UsubajaL"].ToString());
+                usu.Mail = registro["UsuMail"].ToString();
+                usu.Estado = bool.Parse(registro["UsuEstado"].ToString());
+                usu.UsuDVH = int.Parse(registro["UsuDVH"].ToString());
+
+                BE.userauxiliar useaux = new userauxiliar();
+                useaux.Idusuario = usu.Idusuario;
+                useaux.Idioma2 = x.Id;
+                useaux.Nombre = usu.Nombre;
+                useaux.Apellido = usu.Apellido;
+                useaux.Usuarios = usu.Usuarios;
+                useaux.Password = usu.Password;
+                useaux.Baja_Logica = usu.Baja_logica;
+                useaux.Mail = usu.Mail;
+                useaux.Estado = usu.Estado;
+                useaux.DVH = usu.UsuDVH;
+
+                ListaUsuarios.Add(useaux);
+            }
+
+            return ListaUsuarios;
+        }
     }
 }

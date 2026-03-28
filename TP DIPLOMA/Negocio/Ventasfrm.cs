@@ -186,7 +186,7 @@ namespace TP_DIPLOMA.Negocio
             catch (Exception)
             {
 
-                throw;
+                MessageBox.Show("Por favor seleccione una orden válida", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         public void limpiar()
@@ -265,7 +265,7 @@ namespace TP_DIPLOMA.Negocio
         private void MapTags_Pedidos(DataGridView dgv)
         {
             // Mapeo alias (SELECT) → clave i18n (las que tengas en tu BD)pedidos
-            SetColTag(dgv, "ID_pedido", "pedidos");
+            SetColTag(dgv, "ID_pedido", "nro_pedido");
             SetColTag(dgv, "Cliente", "headcliente");
             SetColTag(dgv, "Total", "Precio");
             SetColTag(dgv, "Generado", "cant");

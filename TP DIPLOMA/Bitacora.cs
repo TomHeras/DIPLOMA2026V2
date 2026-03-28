@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BE;
+using Seguridad.Singleton;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,10 +19,12 @@ namespace TP_DIPLOMA
             InitializeComponent();
         }
         BLL.Bitacora GestorBitacora = new BLL.Bitacora();
+        BLL.Traductor tradu=new BLL.Traductor();
         private void Bitacora_Load(object sender, EventArgs e)
         {
             enlazar();
-
+            dataGridView1.Columns["IDREG"].Visible=false;
+            traducir();
         }
         BE.BitacoraCAbmios bitacora2 = new BE.BitacoraCAbmios();
         BLL.Bitacora gestorbitacora = new BLL.Bitacora();
@@ -43,7 +47,93 @@ namespace TP_DIPLOMA
                 cmbusuarios.Items.Add(item.Nombre);
             }
         }
+        public void traducir()
+        {
+            Iidioma idioma = null;
 
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            if (label2.Tag != null && traducciones.ContainsKey(label2.Tag.ToString()))
+                label2.Text = traducciones[label2.Tag.ToString()].Texto;
+
+            if (label3.Tag != null && traducciones.ContainsKey(label3.Tag.ToString()))
+                label3.Text = traducciones[label3.Tag.ToString()].Texto;
+
+            if (label1.Tag != null && traducciones.ContainsKey(label1.Tag.ToString()))
+                label1.Text = traducciones[label1.Tag.ToString()].Texto;
+
+            if (label4.Tag != null && traducciones.ContainsKey(label4.Tag.ToString()))
+                label4.Text = traducciones[label4.Tag.ToString()].Texto;
+
+            if (button1.Tag != null && traducciones.ContainsKey(button1.Tag.ToString()))
+                button1.Text = traducciones[button1.Tag.ToString()].Texto;
+
+            if (checkcriticidad.Tag != null && traducciones.ContainsKey(checkcriticidad.Tag.ToString()))
+                checkcriticidad.Text = traducciones[checkcriticidad.Tag.ToString()].Texto;
+
+            if (checkdias.Tag != null && traducciones.ContainsKey(checkdias.Tag.ToString()))
+                checkdias.Text = traducciones[checkdias.Tag.ToString()].Texto;
+
+            if (checkmodulos.Tag != null && traducciones.ContainsKey(checkmodulos.Tag.ToString()))
+                checkmodulos.Text = traducciones[checkmodulos.Tag.ToString()].Texto;
+
+            if (checkusuarios.Tag != null && traducciones.ContainsKey(checkusuarios.Tag.ToString()))
+                checkusuarios.Text = traducciones[checkusuarios.Tag.ToString()].Texto;
+        }
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            Iidioma idioma = null;
+
+            if (SingletonSesion.Instancia.IsLogged())
+                idioma = SingletonSesion.Instancia.Usuario.Idioma;
+            var traducciones = tradu.ObtenerTraducciones(idioma);
+
+            MapTags_Pedidos(dataGridView1);
+
+
+            TraducirHeadersGrid(dataGridView1, traducciones);
+        }
+
+        private void MapTags_Pedidos(DataGridView dgv)
+        {
+            SetColTag(dgv, "NickUsuario", "lblusu");
+            SetColTag(dgv, "Fecha", "Fecha");
+            SetColTag(dgv, "Descripcion", "Descripcion");
+            SetColTag(dgv, "Modulo", "rdbmodulo");
+            SetColTag(dgv, "Criticidad", "rdbcriticidad");
+
+        }
+
+        private void SetColTag(DataGridView dgv, string colNameOrAlias, string tagKey)
+        {
+
+            if (dgv.Columns.Contains(colNameOrAlias))
+            {
+                dgv.Columns[colNameOrAlias].Tag = tagKey;
+                return;
+            }
+
+            var col = dgv.Columns
+                         .Cast<DataGridViewColumn>()
+                         .FirstOrDefault(c =>
+                             string.Equals(c.DataPropertyName, colNameOrAlias, StringComparison.OrdinalIgnoreCase));
+            if (col != null) col.Tag = tagKey;
+        }
+
+        private void TraducirHeadersGrid(DataGridView dgv, IDictionary<string, ITraduccion> traducciones)
+        {
+            if (traducciones == null || traducciones.Count == 0) return;
+
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+
+                if (col.Tag != null && traducciones.ContainsKey(col.Tag.ToString()))
+                    col.HeaderText = traducciones[col.Tag.ToString()].Texto;
+
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -128,15 +218,23 @@ namespace TP_DIPLOMA
         BE.Bitacora bit = new BE.Bitacora();
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            bit = (BE.Bitacora)dataGridView1.Rows[e.RowIndex].DataBoundItem;
-
-            foreach (BE.Usuario item in gestorusuarios.Listar())
+            try
             {
-                if (item.Usuarios == bit.NickUsuario)
+                bit = (BE.Bitacora)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+                foreach (BE.Usuario item in gestorusuarios.Listar())
                 {
-                    txtape.Text = item.Apellido;
-                    txtname.Text = item.Nombre;
+                    if (item.Usuarios == bit.NickUsuario)
+                    {
+                        txtape.Text = item.Apellido;
+                        txtname.Text = item.Nombre;
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Seleccione una fila valida", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

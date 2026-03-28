@@ -13,9 +13,9 @@ namespace DAL
     {
         public SqlConnection conexion = new SqlConnection();
 
-       string UAI= ConfigurationManager.ConnectionStrings["Conexion.UAI"].ConnectionString;
-        string host = ConfigurationManager.ConnectionStrings["Conexion.host"].ConnectionString;
-        string Merk = ConfigurationManager.ConnectionStrings["Conexion.Merk"].ConnectionString;
+        public string UAI  = ConfigurationManager.ConnectionStrings["Conexion.UAI" ].ConnectionString;
+        public string host = ConfigurationManager.ConnectionStrings["Conexion.host"].ConnectionString;
+        public string Merk = ConfigurationManager.ConnectionStrings["Conexion.Merk"].ConnectionString;
         public string crearconeion()
         {
             

@@ -72,6 +72,8 @@ namespace DAL.Negocio
                 cab.Estado = int.Parse(registro["estado"].ToString());
                 cab.Fechagen = DateTime.Parse(registro["fechagen"].ToString());
                 cab.Fechaact = DateTime.Parse(registro["fechaact"].ToString());
+                cab.DVH= int.Parse(registro["DVH"].ToString());
+
                 cablist.Add(cab);
 
 
@@ -91,6 +93,7 @@ namespace DAL.Negocio
                 detalle.ID_producto = int.Parse(registro["ID_producto"].ToString());
                 detalle.Cantidad = int.Parse(registro["Cantidad"].ToString());
                 detalle.Costo = double.Parse(registro["costo"].ToString());
+                detalle.DVH = int.Parse(registro["DVH"].ToString());
                 detlist.Add(detalle);
 
 
@@ -146,6 +149,7 @@ namespace DAL.Negocio
                 detalle.ID_producto = int.Parse(item["IDPROD"].ToString());
                 detalle.Cantidad = int.Parse(item["Cantidad"].ToString());
                 detalle.Costo = double.Parse(item["Precio"].ToString());
+                detalle.DVH= int.Parse(item["DVH"].ToString());
                 cotlist.Add(detalle);
             }
             return cotlist;
@@ -166,6 +170,7 @@ namespace DAL.Negocio
                 cotis.Fechagen = DateTime.Parse(item["FechaGen"].ToString());
                 cotis.Estado = int.Parse(item["Estado"].ToString());
                 cotis.Cotizaciones = double.Parse(item["Cotizacion"].ToString());
+                cotis.DVH = int.Parse(item["DVH"].ToString());
                 lista.Add(cotis);
             }
             return lista;
@@ -308,6 +313,43 @@ namespace DAL.Negocio
 
             // Consulta SQL para obtener el último Idusu
             string query = "SELECT DVV_suma FROM DVV WHERE DVV_TABLA='Pedidos'";
+
+            // Crear y abrir la conexión a la base de datos
+            using (var cnn = new SqlConnection(acces.crearconeion()))
+            {
+                using (var command = new SqlCommand(query, cnn))
+                {
+                    try
+                    {
+                        cnn.Open();
+
+                        // Ejecutar la consulta y obtener un lector de datos
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // Leer el primer registro (debería ser el único en este caso)
+                            if (reader.Read())
+                            {
+                                DVV = Convert.ToInt32(reader["DVV_SUMA"]); // Obtener el valor del primer campo
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejo de errores
+                        Console.WriteLine($"Ocurrió un error: {ex.Message}");
+                    }
+                }
+            }
+
+            return DVV;
+        }
+
+        public int DVVcompras()
+        {
+            int DVV = 0; // Valor predeterminado si no se encuentra ningún ID
+
+            // Consulta SQL para obtener el último Idusu
+            string query = "SELECT DVV_suma FROM DVV WHERE DVV_TABLA='Compras'";
 
             // Crear y abrir la conexión a la base de datos
             using (var cnn = new SqlConnection(acces.crearconeion()))
