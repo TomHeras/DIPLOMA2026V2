@@ -58,8 +58,11 @@ namespace TP_DIPLOMA
             // 
             // dataGridView1
             // 
+<<<<<<< HEAD
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+=======
+>>>>>>> 521e8a93b410f3bd12a52b22fc569d524fce93ea
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(318, 83);
