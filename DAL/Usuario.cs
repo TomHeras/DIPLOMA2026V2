@@ -105,7 +105,11 @@ namespace DAL
 
                 BE.Usuario usu = new BE.Usuario();
                 usu.Idusuario = int.Parse(registro["IdUsu"].ToString());
+
                 usu.Idioma = x;
+
+                usu.Idioma.Id = x.Id;
+
                 usu.Nombre = registro["UsuNom"].ToString();
                 usu.Usuarios = registro["UsuNick"].ToString();
                 usu.Password = registro["Usupass"].ToString();

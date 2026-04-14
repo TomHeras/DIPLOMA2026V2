@@ -135,7 +135,7 @@ namespace TP_DIPLOMA
                             SingletonSesion.Instancia.Usuario.Idioma = idioma;
                             MessageBox.Show("Bienvenido " + controlUsuario1.Texto, "SyT Nova", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             CargarBitacora(controlUsuario1.Texto, "Inicio de sesion", "Baja", "LOGIN");
-                            Administracion adm = new Administracion();
+                             Administracion adm = new Administracion();
                             adm.Show();
                             this.Hide();
 
@@ -340,10 +340,12 @@ namespace TP_DIPLOMA
 
         public bool Integridad()
         {
+
             
             BE.userauxiliar user = new userauxiliar();
             int DVH = 0, count=0;
-            foreach (BE.userauxiliar item in gestoruser.DVHus())
+          
+            foreach (BE.userauxiliar item in gestoruser.Listadeusu())
             {
                 count++;
                 user.Idusuario = item.Idusuario;
@@ -355,7 +357,9 @@ namespace TP_DIPLOMA
                 user.Password = item.Password;
                 user.Estado = item.Estado;
                 user.Baja_Logica = item.Baja_Logica;
+
                 user.DVH = item.DVH;
+
 
                 string DV = $"{user.Idioma2}{user.Idusuario}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{user.Baja_Logica}";
 

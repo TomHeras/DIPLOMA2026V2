@@ -131,6 +131,7 @@ namespace TP_DIPLOMA
             try
             {
 
+
                 usaux = (BE.userauxiliar)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
                 lblidcl.Text = usaux.Idusuario.ToString();
@@ -146,7 +147,7 @@ namespace TP_DIPLOMA
                 controlUsuario2.Texto = usaux.Usuarios.ToString();
                 controlUsuario3.Texto = usaux.Password.ToString();
                 controlUsuario4.Texto = usaux.Mail.ToString();
-              
+
                 if (usaux.Estado == true)
                 {
                     comboBox2.Text = "Activo";
@@ -155,12 +156,32 @@ namespace TP_DIPLOMA
                 {
                     comboBox2.Text = "Bloqueado";
                 }
+
+                lblidcl.Text = usaux.Idusuario.ToString();
+                controlUsuario1.Texto = usaux.Nombre.ToString();
+                foreach (BE.Iidioma item in GetTraductor.ObtenerIdiomas())
+                {
+                    if (item.Id == usaux.Idioma2)
+                    {
+                        comboBox1.Text = item.Nombre;
+                    }
+                }
+                controlUsuarioApellido.Texto = usaux.Apellido.ToString();
+                controlUsuario2.Texto = usaux.Usuarios.ToString();
+                controlUsuario3.Texto = usaux.Password.ToString();
+                controlUsuario4.Texto = usaux.Mail.ToString();
+                //comboBox1.Text = usaux.Idioma2.ToString();
+
+                if (usaux.Estado == true)
+                {
+                    comboBox2.Text = "Activo";
+                }
             }
             catch (Exception)
             {
 
 
-                MessageBox.Show("Debe seleccionar un usuario valido","Informacion",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Debe seleccionar un usuario valido", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
 
