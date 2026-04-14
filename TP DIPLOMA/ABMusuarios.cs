@@ -131,11 +131,7 @@ namespace TP_DIPLOMA
             try
             {
 
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> 26c2b193ce0b774a4ec7bab59cab399d13d83709
                 usaux = (BE.userauxiliar)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
                 lblidcl.Text = usaux.Idusuario.ToString();
@@ -160,49 +156,8 @@ namespace TP_DIPLOMA
                 {
                     comboBox2.Text = "Bloqueado";
                 }
-<<<<<<< HEAD
 
-                lblidcl.Text = usaux.Idusuario.ToString();
-                controlUsuario1.Texto = usaux.Nombre.ToString();
-                foreach (BE.Iidioma item in GetTraductor.ObtenerIdiomas())
-                {
-                    if (item.Id == usaux.Idioma2)
-                    {
-                        comboBox1.Text = item.Nombre;
-                    }
-                }
-                controlUsuarioApellido.Texto = usaux.Apellido.ToString();
-                controlUsuario2.Texto = usaux.Usuarios.ToString();
-                controlUsuario3.Texto = usaux.Password.ToString();
-                controlUsuario4.Texto = usaux.Mail.ToString();
-                //comboBox1.Text = usaux.Idioma2.ToString();
-
-                if (usaux.Estado == true)
-                {
-                    comboBox2.Text = "Activo";
-                }
-=======
-=======
-            lblidcl.Text = usaux.Idusuario.ToString();
-            controlUsuario1.Texto = usaux.Nombre.ToString();
-            foreach (BE.Iidioma item in GetTraductor.ObtenerIdiomas())
-            {
-                if (item.Id==usaux.Idioma2)
-                {
-                    comboBox1.Text = item.Nombre;
-                }
-            }
-            controlUsuarioApellido.Texto = usaux.Apellido.ToString();
-            controlUsuario2.Texto = usaux.Usuarios.ToString();
-            controlUsuario3.Texto = usaux.Password.ToString();
-            controlUsuario4.Texto = usaux.Mail.ToString();
-            //comboBox1.Text = usaux.Idioma2.ToString();
-            
-            if (usaux.Estado == true)
-            {
-                comboBox2.Text = "Activo";
->>>>>>> 521e8a93b410f3bd12a52b22fc569d524fce93ea
->>>>>>> 26c2b193ce0b774a4ec7bab59cab399d13d83709
+           
             }
             catch (Exception)
             {
