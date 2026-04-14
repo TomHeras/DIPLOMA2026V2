@@ -340,12 +340,25 @@ namespace TP_DIPLOMA
 
         public bool Integridad()
         {
+<<<<<<< HEAD
 
             
             BE.userauxiliar user = new userauxiliar();
             int DVH = 0, count=0;
           
             foreach (BE.userauxiliar item in gestoruser.Listadeusu())
+=======
+<<<<<<< HEAD
+            
+            BE.userauxiliar user = new userauxiliar();
+            int DVH = 0, count=0;
+            foreach (BE.userauxiliar item in gestoruser.DVHus())
+=======
+            BE.userauxiliar user = new userauxiliar();
+            int DVH = 0;
+            foreach (BE.userauxiliar item in gestoruser.Listadeusu())
+>>>>>>> 521e8a93b410f3bd12a52b22fc569d524fce93ea
+>>>>>>> 26c2b193ce0b774a4ec7bab59cab399d13d83709
             {
                 count++;
                 user.Idusuario = item.Idusuario;
@@ -357,9 +370,16 @@ namespace TP_DIPLOMA
                 user.Password = item.Password;
                 user.Estado = item.Estado;
                 user.Baja_Logica = item.Baja_Logica;
+<<<<<<< HEAD
 
                 user.DVH = item.DVH;
 
+=======
+<<<<<<< HEAD
+                user.DVH = item.DVH;
+=======
+>>>>>>> 521e8a93b410f3bd12a52b22fc569d524fce93ea
+>>>>>>> 26c2b193ce0b774a4ec7bab59cab399d13d83709
 
                 string DV = $"{user.Idioma2}{user.Idusuario}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{user.Baja_Logica}";
 
