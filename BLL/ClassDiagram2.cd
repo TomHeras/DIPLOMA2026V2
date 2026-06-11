@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BLL.Bitacora">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAEEAAAAAACACAAAAAAAABAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Bitacora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Cambioshistorico" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAAAAAAAAAAA=</HashCode>
+      <FileName>Cambioshistorico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Digitos" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAAAEAACACAAAAAAAAAIAAIIQAAAAAAAAA=</HashCode>
+      <FileName>Digitos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Estado" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Estado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.idioma" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAABCACAAAAAABAAAAAEAAAQAAA=</HashCode>
+      <FileName>idioma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Patentes" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAIAMAEAAAAIAAQAAAhAAAAgAAEAEBAQE=</HashCode>
+      <FileName>Patentes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.PP" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>PP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.RelacionarPP" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAIAAAAAACAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>RelacionarPP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.ReporteI" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAIAgAAAAAAAAAAAAIQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ReporteI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Traductor" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAgAAAAQAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Traductor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Usuarios">
+    <Position X="11.5" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>CAgQAAAgAEAAgACACACAgAIAAAAggAEAAwAAAAAAEQA=</HashCode>
+      <FileName>Usuarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Maestros.Clientes" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAIgEBAAAAAAAAAAAAAAAAAAACAAAAAEAA=</HashCode>
+      <FileName>Maestros\Clientes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Maestros.Productos">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAACGAAAAIgABAAAAAAAAAAAAAAAAEAAAACBACAAE=</HashCode>
+      <FileName>Maestros\Productos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Maestros.Proveedores" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAgAIkAAAAAAAAAAgAAAACQAAAAAQAAAAAAA=</HashCode>
+      <FileName>Maestros\Proveedores.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Negocio.Carrito" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAAAAAAABQAAAACAAAAAAIAAAAAAAAIAQAAAA=</HashCode>
+      <FileName>Negocio\Carrito.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Negocio.Pedidos" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAQAQAIAIAIAAKCCIAAAgIACAEACBIAACIAAAA=</HashCode>
+      <FileName>Negocio\Pedidos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

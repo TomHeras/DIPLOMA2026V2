@@ -44,7 +44,7 @@ namespace DAL.Maestros
             parametros[0] = new SqlParameter("@IDprod", stock.ID_producto);
             parametros[1] = new SqlParameter("@medidas", stock.Medidas);
             parametros[2] = new SqlParameter("@cantidad", stock.Cantidad);
-            parametros[3] = new SqlParameter("@Tipo", stock.Tipo);
+            parametros[3] = new SqlParameter("@tipo", stock.Tipo);
             parametros[4] = new SqlParameter("@precio", stock.Precio);
             fa = acces.Escribir("Editarproducto", parametros);
             return fa;

@@ -1,2 +1,287 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TP_DIPLOMA.ABMusuarios">
+    <Position X="13.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>hAACACAACCAEQBAyEBCgAAASAMg7QQCAEHAPRAAAJQA=</HashCode>
+      <FileName>ABMusuarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Administracion" BaseTypeListCollapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>HcGKcoET6jkwBKBAAI6Eo0ciwwozkISLOsUEAm8hkQE=</HashCode>
+      <FileName>Administracion.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TP_DIPLOMA.BACKUP" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEYAACAAAJIAAACAAAASAgAAFAAAEAAAAgIAgAI=</HashCode>
+      <FileName>BACKUP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Bitacora" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgAAAGAMABA2QBCgAAASAIgIAQKIIMAABAKAAQA=</HashCode>
+      <FileName>Bitacora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.BitacoraCambios" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAADAAAAGAEABBWQACAAAACAAlaBQCIIeABAAKgAAA=</HashCode>
+      <FileName>BitacoraCambios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.CambiarCave" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCAAAAAAACAAABAAEACAAABSAAAIAAAAEEAABBIAAwA=</HashCode>
+      <FileName>CambiarCave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Comprar" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggCCIAABGAgEhAyAJCACBASAggpIQCAAQBAAAIAAIA=</HashCode>
+      <FileName>Comprar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.ControlUsuario" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAFACAAAACAQAAAQQAEAAgAAAAAAA=</HashCode>
+      <FileName>ControlUsuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.CotizaYDetalle" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAwAAAANABAAAQAAAAAgGQBgAAAAAAAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.CotrolPass" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAFACAAAACAQAAAQAAEAAgAAAAAAA=</HashCode>
+      <FileName>CotrolPass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.ESTADO" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAwAAAAJABAAAQAAAAAgCQBgAABAAAAGABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Idioma" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAKAAIAACCgQJQigBiAAEASAAAFAACAASoAAAIAAkA=</HashCode>
+      <FileName>Idioma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.joincotizaciondetalle" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAAAAAA8AAAAJABAAAQAAAAAkCQBgAAAAAAAEBBBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.LOGIN" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQCCJEAAAChoABCQABiAgAACQAETQQiIASAIAgNAAQA=</HashCode>
+      <FileName>LOGIN.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Ordenes" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAAiAQAiCAFARJyABKAAAAWRN97EQCIsXBPASIUBAI=</HashCode>
+      <FileName>Ordenes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Permisos" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABACEIACggQBAgEAiCAAAXABFgAQgAEDOCAQIQAAI=</HashCode>
+      <FileName>Permisos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.PermisosUsuarios" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACBAICACiAgBBwAACBAAASgAAIAQFABGBABgIIAEA=</HashCode>
+      <FileName>PermisosUsuarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Program" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Recalcular" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BACABEAAAChgAAAACBCAgAACAAk7ARAIAXFIAgIAAQA=</HashCode>
+      <FileName>Recalcular.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Reporte1" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oCCCAACBAKBwABAAAACAAIBCAJgQEAIAEPAAAAIIwQA=</HashCode>
+      <FileName>Reporte1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.FrmDashboardCompras" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CUSAFBIBQqQKgBAgIACQAAASMABBAAWEQBAwBRNAAAA=</HashCode>
+      <FileName>Reportes\FrmDashboardCompras.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Restaurar" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEIAACAAAJIAAACAAAASAAAIBAAAEEAAAgACAAI=</HashCode>
+      <FileName>Restaurar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Serealizacion" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEIAACAJAJIiABCAAAASAAgIEQCAEUAAAAIAAAY=</HashCode>
+      <FileName>Serealizacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.CotizaYDetalleTableAdapters.levantarjoinTableAdapter" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACAAGAAEAAAAAcAIAAAAAAAACAICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.CotizaYDetalleTableAdapters.TableAdapterManager" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAACAAAABABAEBAAAAMAAgAAACgAAAAAQAAAAABAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.ESTADOTableAdapters.estadosTableAdapter" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.ESTADOTableAdapters.TableAdapterManager" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAACEIAABABAEBAAAAMAAgAAACgAAAAAQAAAAABAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.joincotizaciondetalleTableAdapters.Compras_DetTableAdapter" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACAAGAAEAAAAAcAIAAAAAAAACAICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.joincotizaciondetalleTableAdapters.CotizacionTableAdapter" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.joincotizaciondetalleTableAdapters.TableAdapterManager" Collapsed="true">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAACCAAABABAEBAAAAMAAgAAACgQAAAAQAAAAABAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Maestros.Clientesfrm" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACECAAACAMABAiERSAAAACQMg5EQCACXAOAAIgAAA=</HashCode>
+      <FileName>Maestros\Clientesfrm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Maestros.Productosfrm" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACCMACgiGRCBAAASQMg4EQCACHAMABJAACA=</HashCode>
+      <FileName>Maestros\Productosfrm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Maestros.Proveedores" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACECCAADAMABASk5aAAUASTtw4AQCUCXBMACYABAA=</HashCode>
+      <FileName>Maestros\Proveedores.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Negocio.Carritofrm" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADGAAQJOANABAyGJCIYBACfog5MQCIGWAAAAcAAIA=</HashCode>
+      <FileName>Negocio\Carritofrm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Negocio.DetallesCompras" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAiAIACKAEABA2JBCIAAASAEgaAQCFEWBIAAIgAAI=</HashCode>
+      <FileName>Negocio\DetallesCompras.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Negocio.Facturasfrm" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABiAoACKAFABAyEBKAgAACEEg4EQAAEXAIQQIAAAI=</HashCode>
+      <FileName>Negocio\Facturasfrm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Negocio.OrdeneCompra" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAiAAICCAFABA+EBCAAAASAAg6AUCAEXAAAAIAQAI=</HashCode>
+      <FileName>Negocio\OrdeneCompra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Negocio.Ventasfrm" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAjAggCCABABAyEBKKAAACAAk4EQCAEXAAAAIAAAI=</HashCode>
+      <FileName>Negocio\Ventasfrm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Properties.Resources" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAhAAwAAAAAABAAAAgABEQIAAQAAgAAAAAAAABAEBIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Properties.Settings" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAIAAAAABBAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Reportes.FrmDashboardVentas" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBIAADFKAACAgAIACQAAECJBA1AQWEURBAAAIAAAg=</HashCode>
+      <FileName>Reportes\FrmDashboard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TP_DIPLOMA.Reportes.FrmReporteInteligente" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAAAAAACAABAQAAACAAgACAwADGAACCAIACAgSACA=</HashCode>
+      <FileName>Reportes\FrmReporteInteligente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

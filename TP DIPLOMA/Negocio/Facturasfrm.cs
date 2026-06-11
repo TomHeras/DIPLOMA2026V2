@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace TP_DIPLOMA.Negocio
 {
@@ -28,6 +29,7 @@ namespace TP_DIPLOMA.Negocio
         BLL.Maestros.Productos gestorPRD = new BLL.Maestros.Productos();
         BLL.Estado estdos = new BLL.Estado(); 
         BLL.Traductor tradu = new BLL.Traductor();
+        BLL.Maestros.Productos gesprod = new BLL.Maestros.Productos();
         public void enlazar()
         {
             dataGridView1.DataSource = null;
@@ -93,7 +95,8 @@ namespace TP_DIPLOMA.Negocio
         private void button2_Click(object sender, EventArgs e)
         {
             BE.Negocio.Pedido_Cab cebe = new BE.Negocio.Pedido_Cab();
-            bool validar = false;
+            bool validar = false,Sumar=false;
+           
             foreach (BE.Negocio.Pedido_det det in gestor.listardetalles())
             {
                 det.ID_pedido = int.Parse(textBox1.Text);
@@ -101,6 +104,7 @@ namespace TP_DIPLOMA.Negocio
                 {
                     if (item.ID_pedido == det.ID_pedido)
                     {
+
                         item.Estado = comboBox1.SelectedIndex;
                         item.Fechaact = DateTime.Now;
                         
@@ -125,6 +129,40 @@ namespace TP_DIPLOMA.Negocio
             string actDVV = "UPDATE dbo.DVV SET DVV_SUMA = ISNULL((SELECT SUM(DVH) FROM dbo.Pedidocab), 0) + ISNULL((SELECT SUM(DVH) FROM dbo.Pedidosdet), 0) WHERE  DVV_TABLA = N'Pedidos'\r\n";
             gestBT.Consultar(actDVV);
             LLenarbitacoraC(cebe);
+            if (cebe.Estado==3&&detail.Estado!="Cancelado")
+            {
+                foreach (BE.Negocio.Pedido_det ped in gestor.listardetalles())
+                {
+                    if (ped.ID_pedido==cebe.ID_pedido)
+                    {
+                        foreach (BE.Maestros.Productos item in gestorPRD.listar())
+                        {
+                            if (item.ID_producto==ped.ID_producto)
+                            {
+                                
+
+                                item.ID_producto = ped.ID_producto;
+                                item.Cantidad = item.Cantidad+ped.Cantidad;
+                                item.Tipo = item.Tipo;
+                                item.Precio = item.Precio;
+                                item.Medidas = item.Medidas;
+                                item.Estado=item.Estado;
+                                gestorPRD.editar_prod(item);
+                                
+
+                                
+                                string dvhP = $"{item.ID_producto}|{(item.Tipo ?? "").Trim().ToUpperInvariant()}|{Convert.ToDecimal(item.Medidas).ToString("0.####", CultureInfo.InvariantCulture)}|{item.Cantidad.ToString(CultureInfo.InvariantCulture)}|{Convert.ToDecimal(item.Precio).ToString("0.####", CultureInfo.InvariantCulture)}|{(item.Estado ? "1" : "0")}";
+                                int DVH = DV.ConvertToAscii(dvhP);
+                                string consultadv = "UPDATE Stock set DVH= " + DVH + " where ID_producto=" + item.ID_producto;
+                                gestBT.Consultar(consultadv);
+                                string ADVV = "UPDATE DVV SET DVV_SUMA = (SELECT SUM(DVH) FROM Stock)WHERE  DVV_TABLA = N'Productos'";
+                                gestBT.Consultar(ADVV);
+                            }
+                        }
+                    }
+                }
+            }
+            
             if (validar)
             {
                 MessageBox.Show("El Pedido fue actualizado exitosamente");

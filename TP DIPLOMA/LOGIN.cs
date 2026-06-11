@@ -54,6 +54,8 @@ namespace TP_DIPLOMA
         {
             bool ok = true, oki = true;
 
+            bool UsuVaklidar=false;
+
             foreach (Control ctr in this.Controls)
             {
                 if (ctr is ControlUsuario)
@@ -84,6 +86,7 @@ namespace TP_DIPLOMA
                 {
                     if (item.Usuarios == controlUsuario1.Texto)
                     {
+                        UsuVaklidar = true;
                         if (item.Estado == true)
                         {
                             user.Idusuario = item.Idusuario;
@@ -91,6 +94,7 @@ namespace TP_DIPLOMA
                             user.Usuarios = controlUsuario1.Texto;
                             user.Password = cotrolPass1.Texto;
                             user.Estado = true;
+                            user.Baja_logica = item.Baja_logica;
                             break;
                         }
                         else
@@ -98,75 +102,127 @@ namespace TP_DIPLOMA
                             user.Usuarios = controlUsuario1.Texto;
                             user.Password = cotrolPass1.Texto;
                             user.Estado = false;
+                            user.Baja_logica = item.Baja_logica;
                             break;
                         }
                     }
 
                 }
 
-                if (user.Estado == true)
+                if (UsuVaklidar==true)
                 {
-                    gestoruser.login(controlUsuario1.Texto, cotrolPass1.Texto);
-                    
-                    if (SingletonSesion.Instancia.IsLogged())
+                    if (user.Estado == true && user.Baja_logica==false)
                     {
+                        gestoruser.login(controlUsuario1.Texto, cotrolPass1.Texto);
 
-                        if (Integridad() == true)
+                        if (SingletonSesion.Instancia.IsLogged())
                         {
-                          
-                          
-                           if (SingletonSesion.Instancia.Usuario.usuario == "Admin")
-                           {
-                               MessageBox.Show("Administrador se encontro una incosistencia en las siguientes tablas: "+ informeBD, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                               BACKUP adm = new BACKUP();
-                               adm.Show();
-                               this.Hide();
+
+                            if (Integridad() == true)
+                            {
+
+
+                                if (SingletonSesion.Instancia.Usuario.usuario == "Admin")
+                                {
+                                    MessageBox.Show("Administrador se encontro una incosistencia en las siguientes tablas: " + informeBD, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    gestoruser.Logout();
+
+                                    Recalcular adm= new Recalcular();
+                                    adm.Show();
+                                    this.Hide();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se puede ingresar en este momento, por favor couniquese con el administrador, muchas gracias!");
+                                    gestoruser.Logout();
+                                }
+
+
                             }
                             else
                             {
-                                MessageBox.Show("No se puede ingresar en este momento, por favor couniquese con el administrador, muchas gracias!");
+
+                                SingletonSesion.Instancia.Usuario.Idioma = idioma;
+                                MessageBox.Show("Bienvenido " + controlUsuario1.Texto, "SyT Nova", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                CargarBitacora(controlUsuario1.Texto, "Inicio de sesion", "Baja", "LogIn");
+                                Administracion adm = new Administracion();
+                                adm.Show();
+                                this.Hide();
+
                             }
-                          
-                            
+
+
+
                         }
                         else
                         {
-                           
-                            SingletonSesion.Instancia.Usuario.Idioma = idioma;
-                            MessageBox.Show("Bienvenido " + controlUsuario1.Texto, "SyT Nova", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            CargarBitacora(controlUsuario1.Texto, "Inicio de sesion", "Baja", "LOGIN");
-                             Administracion adm = new Administracion();
-                            adm.Show();
-                            this.Hide();
+                            cont = cont + 1;
+                            if (cont >= 3)
+                            {
+                                //BE.userauxiliar usaux = new BE.userauxiliar();
+                                //usaux.Usuarios = controlUsuario1.Texto;
+                                //usaux.Idusuario = user.Idusuario;
+                                //usaux.Idioma2 = 1;
+                                //usaux.Password = Encriptador.Hash(user.Password);
+                                //usaux.Nombre = user.Nombre;
+                                //usaux.Estado = false;
 
+
+                                //gestoruser.EditarUsuario_estado(usaux);
+                                string query = "update Usuarios set Usuestado=0 where Usunick='" + controlUsuario1.Texto+"'";
+                                gestorbitacora.Consultar(query);
+                                MessageBox.Show("El usario fue bloqueado por la cantidad de intentos");
+                                cont = 0;
+                                CargarBitacora(controlUsuario1.Texto, "Bloqueo por reintentos", "Media", "LogIn");
+                                BE.userauxiliar user = new userauxiliar();
+                                foreach (BE.userauxiliar item in gestoruser.Listadeusu())
+                                {
+                                    if (item.Usuarios==controlUsuario1.Texto)
+                                    { 
+                                        user.Idusuario = item.Idusuario;
+                                        user.Idioma2 = item.Idioma2;
+                                        user.Nombre = item.Nombre;
+                                        user.Apellido = item.Apellido;
+                                        user.Mail = item.Mail;
+                                        user.Usuarios = item.Usuarios;
+                                        user.Password = item.Password;
+                                        user.Estado = item.Estado;
+                                        user.Baja_Logica = item.Baja_Logica;
+                                    }
+                                }
+                                string DV = $"{user.Idioma2}{user.Idusuario}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{user.Baja_Logica}";
+
+                                int fila = DVs.ConvertToAscii(DV);
+                                query = "update Usuarios set UsuDVH=" + fila + "where Idusu=" + user.Idusuario;
+                                gestorbitacora.Consultar(query);
+                                query = " UPDATE DVV SET DVV_SUMA = (SELECT SUM(UsuDVH) FROM Usuarios) WHERE DVV_TABLA='Usuarios'";
+                                gestorbitacora.Consultar(query);
+                            }
+                            else
+                            {
+                                MessageBox.Show("el usuario o la contraseña son incorrectos");
+                                //CargarBitacora(user.Usuarios, "Inicio de sesion", "Medio", "LOGIN");
+                            }
                         }
-
-
-
                     }
                     else
                     {
-                        cont = cont + 1;
-                        if (cont >= 3)
+                        if (user.Estado==false)
                         {
-                            BE.userauxiliar usaux = new BE.userauxiliar();
-                            usaux.Usuarios = controlUsuario1.Texto;
-                            usaux.Idusuario = user.Idusuario;
-                            usaux.Idioma2 = 1;
-                            usaux.Password = Encriptador.Hash(user.Password);
-                            usaux.Nombre = user.Nombre;
-                            usaux.Estado = false;
-
-
-                            gestoruser.EditarUsuario_estado(usaux);
-                            MessageBox.Show("El usario fue bloqueado por la cantidad de intentos");
-                            cont = 0;
+                            MessageBox.Show("el usuario esta bloqueado");
                         }
+                        if (user.Baja_logica==true)
+                        {
+                            MessageBox.Show("el usuario no existe o no esta disponible");
+                        }
+                        
+                        //CargarBitacora(user.Usuarios, "Inicio de sesion", "Medio", "LOGIN");
                     }
+
                 }
                 else
                 {
-                    MessageBox.Show("el usuario esta bloqueado");
+                    MessageBox.Show("el usuario no existe");
                     //CargarBitacora(user.Usuarios, "Inicio de sesion", "Medio", "LOGIN");
                 }
 
@@ -305,7 +361,7 @@ namespace TP_DIPLOMA
             comboBox1.DataSource = datos;
             comboBox1.DisplayMember = "Nombre";
             comboBox1.ValueMember = "Id";
-            comboBox1.SelectedIndex = -1; 
+            //comboBox1.SelectedIndex = -1; 
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -346,7 +402,7 @@ namespace TP_DIPLOMA
             BE.userauxiliar user = new userauxiliar();
             int DVH = 0, count=0;
           
-            foreach (BE.userauxiliar item in gestoruser.Listadeusu())
+            foreach (BE.userauxiliar item in gestoruser.DVHus())
 
             {
                 count++;

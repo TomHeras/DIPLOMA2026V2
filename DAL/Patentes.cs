@@ -316,6 +316,64 @@ namespace DAL
             reader.Close();
         }
 
+        //public bool BuscarPermisos(Tipopatente patente, Patente_Usuario u)
+        //{
+        //    var cnn = new SqlConnection(acceso.crearconeion());
+        //    cnn.Open();
+        //    var cmd2 = new SqlCommand();
+        //    cmd2.Connection = cnn;
+        //    cmd2.CommandText = "select p.* from Usuario_Patente up inner join Patente p on up.IdPat=p.IdPat where IdUsu=@id";
+        //    cmd2.Parameters.AddWithValue("@id", u.Idusuarios);
+        //    var reader = cmd2.ExecuteReader();
+        //    u.Permisos.Clear();
+        //    while (reader.Read())
+        //    {
+
+        //        var idp = reader.GetInt32(reader.GetOrdinal("IdPat"));
+        //        var nombrep = reader.GetString(reader.GetOrdinal("PatNom"));
+        //        var permisop = String.Empty;
+        //        if (reader["PatDesc"] != DBNull.Value)
+        //            permisop = reader.GetString(reader.GetOrdinal("PatDesc"));
+
+        //        Componente c1;
+        //        if (!String.IsNullOrEmpty(permisop))
+        //        {
+        //            c1 = new Patente();
+        //            c1.Id = idp;
+        //            c1.Nombre = nombrep;
+        //            c1.Permiso = (Tipopatente)Enum.Parse(typeof(Tipopatente), permisop);
+        //            u.Permisos.Add(c1);
+        //        }
+        //        else
+        //        {
+        //            c1 = new Familia();
+        //            c1.Id = idp;
+        //            c1.Nombre = nombrep;
+
+        //            var f = GetAll("=" + idp);
+
+        //            foreach (var familia in f)
+        //            {
+        //                c1.AgregarHijo(familia);
+        //            }
+        //            u.Permisos.Add(c1);
+        //        }
+        //    }
+        //    bool existe = false;
+        //    foreach (var item in u.Permisos)
+        //    {
+        //        if (item.Permiso.Equals(patente))
+        //            return true;
+        //        else
+        //        {
+        //            existe = isInRole(item, patente, existe);
+        //            if (existe) return true;
+        //        }
+
+        //    }
+        //    reader.Close();
+        //    return existe;
+        //}
         public bool BuscarPermisos(Tipopatente patente, Patente_Usuario u)
         {
             var cnn = new SqlConnection(acceso.crearconeion());
@@ -324,19 +382,20 @@ namespace DAL
             cmd2.Connection = cnn;
             cmd2.CommandText = "select p.* from Usuario_Patente up inner join Patente p on up.IdPat=p.IdPat where IdUsu=@id";
             cmd2.Parameters.AddWithValue("@id", u.Idusuarios);
+
             var reader = cmd2.ExecuteReader();
             u.Permisos.Clear();
+
             while (reader.Read())
             {
-
                 var idp = reader.GetInt32(reader.GetOrdinal("IdPat"));
                 var nombrep = reader.GetString(reader.GetOrdinal("PatNom"));
-                var permisop = String.Empty;
-                if (reader["PatDesc"] != DBNull.Value)
-                    permisop = reader.GetString(reader.GetOrdinal("PatDesc"));
+                var permisop = reader["PatDesc"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("PatDesc")) : String.Empty;
 
                 Componente c1;
-                if (!String.IsNullOrEmpty(permisop))
+
+                // 1. Si es patente simple (tiene PatDesc), la agregamos
+                if (!String.IsNullOrEmpty(permisop) && permisop != "perfil")
                 {
                     c1 = new Patente();
                     c1.Id = idp;
@@ -346,33 +405,31 @@ namespace DAL
                 }
                 else
                 {
+                    // 2. Es Familia o Perfil, necesitamos cargar SU ÁRBOL de hijos
                     c1 = new Familia();
                     c1.Id = idp;
                     c1.Nombre = nombrep;
 
-                    var f = GetAll("=" + idp);
-
-                    foreach (var familia in f)
+                    // AQUÍ ESTÁ LA SOLUCIÓN: Usás tu función GetAll que ya tiene la lógica recursiva
+                    // para traer todos los hijos, nietos, etc., de este nodo.
+                    var hijos = GetAll("=" + idp);
+                    foreach (var hijo in hijos)
                     {
-                        c1.AgregarHijo(familia);
+                        c1.AgregarHijo(hijo);
                     }
                     u.Permisos.Add(c1);
                 }
             }
+            reader.Close();
+            cnn.Close();
+
+            // 3. Ahora que el árbol está completo en u.Permisos, buscamos
             bool existe = false;
             foreach (var item in u.Permisos)
             {
-                if (item.Permiso.Equals(patente))
-                    return true;
-                else
-                {
-                    existe = isInRole(item, patente, existe);
-                    if (existe) return true;
-                }
-
+                if (isInRole(item, patente, false)) return true;
             }
-            reader.Close();
-            return existe;
+            return false;
         }
 
         bool isInRole(Componente c, Tipopatente patente, bool existe)

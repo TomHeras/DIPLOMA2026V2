@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Seguridad;
+using Seguridad.Composite;
+using Seguridad.MultiIdioma;
+using Seguridad.Singleton;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,10 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Seguridad;
-using Seguridad.MultiIdioma;
-using Seguridad.Singleton;
-using Seguridad.Composite;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace TP_DIPLOMA
 {
@@ -25,14 +26,16 @@ namespace TP_DIPLOMA
 
         Seguridad.Backup_restore BackupRestore = new Seguridad.Backup_restore();
 
+        
+
         private void Restaurar_Load(object sender, EventArgs e)
         {
-            radioButton2.Checked = true;
-            radioButton2.Visible = false;
+            
         }
 
         private void btnbuscar_Click(object sender, EventArgs e)
         {
+           
             if (radioButton2.Checked == true)
             {
                 OpenFileDialog Archivo = new OpenFileDialog();
@@ -45,7 +48,7 @@ namespace TP_DIPLOMA
                 }
             }
         }
-        BLL.Usuarios usu = new BLL.Usuarios();
+
         private void btnejecutar_Click(object sender, EventArgs e)
         {
             if (radioButton2.Checked == true)
@@ -55,12 +58,7 @@ namespace TP_DIPLOMA
                     BackupRestore.GenerarRestore(textBox1.Text);
 
                     MessageBox.Show("Realizado");
-                    usu.Logout();
-                    this.Hide();
-                    LOGIN log = new LOGIN();
-                    log.Show();
-                    
-                    
+
                 }
                 else
                 {
@@ -68,6 +66,13 @@ namespace TP_DIPLOMA
                 }
 
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LOGIN LG=new LOGIN();
+            LG.Show();
+            this.Hide();
         }
     }
 }

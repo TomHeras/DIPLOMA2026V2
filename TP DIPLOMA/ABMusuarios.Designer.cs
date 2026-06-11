@@ -51,6 +51,7 @@ namespace TP_DIPLOMA
             this.controlUsuario3 = new TP_DIPLOMA.ControlUsuario();
             this.controlUsuario2 = new TP_DIPLOMA.ControlUsuario();
             this.controlUsuario1 = new TP_DIPLOMA.ControlUsuario();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.idiomaBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.idiomaBindingSource)).BeginInit();
@@ -58,12 +59,8 @@ namespace TP_DIPLOMA
             // 
             // dataGridView1
             // 
-
-
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-
-
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(318, 83);
@@ -129,7 +126,7 @@ namespace TP_DIPLOMA
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(167, 406);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(105, 23);
+            this.button2.Size = new System.Drawing.Size(115, 23);
             this.button2.TabIndex = 8;
             this.button2.Tag = "editusu";
             this.button2.Text = "Modificar Usuario";
@@ -160,7 +157,7 @@ namespace TP_DIPLOMA
             // button3
             // 
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(88, 452);
+            this.button3.Location = new System.Drawing.Point(13, 458);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(105, 23);
             this.button3.TabIndex = 25;
@@ -284,6 +281,18 @@ namespace TP_DIPLOMA
             this.controlUsuario1.Tag = "Nombre";
             this.controlUsuario1.Texto = "";
             // 
+            // button7
+            // 
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Location = new System.Drawing.Point(167, 458);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(115, 23);
+            this.button7.TabIndex = 31;
+            this.button7.Tag = "";
+            this.button7.Text = "Cambiar Contraseña";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // ABMusuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -291,6 +300,7 @@ namespace TP_DIPLOMA
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(975, 493);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.label3);
@@ -348,5 +358,6 @@ namespace TP_DIPLOMA
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button7;
     }
 }

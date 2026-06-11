@@ -219,7 +219,8 @@ namespace TP_DIPLOMA
                         gestorusuarios.crearusuario(user);
                         int ID = gestorusuarios.ID();
 
-                        string DV = $"{user.Idioma.Id}{ID}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{0}";                      
+                        string DV = $"{user.Idioma.Id}{ID}{user.Usuarios}{user.Nombre}{user.Apellido}{user.Password}{user.Mail}{user.Estado}{user.Baja_logica}";
+                     
                         int Digito=D.ConvertToAscii(DV);
                         string Consulta = "UPDATE Usuarios set UsuDVH=" + Digito + " where Idusu=" + ID;
                         gestorusuarios.Consultar(Consulta);
@@ -461,6 +462,51 @@ namespace TP_DIPLOMA
                 if (col.Tag != null && traducciones.ContainsKey(col.Tag.ToString()))
                     col.HeaderText = traducciones[col.Tag.ToString()].Texto;
 
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            foreach (BE.userauxiliar item in gestorusuarios.Listadeusu())
+            {
+                if (lblidcl.Text == item.Idusuario.ToString())
+                {
+                    item.Nombre = controlUsuario1.Texto;
+                    item.Apellido = controlUsuarioApellido.Texto;
+                    item.Usuarios = controlUsuario2.Texto;
+                    item.Password = Encriptador.Hash(controlUsuario3.Texto);
+                    item.Mail = controlUsuario4.Texto;
+                    item.Idioma2 = comboBox1.SelectedIndex + 1;
+                    item.Baja_Logica = false;
+                    try
+                    {
+                        if (comboBox2.SelectedItem.ToString() == "Activo")
+                        {
+                            item.Estado = true;
+                        }
+                        else
+                        {
+                            item.Estado = false;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                    gestorusuarios.CambiarContraseña(item);
+                    string DV = $"{item.Idioma2}{item.Idusuario}{item.Usuarios}{item.Nombre}{item.Apellido}{item.Password}{item.Mail}{item.Estado}{item.Baja_Logica}";
+                    int Digito = D.ConvertToAscii(DV);
+                    string Consulta = "UPDATE Usuarios set UsuDVH=" + Digito + " where Idusu=" + item.Idusuario;
+                    gestorusuarios.Consultar(Consulta);
+                    string actDVV = " UPDATE DVV SET DVV_SUMA = (SELECT SUM(UsuDVH) FROM Usuarios) WHERE DVV_TABLA='Usuarios'";
+                    gestorusuarios.Consultar(actDVV);
+                    MessageBox.Show("El usuario fue modificado con exito");
+
+                    limpiar();
+                    enlazar();
+                }
             }
         }
     }

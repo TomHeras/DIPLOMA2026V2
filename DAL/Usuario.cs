@@ -230,6 +230,9 @@ namespace DAL
             //parametersUpdate[1] = new SqlParameter("UsuDVH", usu.UsuDVH);
 
             //fa = acceso.Escribir("ActualizarUsuarioDVH", parametersUpdate);
+            string Update= "insert into Usuario_Patente ([IdUsu], [IdPat]) values("+usu.Idusuario+", 2039)";
+
+            Update = "insert into Usuario_Patente ([IdUsu], [IdPat]) values(" + usu.Idusuario + ", 2040)";
             return fa;
 
         }

@@ -10,9 +10,11 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace TP_DIPLOMA.Negocio
 {
@@ -63,6 +65,8 @@ namespace TP_DIPLOMA.Negocio
         BLL.Estado estdos = new BLL.Estado();
         BLL.Traductor tradu = new BLL.Traductor();
         BLL.Bitacora gestBT = new BLL.Bitacora();
+
+        BLL.Maestros.Productos gestorPRD = new BLL.Maestros.Productos();
 
         public void estilizargrid()
         {
@@ -148,6 +152,39 @@ namespace TP_DIPLOMA.Negocio
 
                     //
                     LLenarbitacoraC(cabe);
+                    if (cabe.Estado == 3 && join.Estado != "Cancelado")
+                    {
+                        foreach (BE.Negocio.Pedido_det ped in gestorped.listardetalles())
+                        {
+                            if (ped.ID_pedido == cabe.ID_pedido)
+                            {
+                                foreach (BE.Maestros.Productos itemp in gestorPRD.listar())
+                                {
+                                    if (itemp.ID_producto == ped.ID_producto)
+                                    {
+
+
+                                        itemp.ID_producto = ped.ID_producto;
+                                        itemp.Cantidad = itemp.Cantidad + ped.Cantidad;
+                                        itemp.Tipo =    itemp.Tipo;
+                                        itemp.Precio =  itemp.Precio;
+                                        itemp.Medidas = itemp.Medidas;
+                                        itemp.Estado =  itemp.Estado;
+                                        gestorPRD.editar_prod(itemp);
+
+
+
+                                        string dvhP = $"{itemp.ID_producto}|{(itemp.Tipo ?? "").Trim().ToUpperInvariant()}|{Convert.ToDecimal(itemp.Medidas).ToString("0.####", CultureInfo.InvariantCulture)}|{itemp.Cantidad.ToString(CultureInfo.InvariantCulture)}|{Convert.ToDecimal(itemp.Precio).ToString("0.####", CultureInfo.InvariantCulture)}|{(itemp.Estado ? "1" : "0")}";
+                                        int DVHp = DV.ConvertToAscii(dvhP);
+                                        string consulta = "UPDATE Stock set DVH= " + DVH + " where ID_producto=" + itemp.ID_producto;
+                                        gestBT.Consultar(consulta);
+                                        string ADVV = "UPDATE DVV SET DVV_SUMA = (SELECT SUM(DVH) FROM Stock)WHERE  DVV_TABLA = N'Productos'";
+                                        gestBT.Consultar(ADVV);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

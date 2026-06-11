@@ -215,7 +215,23 @@ namespace TP_DIPLOMA.Negocio
 
                     string actDVV = "UPDATE dbo.DVV SET DVV_SUMA = ISNULL((SELECT SUM(DVH) FROM dbo.Pedidocab), 0) + ISNULL((SELECT SUM(DVH) FROM dbo.Pedidosdet), 0) WHERE  DVV_TABLA = N'Pedidos'\r\n";
                     gestBT.Consultar(actDVV);
+                    foreach (BE.Maestros.Productos itemp in gesprod.listar())
+                    {
+                        if (itemp.ID_producto == detalle.ID_producto)
+                        {
+                            itemp.Cantidad = itemp.Cantidad - detalle.Cantidad;
+                            itemp.Medidas = itemp.Medidas;
+                            itemp.Tipo = itemp.Tipo;
 
+                            gesprod.editar_prod(itemp);
+                            string dvhP = $"{itemp.ID_producto}|{(itemp.Tipo ?? "").Trim().ToUpperInvariant()}|{Convert.ToDecimal(itemp.Medidas).ToString("0.####", CultureInfo.InvariantCulture)}|{itemp.Cantidad.ToString(CultureInfo.InvariantCulture)}|{Convert.ToDecimal(itemp.Precio).ToString("0.####", CultureInfo.InvariantCulture)}|{(itemp.Estado ? "1" : "0")}";
+                            DVH = DV.ConvertToAscii(dvhP);
+                            consultadv = "UPDATE Stock set DVH= " + DVH + " where ID_producto=" + itemp.ID_producto;
+                            gestorbitacora.Consultar(consultadv);
+                             actDVV = "UPDATE DVV SET DVV_SUMA = (SELECT SUM(DVH) FROM Stock)WHERE  DVV_TABLA = N'Productos'";
+                            gestorbitacora.Consultar(actDVV);
+                        }
+                    }
                 }
 
                 GetCarrito.vaciarcarrito();
@@ -225,23 +241,7 @@ namespace TP_DIPLOMA.Negocio
 
                 throw;
             }
-            foreach (BE.Maestros.Productos item in gesprod.listar())
-            {
-                if (item.ID_producto == detalle.ID_producto)
-                {
-                    item.Cantidad = item.Cantidad - detalle.Cantidad;
-                    item.Medidas = item.Medidas;
-                    item.Tipo = item.Tipo;
-
-                    gesprod.editar_prod(item);
-                    string dvhP = $"{item.ID_producto}|{(item.Tipo ?? "").Trim().ToUpperInvariant()}|{Convert.ToDecimal(item.Medidas).ToString("0.####", CultureInfo.InvariantCulture)}|{item.Cantidad.ToString(CultureInfo.InvariantCulture)}|{Convert.ToDecimal(item.Precio).ToString("0.####", CultureInfo.InvariantCulture)}|{(item.Estado ? "1" : "0")}";
-                    DVH = DV.ConvertToAscii(dvhP);
-                    consultadv = "UPDATE Stock set DVH= " + DVH + " where ID_producto=" + item.ID_producto;
-                    gestorbitacora.Consultar(consultadv);
-                    string actDVV = "UPDATE DVV SET DVV_SUMA = (SELECT SUM(DVH) FROM Stock)WHERE  DVV_TABLA = N'Productos'";
-                    gestorbitacora.Consultar(actDVV);
-                }
-            }
+           
 
             MessageBox.Show("Factura generada exitosamente");
             enlazar();

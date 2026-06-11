@@ -96,7 +96,7 @@ namespace Seguridad
                 }
 
                 // Primera opción de conexión
-                conexion.ConnectionString = @"Data Source=DESKTOP-QI5JC7C\TOOM;Initial Catalog=TPDIPLOMA;Integrated Security=True";
+                conexion.ConnectionString = @"Data Source=TOOM;Initial Catalog=TPDIPLOMA;Integrated Security=True";
                 conexion.Open();
             }
             catch (Exception ex1)

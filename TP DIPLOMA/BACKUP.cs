@@ -66,6 +66,8 @@ namespace TP_DIPLOMA
                     BackupRestore.GenerarBackUp(textBox1.Text);
 
                     MessageBox.Show("Realizado");
+                    
+                    
                 }
                 else
                 {
@@ -80,6 +82,7 @@ namespace TP_DIPLOMA
                     BackupRestore.GenerarRestore(textBox1.Text);
 
                     MessageBox.Show("Realizado");
+                   
                 }
                 else
                 {

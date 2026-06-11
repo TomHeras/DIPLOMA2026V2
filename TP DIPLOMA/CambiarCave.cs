@@ -98,7 +98,7 @@ namespace TP_DIPLOMA
                                     usDV.Mail=userauxiliar.Mail;
                                     usDV.Estado=userauxiliar.Estado;
                                     usDV.Baja_Logica=userauxiliar.Baja_Logica;
-                                    usDV.Password = pass;
+                                    usDV.Password = item.Password;
 
 
                                 }

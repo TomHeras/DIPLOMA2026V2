@@ -231,6 +231,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recalcular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Recalcular.Designer.cs">
+      <DependentUpon>Recalcular.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reporte1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -343,6 +349,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Recalcular.resx">
+      <DependentUpon>Recalcular.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporte1.resx">
       <DependentUpon>Reporte1.cs</DependentUpon>
     </EmbeddedResource>

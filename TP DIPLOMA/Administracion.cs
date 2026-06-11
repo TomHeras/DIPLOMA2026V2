@@ -60,8 +60,8 @@ namespace TP_DIPLOMA
                     permisos.Nombre = item.Usuarios;
 
                     //idiomas
-                    tsmiidioma.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedeaccederidioma, permisos);
-                    tooltripselec.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puederverselecidioma, permisos);
+                    //tsmiidioma.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedeaccederidioma, permisos);
+                    //tooltripselec.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puederverselecidioma, permisos);
                     //soloadmin
                     tooltripgestionidioma.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedervergestionaridioma, permisos);
                     tooltriplista.Visible = gestorpatentes.BuscarPermisos(Tipopatente.puedervergestionaridioma, permisos);

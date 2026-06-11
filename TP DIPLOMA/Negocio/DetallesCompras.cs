@@ -164,7 +164,7 @@ namespace TP_DIPLOMA.Negocio
         public void LLenarbitacoraC()
         {
             var idreg = 0;
-            string consulta = "INSERT INTO BitacoraCambios (Idpedido, NickUsuario, Fecha, Modulo, Operacion, Criticidad, Estado) VALUES ('" + coti.ID_pedido + "','" + SingletonSesion.Instancia.Usuario.usuario + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + "Cotizaciones', 'Generar colicitud de cotizacion',' Baja','2')";
+            string consulta = "INSERT INTO BitacoraCambios (Idpedido, NickUsuario, Fecha, Modulo, Operacion, Criticidad, Estado) VALUES ('" + coti.ID_pedido + "','" + SingletonSesion.Instancia.Usuario.usuario + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + "Compras', 'Actualiacion de estado','" + int.Parse(comboBox1.SelectedValue.ToString()) + ")"; ;
             bitacora.Consultar(consulta);
             foreach (BE.Bitacora item in bitacora.listacambios())
             {
