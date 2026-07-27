@@ -7,7 +7,7 @@
     <ProjectGuid>{79A95D26-A4B2-4B29-83D5-99EDD29199A3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TP_DIPLOMA</RootNamespace>
-    <AssemblyName>TP DIPLOMA</AssemblyName>
+    <AssemblyName>SyT Nova</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>syt_logo_small.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.WinterJoySkin, Version=1.0.3.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a, processorArchitecture=MSIL">
@@ -450,6 +453,7 @@
     <Content Include="Imagenes\syt_logo_small.ico" />
     <Content Include="Imagenes\syt_logo_small.png" />
     <Content Include="Logo-SyT.png" />
+    <Content Include="syt_logo_small.ico" />
     <None Include="Resources\Recuperar.jpg" />
     <None Include="Resources\syt_logo_small.png" />
     <Content Include="Scripts\DiplomaIntelligente.exe" />
