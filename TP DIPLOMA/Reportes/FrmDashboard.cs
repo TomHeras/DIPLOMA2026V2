@@ -27,7 +27,7 @@ namespace TP_DIPLOMA.Reportes
             Directory.CreateDirectory(OutputDir);
             InicializarKpis();
             LimpiarGraficos();
-            // traducir(); // Comentado para pruebas
+            // traducir();
         }
 
         private async void btnGenerar_Click(object sender, EventArgs e)
@@ -91,7 +91,7 @@ namespace TP_DIPLOMA.Reportes
             try
             {
                 string jsonContent = File.ReadAllText(path);
-                // Aquí ocurre la magia del mapeo
+              
                 var k = JsonConvert.DeserializeObject<KpisVentas>(jsonContent);
 
                 if (k != null)
@@ -102,9 +102,7 @@ namespace TP_DIPLOMA.Reportes
                     lblVentPendientes.Text = $"Pendientes: {k.Pendientes}";
                     lblVentEntregados.Text = $"Entregados: {k.Entregados}";
 
-                    // Si tenés los labels de cancelados/creados:
-                    // lblCancelados.Text = $"Cancelados: {k.Cancelados}";
-                    // lblCreados.Text = $"Creados: {k.Creados}";
+                   
                 }
             }
             catch (Exception ex)
@@ -155,9 +153,7 @@ namespace TP_DIPLOMA.Reportes
             if (File.Exists(path)) Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
         }
 
-        // =========================================================
-        // MODELO JSON CON MAPEADO (JsonProperty)
-        // =========================================================
+       
         private class KpisVentas
         {
             [JsonProperty("total_vendido")]

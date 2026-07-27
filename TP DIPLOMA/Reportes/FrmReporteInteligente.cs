@@ -28,7 +28,7 @@ namespace TP_DIPLOMA.Reportes
 
             try
             {
-                string Ruta =Path.Combine(Application.StartupPath, "Scripts", "DiplomaIntelligente.exe");
+                //string Ruta =Path.Combine(Application.StartupPath, "Scripts", "ReporteInteligente.exe");
                 // 1. Ejecuta el motor de Python (Genera PDF y JSON)
                 negocio.GenerarReporteAuditoria();
 

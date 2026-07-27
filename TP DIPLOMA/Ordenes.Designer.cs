@@ -296,7 +296,7 @@ namespace TP_DIPLOMA
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(115, 21);
             this.button4.TabIndex = 14;
-            this.button4.Tag = "leerserea";
+            this.button4.Tag = "serealizarbtn";
             this.button4.Text = "Serelizar informacion";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);

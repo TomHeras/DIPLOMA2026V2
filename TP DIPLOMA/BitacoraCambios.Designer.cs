@@ -43,6 +43,10 @@ namespace TP_DIPLOMA
             this.button2 = new System.Windows.Forms.Button();
             this.checkusuarios = new System.Windows.Forms.CheckBox();
             this.checkcriticidad = new System.Windows.Forms.CheckBox();
+            this.txtape = new System.Windows.Forms.TextBox();
+            this.txtname = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.usuariosBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +55,7 @@ namespace TP_DIPLOMA
             // 
             this.checkdias.AutoSize = true;
             this.checkdias.Location = new System.Drawing.Point(19, 99);
-            this.checkdias.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkdias.Margin = new System.Windows.Forms.Padding(2);
             this.checkdias.Name = "checkdias";
             this.checkdias.Size = new System.Drawing.Size(56, 17);
             this.checkdias.TabIndex = 2;
@@ -61,7 +65,7 @@ namespace TP_DIPLOMA
             // dateTimePicker1
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(164, 99);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(135, 20);
             this.dateTimePicker1.TabIndex = 3;
@@ -69,7 +73,7 @@ namespace TP_DIPLOMA
             // dateTimePicker2
             // 
             this.dateTimePicker2.Location = new System.Drawing.Point(397, 98);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(151, 20);
             this.dateTimePicker2.TabIndex = 4;
@@ -98,7 +102,7 @@ namespace TP_DIPLOMA
             // 
             this.cmbusuarios.FormattingEnabled = true;
             this.cmbusuarios.Location = new System.Drawing.Point(164, 28);
-            this.cmbusuarios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbusuarios.Margin = new System.Windows.Forms.Padding(2);
             this.cmbusuarios.Name = "cmbusuarios";
             this.cmbusuarios.Size = new System.Drawing.Size(92, 21);
             this.cmbusuarios.TabIndex = 7;
@@ -111,7 +115,7 @@ namespace TP_DIPLOMA
             "Alta",
             "Media"});
             this.comboBox3.Location = new System.Drawing.Point(164, 58);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(92, 21);
             this.comboBox3.TabIndex = 8;
@@ -120,7 +124,7 @@ namespace TP_DIPLOMA
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(9, 145);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -131,7 +135,7 @@ namespace TP_DIPLOMA
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(375, 31);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 26);
             this.button1.TabIndex = 10;
@@ -142,7 +146,7 @@ namespace TP_DIPLOMA
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(529, 31);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(129, 26);
             this.button2.TabIndex = 11;
@@ -154,7 +158,7 @@ namespace TP_DIPLOMA
             // 
             this.checkusuarios.AutoSize = true;
             this.checkusuarios.Location = new System.Drawing.Point(19, 28);
-            this.checkusuarios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkusuarios.Margin = new System.Windows.Forms.Padding(2);
             this.checkusuarios.Name = "checkusuarios";
             this.checkusuarios.Size = new System.Drawing.Size(67, 17);
             this.checkusuarios.TabIndex = 12;
@@ -165,18 +169,56 @@ namespace TP_DIPLOMA
             // 
             this.checkcriticidad.AutoSize = true;
             this.checkcriticidad.Location = new System.Drawing.Point(19, 60);
-            this.checkcriticidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkcriticidad.Margin = new System.Windows.Forms.Padding(2);
             this.checkcriticidad.Name = "checkcriticidad";
             this.checkcriticidad.Size = new System.Drawing.Size(69, 17);
             this.checkcriticidad.TabIndex = 13;
             this.checkcriticidad.Text = "Criticidad";
             this.checkcriticidad.UseVisualStyleBackColor = true;
             // 
+            // txtape
+            // 
+            this.txtape.Location = new System.Drawing.Point(655, 102);
+            this.txtape.Name = "txtape";
+            this.txtape.Size = new System.Drawing.Size(100, 20);
+            this.txtape.TabIndex = 20;
+            // 
+            // txtname
+            // 
+            this.txtname.Location = new System.Drawing.Point(655, 76);
+            this.txtname.Name = "txtname";
+            this.txtname.Size = new System.Drawing.Size(100, 20);
+            this.txtname.TabIndex = 19;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(605, 105);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Tag = "Apellido";
+            this.label1.Text = "Apellido";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(604, 79);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 17;
+            this.label2.Tag = "Nombre";
+            this.label2.Text = "Nombre";
+            // 
             // BitacoraCambios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 532);
+            this.Controls.Add(this.txtape);
+            this.Controls.Add(this.txtname);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.checkcriticidad);
             this.Controls.Add(this.checkusuarios);
             this.Controls.Add(this.button2);
@@ -189,7 +231,7 @@ namespace TP_DIPLOMA
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.checkdias);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "BitacoraCambios";
             this.Text = "BitacoraCambios";
             this.Load += new System.EventHandler(this.BitacoraCambios_Load);
@@ -216,5 +258,9 @@ namespace TP_DIPLOMA
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox checkusuarios;
         private System.Windows.Forms.CheckBox checkcriticidad;
+        private System.Windows.Forms.TextBox txtape;
+        private System.Windows.Forms.TextBox txtname;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

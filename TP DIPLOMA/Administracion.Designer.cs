@@ -435,6 +435,7 @@ namespace TP_DIPLOMA
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.ayudaToolStripMenuItem.Tag = "Ayuda";
             this.ayudaToolStripMenuItem.Text = "Ayuda";
+            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
             // 
             // cotizaYDetalle1
             // 

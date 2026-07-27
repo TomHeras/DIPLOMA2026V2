@@ -15,10 +15,10 @@ namespace TP_DIPLOMA
 {
     public partial class FrmDashboardCompras : Form
     {
-        // === Configuración centralizada ===
+  
         private static readonly string OutputDir = @"C:\Dashboard SyT";
 
-        // Cambiamos el nombre al que definimos al compilar el .exe
+        
         private static readonly string ExePath = Path.Combine(Application.StartupPath, "Scripts", "DashboardCompras.exe");
 
         public FrmDashboardCompras()
@@ -32,7 +32,7 @@ namespace TP_DIPLOMA
         {
             Directory.CreateDirectory(OutputDir);
 
-            // Tags para traducción
+           
             tabComprasMes.Tag = "tab_compras_mes";
             tabGastoProveedor.Tag = "tab_gasto_proveedor";
             tabGastoProducto.Tag = "tab_gasto_producto";
@@ -64,7 +64,6 @@ namespace TP_DIPLOMA
                     tab.Text = traducciones[tab.Tag.ToString()].Texto;
             }
 
-            // (Aquí siguen tus asignaciones de labels de traducción existentes...)
         }
 
         private async void BtnGenerar_Click(object sender, EventArgs e)
@@ -81,10 +80,9 @@ namespace TP_DIPLOMA
                 DateTime? desde = (dpDesde != null && dpDesde.Checked) ? dpDesde.Value.Date : (DateTime?)null;
                 DateTime? hasta = (dpHasta != null && dpHasta.Checked) ? dpHasta.Value.Date : (DateTime?)null;
 
-                // 2. Ejecutar EXE con el nuevo protocolo de argumentos
                 var code = await EjecutarReporteAsync(stringConexion, desde, hasta, OutputDir);
 
-                // 3. Cargar resultados del JSON (Python genera kpis_compras.json)
+         
                 var kpisPath = Path.Combine(OutputDir, "kpis_compras.json");
                 if (File.Exists(kpisPath))
                 {
@@ -108,7 +106,6 @@ namespace TP_DIPLOMA
             }
         }
 
-        // ========= UI Helpers =========
 
         public void ActualizarKpis(decimal totalCompras, int pedidos, int pendientes)
         {
@@ -119,12 +116,10 @@ namespace TP_DIPLOMA
 
         public void MostrarGraficos()
         {
-            // Ajustado a los nombres de archivo que genera el nuevo script de Compras
             CargarImagen(picComprasMes, Path.Combine(OutputDir, "compras_mensuales.png"));
             CargarImagen(picGastoProveedor, Path.Combine(OutputDir, "gasto_proveedor.png"));
             CargarImagen(picGastoProducto, Path.Combine(OutputDir, "gasto_producto.png"));
-            // Gráfico de torta opcional
-            // CargarImagen(picEstados, Path.Combine(OutputDir, "estados_pedidos.png"));
+            
         }
 
         private void LimpiarGraficos()
@@ -147,14 +142,13 @@ namespace TP_DIPLOMA
             catch { pb.Image = null; }
         }
 
-        // ========= Ejecutar EXE con ConnectionString =========
+    
 
         private async Task<int> EjecutarReporteAsync(string connStr, DateTime? desde, DateTime? hasta, string carpetaSalida)
         {
             if (!File.Exists(ExePath))
                 throw new FileNotFoundException("No se encontró el ejecutable.", ExePath);
 
-            // IMPORTANTE: El primer argumento DEBE ser la conexión entre comillas
             var args = $"\"{connStr}\" --salida \"{carpetaSalida}\"";
             if (desde.HasValue) args += $" --desde {desde:yyyy-MM-dd}";
             if (hasta.HasValue) args += $" --hasta {hasta:yyyy-MM-dd}";
@@ -191,7 +185,6 @@ namespace TP_DIPLOMA
             else MessageBox.Show("Genere el reporte primero.");
         }
 
-        // Modelo de datos sincronizado con el JSON de Python
         private sealed class Kpis
         {
             public decimal TotalCompras { get; set; }

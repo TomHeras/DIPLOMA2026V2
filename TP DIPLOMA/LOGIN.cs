@@ -159,16 +159,7 @@ namespace TP_DIPLOMA
                             cont = cont + 1;
                             if (cont >= 3)
                             {
-                                //BE.userauxiliar usaux = new BE.userauxiliar();
-                                //usaux.Usuarios = controlUsuario1.Texto;
-                                //usaux.Idusuario = user.Idusuario;
-                                //usaux.Idioma2 = 1;
-                                //usaux.Password = Encriptador.Hash(user.Password);
-                                //usaux.Nombre = user.Nombre;
-                                //usaux.Estado = false;
-
-
-                                //gestoruser.EditarUsuario_estado(usaux);
+                              
                                 string query = "update Usuarios set Usuestado=0 where Usunick='" + controlUsuario1.Texto+"'";
                                 gestorbitacora.Consultar(query);
                                 MessageBox.Show("El usario fue bloqueado por la cantidad de intentos");

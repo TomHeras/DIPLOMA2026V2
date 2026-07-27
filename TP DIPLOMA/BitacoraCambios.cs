@@ -154,6 +154,8 @@ namespace TP_DIPLOMA
         }
         int idreg, idped;string tipo;
         double cotizacion = 0.0;
+        BE.Usuario user = new BE.Usuario();
+        BLL.Usuarios gestorusuarios = new BLL.Usuarios();
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -161,7 +163,15 @@ namespace TP_DIPLOMA
             idreg = bitacora2.Idregistro;
             idped = bitacora2.Idpedido;
             tipo = bitacora2.Modulo;
-    
+            foreach (BE.Usuario item in gestorusuarios.Listar())
+            {
+                if (item.Usuarios == bitacora2.Usuario)
+                {
+                    txtape.Text = item.Apellido;
+                    txtname.Text = item.Nombre;
+                }
+            }
+
         }
         BLL.Bitacora bitacora = new BLL.Bitacora();
         BE.Cotizacion coti = new BE.Cotizacion();

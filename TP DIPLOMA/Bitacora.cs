@@ -35,7 +35,7 @@ namespace TP_DIPLOMA
         public void enlazar()
         {
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = GestorBitacora.Listar();
+            dataGridView1.DataSource = GestorBitacora.Listar().Where(x => x.Fecha >= DateTime.Now.AddDays(-30)).ToList();
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "MM/dd/yyyy HH:mm:ss";
             dateTimePicker2.Format = DateTimePickerFormat.Custom;

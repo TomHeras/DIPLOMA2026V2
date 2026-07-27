@@ -1,17 +1,18 @@
-﻿using System;
+﻿using BE;
+using BLL;
+using Seguridad.Composite;
+using Seguridad.MultiIdioma;
+using Seguridad.Singleton;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Seguridad.Composite;
-using Seguridad.Singleton;
-using Seguridad.MultiIdioma;
-using BLL;
-using BE;
 //using TP_DIPLOMA.;
 using TP_DIPLOMA.Reportes;
 
@@ -587,6 +588,26 @@ namespace TP_DIPLOMA
             Maestros.Productosfrm prodfrm = new Maestros.Productosfrm();
             prodfrm.MdiParent = this;
             prodfrm.Show();
+        }
+
+        private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string urlManual = "https://docs.google.com/document/d/16Ny1onnuosv_aUKtJSsO-FxP3s4IZLdp/edit?usp=drive_link&ouid=106082450552405791040&rtpof=true&sd=true";
+
+            try
+            {
+                // Abre la URL en el navegador predeterminado del sistema
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = urlManual,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo abrir el enlace de ayuda:\n{ex.Message}",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
